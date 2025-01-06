@@ -25,6 +25,13 @@ import walkingkooka.reflect.PublicStaticHelper;
 public final class Templates implements PublicStaticHelper {
 
     /**
+     * {@see StringTemplate}
+     */
+    public static Template string(final String text) {
+        return StringTemplate.with(text);
+    }
+
+    /**
      * Stop creation
      */
     private Templates() {
