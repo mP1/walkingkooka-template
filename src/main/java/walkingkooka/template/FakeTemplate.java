@@ -17,31 +17,17 @@
 
 package walkingkooka.template;
 
-import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.text.printer.Printer;
 
-/**
- * A collection of {@link Template} factory methods.
- */
-public final class Templates implements PublicStaticHelper {
+public class FakeTemplate implements Template {
 
-    /**
-     * {@see FakeTemplate}
-     */
-    public static Template fake() {
-        return new FakeTemplate();
+    public FakeTemplate() {
+        super();
     }
 
-    /**
-     * {@see StringTemplate}
-     */
-    public static Template string(final String text) {
-        return StringTemplate.with(text);
-    }
-
-    /**
-     * Stop creation
-     */
-    private Templates() {
+    @Override
+    public void render(final Printer printer,
+                       final TemplateContext context) {
         throw new UnsupportedOperationException();
     }
 }
