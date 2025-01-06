@@ -76,6 +76,38 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
         );
     }
 
+    @Test
+    public void testToStringEscapesBackslash() {
+        this.toStringAndCheck(
+                StringTemplate.with("Hello\\"),
+                "Hello\\\\"
+        );
+    }
+
+    @Test
+    public void testToStringEscapesCarriageReturn() {
+        this.toStringAndCheck(
+                StringTemplate.with("Hello\r"),
+                "Hello\\r"
+        );
+    }
+
+    @Test
+    public void testToStringEscapesNewLine() {
+        this.toStringAndCheck(
+                StringTemplate.with("Hello\n"),
+                "Hello\\n"
+        );
+    }
+
+    @Test
+    public void testToStringEscapesTab() {
+        this.toStringAndCheck(
+                StringTemplate.with("Hello\t"),
+                "Hello\\t"
+        );
+    }
+
     // class............................................................................................................
 
     @Override
