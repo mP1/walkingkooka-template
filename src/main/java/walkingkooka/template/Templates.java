@@ -39,6 +39,13 @@ public final class Templates implements PublicStaticHelper {
     }
 
     /**
+     * {@see TemplateValueNameTemplate}.
+     */
+    public static Template templateValueName(final TemplateValueName name) {
+        return TemplateValueNameTemplate.with(name);
+    }
+
+    /**
      * Stop creation
      */
     private Templates() {
