@@ -17,24 +17,14 @@
 
 package walkingkooka.template;
 
-import walkingkooka.reflect.PublicStaticHelper;
+public class FakeTemplateContext implements TemplateContext{
 
-/**
- * A collection of {@link TemplateContext} factory methods.
- */
-public final class TemplateContexts implements PublicStaticHelper {
-
-    /**
-     * {@see FakeTemplateContext}
-     */
-    public static TemplateContext fake() {
-        return new FakeTemplateContext();
+    public FakeTemplateContext() {
+        super();
     }
 
-    /**
-     * Stop creation
-     */
-    private TemplateContexts() {
+    @Override
+    public String templateValue(final TemplateValueName name) {
         throw new UnsupportedOperationException();
     }
 }
