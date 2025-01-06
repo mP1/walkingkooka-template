@@ -17,11 +17,9 @@
 
 package walkingkooka.template;
 
-import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.PublicStaticHelper;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A collection of {@link Template} factory methods.

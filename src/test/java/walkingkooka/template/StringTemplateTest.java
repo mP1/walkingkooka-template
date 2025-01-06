@@ -18,8 +18,6 @@
 package walkingkooka.template;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
