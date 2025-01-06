@@ -17,8 +17,6 @@
 
 package walkingkooka.template;
 
-import walkingkooka.ContextTesting;
-import walkingkooka.test.Testing;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
