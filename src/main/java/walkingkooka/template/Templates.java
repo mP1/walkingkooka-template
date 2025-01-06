@@ -17,12 +17,23 @@
 
 package walkingkooka.template;
 
+import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.PublicStaticHelper;
+
+import java.util.List;
+import java.util.Objects;
 
 /**
  * A collection of {@link Template} factory methods.
  */
 public final class Templates implements PublicStaticHelper {
+
+    /**
+     * {@see TemplateCollection}
+     */
+    public static Template collection(final List<Template> templates) {
+        return TemplateCollection.with(templates);
+    }
 
     /**
      * {@see FakeTemplate}
