@@ -47,6 +47,9 @@ final class StringTemplate implements Template {
     @Override
     public void render(final Printer printer,
                        final TemplateContext context) {
+        Objects.requireNonNull(printer, "printer");
+        Objects.requireNonNull(context, "context");
+
         printer.print(this.text);
     }
 

@@ -25,9 +25,7 @@ import walkingkooka.reflect.JavaVisibility;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class StringTemplateTest implements TemplateTesting,
-        ToStringTesting<StringTemplate>,
-        ClassTesting<StringTemplate> {
+public final class StringTemplateTest implements TemplateTesting2<StringTemplate> {
 
     // with.............................................................................................................
 
@@ -58,6 +56,16 @@ public final class StringTemplateTest implements TemplateTesting,
                 TemplateContexts.fake(),
                 text
         );
+    }
+
+    @Override
+    public StringTemplate createTemplate() {
+        return StringTemplate.EMPTY;
+    }
+
+    @Override
+    public TemplateContext createContext() {
+        return TemplateContexts.fake();
     }
 
     // toString.........................................................................................................
