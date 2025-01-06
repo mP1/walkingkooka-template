@@ -104,11 +104,6 @@ final public class TemplateValueNameTest implements NameTesting2<TemplateValueNa
         );
     }
 
-    @Override
-    public void testNameValidChars() {
-        // test ignored because short generated names will clash with valid cell references and fail the test.
-    }
-
     @Test
     public void testEqualsDifferentCase() {
         this.checkNotEquals(
@@ -155,8 +150,8 @@ final public class TemplateValueNameTest implements NameTesting2<TemplateValueNa
     @Override
     public String possibleValidChars(final int position) {
         return 0 == position ?
-                ASCII_LETTERS + "\\_" :
-                ASCII_LETTERS_DIGITS + "_.";
+                ASCII_LETTERS :
+                ASCII_LETTERS_DIGITS + "-.";
     }
 
     @Override
