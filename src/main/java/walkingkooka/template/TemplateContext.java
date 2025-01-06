@@ -18,9 +18,10 @@
 package walkingkooka.template;
 
 import walkingkooka.Context;
+import walkingkooka.text.printer.Printer;
 
 /**
- * The {@link Context} that accompanies {@link Template#render(walkingkooka.text.printer.Printer}
+ * The {@link Context} that accompanies {@link Template#render(Printer, TemplateContext)}
  */
 public interface TemplateContext extends Context {
 
