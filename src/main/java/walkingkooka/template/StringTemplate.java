@@ -57,9 +57,6 @@ final class StringTemplate implements Template {
 
     @Override
     public String toString() {
-        return this.text.replace("\\", "\\\\")
-                .replace("\n", "\\n")
-                .replace("\r", "\\r")
-                .replace("\t", "\\t");
+        return this.text.replace("\\", "\\\\");
     }
 }

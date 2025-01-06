@@ -85,26 +85,26 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
     }
 
     @Test
-    public void testToStringEscapesCarriageReturn() {
+    public void testToStringIncludesCarriageReturn() {
         this.toStringAndCheck(
                 StringTemplate.with("Hello\r"),
-                "Hello\\r"
+                "Hello\r"
         );
     }
 
     @Test
-    public void testToStringEscapesNewLine() {
+    public void testToStringIncludesNewLine() {
         this.toStringAndCheck(
                 StringTemplate.with("Hello\n"),
-                "Hello\\n"
+                "Hello\n"
         );
     }
 
     @Test
-    public void testToStringEscapesTab() {
+    public void testToStringIncludesTab() {
         this.toStringAndCheck(
                 StringTemplate.with("Hello\t"),
-                "Hello\\t"
+                "Hello\t"
         );
     }
 
