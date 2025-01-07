@@ -24,6 +24,14 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.ParserContexts;
+import walkingkooka.text.cursor.parser.Parsers;
+
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * The name of an template variable value. Names must start with a letter, followed by letters/digits/dash and are case-sensitive.
@@ -49,6 +57,25 @@ final public class TemplateValueName implements Name, Comparable<TemplateValueNa
      */
     public final static int MAX_LENGTH = 255;
 
+    /**
+     * Makes a best effort to try and parse a {@link TemplateValueName} advancing the {@link TextCursor}.
+     */
+    public static Optional<TemplateValueName> parse(final TextCursor text) {
+        Objects.requireNonNull(text, "text");
+
+        return PARSER.parse(text, PARSER_CONTEXT)
+                .map(t -> TemplateValueName.with(t.text()));
+    }
+
+    private final static Parser<ParserContext> PARSER = Parsers.stringInitialAndPartCharPredicate(
+            TemplateValueName.INITIAL,
+            TemplateValueName.PART,
+            1,
+            TemplateValueName.MAX_LENGTH
+    );
+
+    private final static ParserContext PARSER_CONTEXT = ParserContexts.fake();
+    
     /**
      * Factory that creates a {@link TemplateValueName}
      */
