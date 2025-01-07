@@ -21,7 +21,7 @@ import walkingkooka.Context;
 import walkingkooka.text.printer.Printer;
 
 /**
- * The {@link Context} that accompanies {@link Template#render(Printer, TemplateContext)}
+ * The {@link Context} that handles rendering a template using {@link Template#render(Printer, TemplateContext)}
  */
 public interface TemplateContext extends Context {
 
