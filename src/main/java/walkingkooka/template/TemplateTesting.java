@@ -25,11 +25,11 @@ import walkingkooka.text.printer.TreePrintableTesting;
 public interface TemplateTesting extends TreePrintableTesting {
 
     default void renderAndCheck(final Template template,
-                                       final TemplateContext context,
-                                       final String expected) {
+                                final TemplateContext context,
+                                final String expected) {
         final StringBuilder printed = new StringBuilder();
 
-        try(final Printer printer = Printers.stringBuilder(printed, LineEnding.NL)) {
+        try (final Printer printer = Printers.stringBuilder(printed, LineEnding.NL)) {
             template.render(
                     printer,
                     context
