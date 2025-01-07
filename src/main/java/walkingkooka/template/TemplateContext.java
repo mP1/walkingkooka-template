@@ -55,10 +55,10 @@ public interface TemplateContext extends Context {
     Template expression(final TextCursor text);
 
     /**
-     * Called during parsing to handle an orphaned open brace that is not escaped or part of a placeholder expression.
-     * Implementations can either throw an exception, return a template that renders nothing or renders the open brace.
+     * Called during parsing to handle an orphaned dollarSign that is not escaped or part of a placeholder expression.
+     * Implementations can either throw an exception, return a template that renders nothing or renders the dollarSign sign.
      */
-    Template openBrace(final TextCursorLineInfo at);
+    Template dollarSign(final TextCursorLineInfo at);
 
     /**
      * Resolves the given {@link TemplateValueName} into a {@link String}. When the value is not found,

@@ -117,20 +117,20 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
         );
     }
 
-    // openBrace........................................................................................................
+    // dollarSign........................................................................................................
 
     @Test
-    default void testOpenBraceWithNullTextFails() {
+    default void testDollarSignWithNullTextFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> this.createContext()
-                        .openBrace(null)
+                        .dollarSign(null)
         );
     }
 
-    default void openBraceAndCheck(final TextCursorLineInfo at,
-                                   final Template expected) {
-        this.openBraceAndCheck(
+    default void dollarSignAndCheck(final TextCursorLineInfo at,
+                                    final Template expected) {
+        this.dollarSignAndCheck(
                 this.createContext(),
                 at,
                 expected

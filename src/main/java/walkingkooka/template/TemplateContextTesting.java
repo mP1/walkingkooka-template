@@ -88,11 +88,11 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
         );
     }
 
-    default void openBraceAndCheck(final TemplateContext context,
-                                   final TextCursorLineInfo at,
-                                   final Template expected) {
+    default void dollarSignAndCheck(final TemplateContext context,
+                                    final TextCursorLineInfo at,
+                                    final Template expected) {
         this.checkEquals(
-                context.openBrace(at),
+                context.dollarSign(at),
                 expected
         );
     }
