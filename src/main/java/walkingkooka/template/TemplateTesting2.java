@@ -18,6 +18,7 @@
 package walkingkooka.template;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.text.printer.Printers;
@@ -25,6 +26,7 @@ import walkingkooka.text.printer.Printers;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface TemplateTesting2<T extends Template> extends TemplateTesting,
+        HashCodeEqualsDefinedTesting2<T>,
         ToStringTesting<T>,
         ClassTesting<T> {
 
@@ -55,4 +57,11 @@ public interface TemplateTesting2<T extends Template> extends TemplateTesting,
     T createTemplate();
 
     TemplateContext createContext();
+
+    // hashCode/Object..................................................................................................
+
+    @Override
+    default T createObject() {
+        return this.createTemplate();
+    }
 }

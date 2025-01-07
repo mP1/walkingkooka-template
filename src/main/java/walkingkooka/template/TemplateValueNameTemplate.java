@@ -48,7 +48,24 @@ final class TemplateValueNameTemplate implements Template{
     }
     
     private final TemplateValueName name;
-    
+
+    // Object...........................................................................................................
+
+    @Override
+    public int hashCode() {
+        return this.name.hashCode();
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        return this == other ||
+                other instanceof TemplateValueNameTemplate && this.equals0((TemplateValueNameTemplate) other);
+    }
+
+    private boolean equals0(final TemplateValueNameTemplate other) {
+        return this.name.equals(other.name);
+    }
+
     @Override
     public String toString() {
         return "${" + this.name + "}";

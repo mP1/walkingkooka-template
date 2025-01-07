@@ -66,6 +66,15 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
         return TemplateContexts.fake();
     }
 
+    // hashCode/equals..................................................................................................
+
+    @Test
+    public void testEqualsDifferentText() {
+        this.checkNotEquals(
+                StringTemplate.with("different")
+        );
+    }
+
     // toString.........................................................................................................
 
     @Test
