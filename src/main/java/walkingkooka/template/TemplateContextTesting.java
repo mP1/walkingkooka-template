@@ -38,13 +38,13 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
     }
 
     default void parseAndRenderAndCheck(final C context,
-                                        final TextCursor template,
+                                        final TextCursor text,
                                         final String expected) {
         final StringBuilder printed = new StringBuilder();
 
         try (final Printer printer = Printers.stringBuilder(printed, LineEnding.NL)) {
             context.parseAndRender(
-                    template,
+                    text,
                     printer
             );
         }
@@ -55,36 +55,36 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
     }
 
     default void parseAndCheck(final TemplateContext context,
-                               final String template,
+                               final String text,
                                final Template expected) {
         this.parseAndCheck(
                 context,
-                TextCursors.charSequence(template),
+                TextCursors.charSequence(text),
                 expected
         );
     }
 
     default void parseAndCheck(final TemplateContext context,
-                               final TextCursor template,
+                               final TextCursor text,
                                final Template expected) {
         this.checkEquals(
                 expected,
-                context.parse(template)
+                context.parse(text)
         );
 
         this.checkEquals(
                 true,
-                template.isEmpty(),
-                () -> "cursor not empty=" + template
+                text.isEmpty(),
+                () -> "cursor not empty=" + text
         );
     }
 
     default void expressionAndCheck(final TemplateContext context,
-                                    final TextCursor cursor,
+                                    final TextCursor text,
                                     final Template expected) {
         this.checkEquals(
                 expected,
-                context.expression(cursor)
+                context.expression(text)
         );
     }
 

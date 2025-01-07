@@ -32,12 +32,12 @@ public interface TemplateContext extends Context {
     /**
      * Combines parsing of the template followed by rendering.
      */
-    default void parseAndRender(final TextCursor cursor,
+    default void parseAndRender(final TextCursor text,
                                 final Printer printer) {
-        Objects.requireNonNull(cursor, "cursor");
+        Objects.requireNonNull(text, "text");
         Objects.requireNonNull(printer, "printer");
 
-        this.parse(cursor)
+        this.parse(text)
                 .render(
                         printer,
                         this
@@ -47,12 +47,12 @@ public interface TemplateContext extends Context {
     /**
      * Consumes the {@link TextCursor} which contains a template.
      */
-    Template parse(final TextCursor cursor);
+    Template parse(final TextCursor text);
 
     /**
      * Handles consuming a template expression into a {@link Template}.
      */
-    Template expression(final TextCursor cursor);
+    Template expression(final TextCursor text);
 
     /**
      * Called during parsing to handle an orphaned open brace that is not escaped or part of a placeholder expression.
