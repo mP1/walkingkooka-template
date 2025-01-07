@@ -18,6 +18,8 @@
 package walkingkooka.template;
 
 import walkingkooka.template.TemplateContextTesting2Test.TestTemplateContext;
+import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.text.cursor.TextCursorLineInfo;
 
 import java.util.Objects;
 
@@ -44,6 +46,26 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
     }
 
     static class TestTemplateContext implements TemplateContext {
+
+        @Override
+        public Template parse(final TextCursor cursor) {
+            Objects.requireNonNull(cursor, "cursor");
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Template expression(final TextCursor cursor) {
+            Objects.requireNonNull(cursor, "cursor");
+
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Template openBrace(final TextCursorLineInfo at) {
+            Objects.requireNonNull(at, "at");
+
+            throw new UnsupportedOperationException();
+        }
 
         @Override
         public String templateValue(final TemplateValueName name) {

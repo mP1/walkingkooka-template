@@ -18,12 +18,30 @@
 package walkingkooka.template;
 
 import walkingkooka.Context;
+import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.text.cursor.TextCursorLineInfo;
 import walkingkooka.text.printer.Printer;
 
 /**
  * The {@link Context} that handles rendering a template using {@link Template#render(Printer, TemplateContext)}
  */
 public interface TemplateContext extends Context {
+
+    /**
+     * Consumes the {@link TextCursor} which contains a template.
+     */
+    Template parse(final TextCursor cursor);
+
+    /**
+     * Handles consuming a template expression into a {@link Template}.
+     */
+    Template expression(final TextCursor cursor);
+
+    /**
+     * Called during parsing to handle an orphaned open brace that is not escaped or part of a placeholder expression.
+     * Implementations can either throw an exception, return a template that renders nothing or renders the open brace.
+     */
+    Template openBrace(final TextCursorLineInfo at);
 
     /**
      * Resolves the given {@link TemplateValueName} into a {@link String}. When the value is not found,
