@@ -37,7 +37,7 @@ public class FakeTemplateContext implements TemplateContext{
     }
 
     @Override
-    public Template openBrace(final TextCursorLineInfo at) {
+    public Template dollarSign(final TextCursorLineInfo at) {
         throw new UnsupportedOperationException();
     }
 

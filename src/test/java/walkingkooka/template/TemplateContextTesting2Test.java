@@ -179,17 +179,17 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
         );
     }
 
-    // openBrace............................................................................................................
+    // dollarSign............................................................................................................
 
     @Test
-    public void testOpenBrace() {
+    public void testDollarSign() {
         final Template template = Templates.string("Hello");
 
-        this.openBraceAndCheck(
+        this.dollarSignAndCheck(
                 new TestTemplateContext() {
 
                     @Override
-                    public Template openBrace(final TextCursorLineInfo i) {
+                    public Template dollarSign(final TextCursorLineInfo i) {
                         return template;
                     }
                 },
@@ -199,14 +199,14 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
     }
 
     @Test
-    public void testOpenBraceFails() {
+    public void testDollarSignFails() {
         assertThrows(
                 AssertionError.class,
-                () -> this.openBraceAndCheck(
+                () -> this.dollarSignAndCheck(
                         new TestTemplateContext() {
 
                             @Override
-                            public Template openBrace(final TextCursorLineInfo i) {
+                            public Template dollarSign(final TextCursorLineInfo i) {
                                 return Templates.string("Different");
                             }
                         },
@@ -254,7 +254,7 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
         }
 
         @Override
-        public Template openBrace(final TextCursorLineInfo at) {
+        public Template dollarSign(final TextCursorLineInfo at) {
             Objects.requireNonNull(at, "at");
 
             throw new UnsupportedOperationException();
