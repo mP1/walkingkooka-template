@@ -29,13 +29,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class TemplateDollarHandlerTest implements ClassTesting<TemplateDollarHandler> {
+public final class TemplateDollarSignHandlerTest implements ClassTesting<TemplateDollarSignHandler> {
 
     @Test
     public void testIgnored() {
         assertSame(
                 Templates.string(""),
-                TemplateDollarHandler.IGNORED.handle(TextCursorLineInfos.fake())
+                TemplateDollarSignHandler.IGNORED.handle(TextCursorLineInfos.fake())
         );
     }
 
@@ -43,7 +43,7 @@ public final class TemplateDollarHandlerTest implements ClassTesting<TemplateDol
     public void testInclude() {
         assertEquals(
                 Templates.string("$"),
-                TemplateDollarHandler.INCLUDE.handle(TextCursorLineInfos.fake())
+                TemplateDollarSignHandler.INCLUDE.handle(TextCursorLineInfos.fake())
         );
     }
 
@@ -56,7 +56,7 @@ public final class TemplateDollarHandlerTest implements ClassTesting<TemplateDol
 
         final InvalidCharacterException thrown = assertThrows(
                 InvalidCharacterException.class,
-                () -> TemplateDollarHandler.THROW.handle(cursor.lineInfo())
+                () -> TemplateDollarSignHandler.THROW.handle(cursor.lineInfo())
         );
 
         this.checkEquals(
@@ -68,8 +68,8 @@ public final class TemplateDollarHandlerTest implements ClassTesting<TemplateDol
     // class............................................................................................................
 
     @Override
-    public Class<TemplateDollarHandler> type() {
-        return TemplateDollarHandler.class;
+    public Class<TemplateDollarSignHandler> type() {
+        return TemplateDollarSignHandler.class;
     }
 
     @Override
