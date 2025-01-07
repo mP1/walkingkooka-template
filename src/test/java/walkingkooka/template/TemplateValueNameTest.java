@@ -23,13 +23,64 @@ import walkingkooka.InvalidCharacterException;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.text.cursor.TextCursorSavePoint;
+import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.printer.TreePrintableTesting;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class TemplateValueNameTest implements NameTesting2<TemplateValueName, TemplateValueName>,
         ComparableTesting2<TemplateValueName>,
         TreePrintableTesting {
+
+    // parse............................................................................................................
+
+    @Test
+    public void testParseWithNullTextCursorFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> TemplateValueName.parse(null)
+        );
+    }
+
+    @Test
+    public void testParse() {
+        final String name = "Hello";
+        final TextCursor text = TextCursors.charSequence(name + " 123");
+
+        this.checkEquals(
+                Optional.of(TemplateValueName.with(name)),
+                TemplateValueName.parse(text)
+        );
+
+        final TextCursorSavePoint save = text.save();
+        text.end();
+
+        this.checkEquals(
+                " 123",
+                save.textBetween().toString()
+        );
+    }
+
+    @Test
+    public void testParseNothing() {
+        final TextCursor text = TextCursors.charSequence("123");
+
+        this.checkEquals(
+                Optional.empty(),
+                TemplateValueName.parse(text)
+        );
+
+        this.checkEquals(
+                '1',
+                text.at()
+        );
+    }
+
+    // with.............................................................................................................
 
     @Test
     public void testWithInvalidInitialFails() {

@@ -23,10 +23,6 @@ import walkingkooka.NeverError;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorLineInfo;
-import walkingkooka.text.cursor.parser.Parser;
-import walkingkooka.text.cursor.parser.ParserContext;
-import walkingkooka.text.cursor.parser.ParserContexts;
-import walkingkooka.text.cursor.parser.Parsers;
 
 import java.util.List;
 import java.util.Objects;
@@ -150,8 +146,7 @@ final class ExpressionTemplateValueNameTemplateContext implements TemplateContex
     public Template expression(final TextCursor text) {
         Objects.requireNonNull(text, "text");
 
-        final TemplateValueName templateValueName = TEMPLATE_VALUE_NAME_PARSER.parse(text, PARSER_CONTEXT)
-                .map(t -> TemplateValueName.with(t.text()))
+        final TemplateValueName templateValueName = TemplateValueName.parse(text)
                 .orElseThrow(() -> new EmptyTextException("template value name"));
 
         if (text.isEmpty()) {
@@ -174,15 +169,6 @@ final class ExpressionTemplateValueNameTemplateContext implements TemplateContex
 
         return Templates.templateValueName(templateValueName);
     }
-
-    private final static Parser<ParserContext> TEMPLATE_VALUE_NAME_PARSER = Parsers.stringInitialAndPartCharPredicate(
-            TemplateValueName.INITIAL,
-            TemplateValueName.PART,
-            1,
-            TemplateValueName.MAX_LENGTH
-    );
-
-    private final static ParserContext PARSER_CONTEXT = ParserContexts.fake();
 
     @Override
     public String templateValue(final TemplateValueName name) {
