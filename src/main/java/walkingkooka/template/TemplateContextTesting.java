@@ -38,13 +38,13 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
     }
 
     default void parseAndRenderAndCheck(final C context,
-                                        final TextCursor cursor,
+                                        final TextCursor template,
                                         final String expected) {
         final StringBuilder printed = new StringBuilder();
 
         try (final Printer printer = Printers.stringBuilder(printed, LineEnding.NL)) {
             context.parseAndRender(
-                    cursor,
+                    template,
                     printer
             );
         }
@@ -55,27 +55,27 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
     }
 
     default void parseAndCheck(final TemplateContext context,
-                               final String cursor,
+                               final String template,
                                final Template expected) {
         this.parseAndCheck(
                 context,
-                TextCursors.charSequence(cursor),
+                TextCursors.charSequence(template),
                 expected
         );
     }
 
     default void parseAndCheck(final TemplateContext context,
-                               final TextCursor cursor,
+                               final TextCursor template,
                                final Template expected) {
         this.checkEquals(
                 expected,
-                context.parse(cursor)
+                context.parse(template)
         );
 
         this.checkEquals(
                 true,
-                cursor.isEmpty(),
-                () -> "cursor not empty=" + cursor
+                template.isEmpty(),
+                () -> "cursor not empty=" + template
         );
     }
 
