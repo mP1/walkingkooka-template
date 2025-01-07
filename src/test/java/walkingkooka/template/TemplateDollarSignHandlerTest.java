@@ -65,6 +65,22 @@ public final class TemplateDollarSignHandlerTest implements ClassTesting<Templat
         );
     }
 
+    @Test
+    public void testThrowEmptyTextCursor() {
+        final TextCursor cursor = TextCursors.charSequence("abc$def");
+        cursor.end();
+
+        final IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> TemplateDollarSignHandler.THROW.handle(cursor.lineInfo())
+        );
+
+        this.checkEquals(
+                "Incomplete expression",
+                thrown.getMessage()
+        );
+    }
+
     // class............................................................................................................
 
     @Override
