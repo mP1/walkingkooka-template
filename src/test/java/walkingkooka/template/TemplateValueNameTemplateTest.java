@@ -67,6 +67,17 @@ public final class TemplateValueNameTemplateTest implements TemplateTesting2<Tem
         return TemplateContexts.fake();
     }
 
+    // hashCode/equals..................................................................................................
+
+    @Test
+    public void testEqualsTemplateValueName() {
+        this.checkNotEquals(
+                TemplateValueNameTemplate.with(
+                        TemplateValueName.with("different")
+                )
+        );
+    }
+
     // toString.........................................................................................................
 
     @Test

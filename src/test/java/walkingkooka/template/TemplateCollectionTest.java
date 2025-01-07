@@ -83,6 +83,21 @@ public final class TemplateCollectionTest implements TemplateTesting2<TemplateCo
         return TemplateContexts.fake();
     }
 
+    // hashCode/equals..................................................................................................
+
+    @Test
+    public void testEqualsDifferentTemplates() {
+        this.checkNotEquals(
+                TemplateCollection.with(
+                        Lists.of(
+                                TemplateValueNameTemplate.with(
+                                        TemplateValueName.with("different")
+                                )
+                        )
+                )
+        );
+    }
+
     // toString.........................................................................................................
 
     @Test

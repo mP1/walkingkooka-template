@@ -57,6 +57,23 @@ final class TemplateCollection implements Template {
 
     private final List<Template> templates;
 
+    // Object...........................................................................................................
+
+    @Override
+    public int hashCode() {
+        return this.templates.hashCode();
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        return this == other ||
+                other instanceof TemplateCollection && this.equals0((TemplateCollection) other);
+    }
+
+    private boolean equals0(final TemplateCollection other) {
+        return this.templates.equals(other.templates);
+    }
+
     @Override
     public String toString() {
         return this.templates.stream()
