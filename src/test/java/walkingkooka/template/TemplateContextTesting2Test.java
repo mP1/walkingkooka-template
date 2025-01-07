@@ -41,7 +41,7 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                 new TestTemplateContext() {
 
                     @Override
-                    public Template parse(final TextCursor cursor) {
+                    public Template parse(final TextCursor text) {
                         return template;
                     }
                 },
@@ -59,7 +59,7 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                 new TestTemplateContext() {
 
                     @Override
-                    public Template parse(final TextCursor cursor) {
+                    public Template parse(final TextCursor text) {
                         return template;
                     }
                 },
@@ -78,8 +78,8 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                 new TestTemplateContext() {
 
                     @Override
-                    public Template parse(final TextCursor cursor) {
-                        cursor.end();
+                    public Template parse(final TextCursor text) {
+                        text.end();
                         return template;
                     }
                 },
@@ -96,8 +96,8 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                 new TestTemplateContext() {
 
                     @Override
-                    public Template parse(final TextCursor cursor) {
-                        cursor.end();
+                    public Template parse(final TextCursor text) {
+                        text.end();
                         return template;
                     }
                 },
@@ -114,7 +114,7 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                         new TestTemplateContext() {
 
                             @Override
-                            public Template parse(final TextCursor cursor) {
+                            public Template parse(final TextCursor text) {
                                 return Templates.string("Different");
                             }
                         },
@@ -132,7 +132,7 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                         new TestTemplateContext() {
 
                             @Override
-                            public Template parse(final TextCursor cursor) {
+                            public Template parse(final TextCursor text) {
                                 return Templates.string("Different");
                             }
                         },
@@ -152,7 +152,7 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                 new TestTemplateContext() {
 
                     @Override
-                    public Template expression(final TextCursor cursor) {
+                    public Template expression(final TextCursor text) {
                         return template;
                     }
                 },
@@ -169,7 +169,7 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                         new TestTemplateContext() {
 
                             @Override
-                            public Template expression(final TextCursor cursor) {
+                            public Template expression(final TextCursor text) {
                                 return Templates.string("Different");
                             }
                         },
@@ -241,14 +241,14 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
     static class TestTemplateContext implements TemplateContext {
 
         @Override
-        public Template parse(final TextCursor cursor) {
-            Objects.requireNonNull(cursor, "cursor");
+        public Template parse(final TextCursor text) {
+            Objects.requireNonNull(text, "text");
             throw new UnsupportedOperationException();
         }
 
         @Override
-        public Template expression(final TextCursor cursor) {
-            Objects.requireNonNull(cursor, "cursor");
+        public Template expression(final TextCursor text) {
+            Objects.requireNonNull(text, "text");
 
             throw new UnsupportedOperationException();
         }

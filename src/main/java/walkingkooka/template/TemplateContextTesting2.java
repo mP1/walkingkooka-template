@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public interface TemplateContextTesting2<C extends TemplateContext> extends TemplateContextTesting<C> {
 
     @Test
-    default void testParseAndRenderWithNullCursorFails() {
+    default void testParseAndRenderWithNullTextFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> this.createContext()
@@ -51,20 +51,20 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
         );
     }
 
-    default void parseAndRenderAndCheck(final String template,
+    default void parseAndRenderAndCheck(final String text,
                                         final String expected) {
         this.parseAndRenderAndCheck(
-                TextCursors.charSequence(template),
+                TextCursors.charSequence(text),
                 expected
         );
     }
 
 
-    default void parseAndRenderAndCheck(final TextCursor cursor,
+    default void parseAndRenderAndCheck(final TextCursor text,
                                         final String expected) {
         this.parseAndRenderAndCheck(
                 this.createContext(),
-                cursor,
+                text,
                 expected
         );
     }
@@ -72,7 +72,7 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
     // parse............................................................................................................
 
     @Test
-    default void testParseWithNullCursorFails() {
+    default void testParseWithNullTextFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> this.createContext()
@@ -80,19 +80,19 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
         );
     }
 
-    default void parseAndCheck(final String template,
+    default void parseAndCheck(final String text,
                                final Template expected) {
         this.parseAndCheck(
-                TextCursors.charSequence(template),
+                TextCursors.charSequence(text),
                 expected
         );
     }
 
-    default void parseAndCheck(final TextCursor cursor,
+    default void parseAndCheck(final TextCursor text,
                                final Template expected) {
         this.parseAndCheck(
                 this.createContext(),
-                cursor,
+                text,
                 expected
         );
     }
@@ -100,7 +100,7 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
     // expression.......................................................................................................
 
     @Test
-    default void testExpressionWithNullCursorFails() {
+    default void testExpressionWithNullTextFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> this.createContext()
@@ -108,11 +108,11 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
         );
     }
 
-    default void expressionAndCheck(final TextCursor cursor,
+    default void expressionAndCheck(final TextCursor text,
                                     final Template expected) {
         this.expressionAndCheck(
                 this.createContext(),
-                cursor,
+                text,
                 expected
         );
     }
@@ -120,7 +120,7 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
     // openBrace........................................................................................................
 
     @Test
-    default void testOpenBraceWithNullCursorFails() {
+    default void testOpenBraceWithNullTextFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> this.createContext()
