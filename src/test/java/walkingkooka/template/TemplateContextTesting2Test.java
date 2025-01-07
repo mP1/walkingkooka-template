@@ -30,6 +30,26 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TemplateContextTesting2Test implements TemplateContextTesting2<TestTemplateContext> {
 
+    // parseAndRender...................................................................................................
+
+    @Test
+    public void testParseAndRender() {
+        final String text = "Hello";
+        final Template template = Templates.string(text);
+
+        this.parseAndRenderAndCheck(
+                new TestTemplateContext() {
+
+                    @Override
+                    public Template parse(final TextCursor cursor) {
+                        return template;
+                    }
+                },
+                TextCursors.charSequence(template.toString()),
+                text
+        );
+    }
+
     // parse............................................................................................................
 
     @Test

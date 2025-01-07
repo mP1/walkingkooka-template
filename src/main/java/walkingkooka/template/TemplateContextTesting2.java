@@ -20,10 +20,45 @@ package walkingkooka.template;
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorLineInfo;
+import walkingkooka.text.cursor.TextCursors;
+import walkingkooka.text.printer.Printers;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface TemplateContextTesting2<C extends TemplateContext> extends TemplateContextTesting<C> {
+
+    @Test
+    default void testParseAndRenderWithNullCursorFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createContext()
+                        .parseAndRender(
+                                null,
+                                Printers.fake()
+                        )
+        );
+    }
+
+    @Test
+    default void testParseAndRenderWithNullPrinterFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createContext()
+                        .parseAndRender(
+                                TextCursors.fake(),
+                                null
+                        )
+        );
+    }
+
+    default void parseAndRenderAndCheck(final TextCursor cursor,
+                                        final String expected) {
+        this.parseAndRenderAndCheck(
+                this.createContext(),
+                cursor,
+                expected
+        );
+    }
 
     // parse............................................................................................................
 
