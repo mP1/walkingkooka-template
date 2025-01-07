@@ -21,6 +21,7 @@ import walkingkooka.ContextTesting;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorLineInfo;
+import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 
@@ -40,6 +41,16 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
         this.checkEquals(
                 expected,
                 printed.toString()
+        );
+    }
+
+    default void parseAndCheck(final TemplateContext context,
+                               final String cursor,
+                               final Template expected) {
+        this.parseAndCheck(
+                context,
+                TextCursors.charSequence(cursor),
+                expected
         );
     }
 

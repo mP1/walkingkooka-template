@@ -71,6 +71,14 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
         );
     }
 
+    default void parseAndCheck(final String template,
+                               final Template expected) {
+        this.parseAndCheck(
+                TextCursors.charSequence(template),
+                expected
+        );
+    }
+
     default void parseAndCheck(final TextCursor cursor,
                                final Template expected) {
         this.parseAndCheck(
