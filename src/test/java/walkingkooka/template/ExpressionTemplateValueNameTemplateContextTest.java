@@ -32,23 +32,11 @@ public final class ExpressionTemplateValueNameTemplateContextTest implements Tem
     // with.............................................................................................................
 
     @Test
-    public void testWithNullTemplateDollarSignHandlerFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> ExpressionTemplateValueNameTemplateContext.with(
-                        null,
-                        NAME_TO_STRING
-                )
-        );
-    }
-
-    @Test
     public void testWithNullNameToStringFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> ExpressionTemplateValueNameTemplateContext.with(
-                        null,
-                        NAME_TO_STRING
+                        null
                 )
         );
     }
@@ -72,37 +60,11 @@ public final class ExpressionTemplateValueNameTemplateContextTest implements Tem
     }
 
     @Test
-    public void testParseTextDollarSignTextIgnored() {
-        this.parseAndRenderAndCheck(
-                ExpressionTemplateValueNameTemplateContext.with(
-                        TemplateDollarSignHandler.IGNORED,
-                        NAME_TO_STRING
-                ),
-                "Hello$123",
-                "Hello123"
-        );
-    }
-
-    @Test
-    public void testParseTextDollarSignTextIncluded() {
-        this.parseAndRenderAndCheck(
-                ExpressionTemplateValueNameTemplateContext.with(
-                        TemplateDollarSignHandler.INCLUDE,
-                        NAME_TO_STRING
-                ),
-                "Hello$123",
-                "Hello$123"
-        );
-    }
-
-    @Test
-    public void testParseTextDollarSignTextThrows() {
+    public void testParseTextDollarSignTextFails() {
         final IllegalArgumentException thrown = assertThrows(
                 IllegalArgumentException.class,
-                () -> ExpressionTemplateValueNameTemplateContext.with(
-                        TemplateDollarSignHandler.THROW,
-                        NAME_TO_STRING
-                ).parse(TextCursors.charSequence("Hello$123"))
+                () -> this.createContext()
+                        .parse(TextCursors.charSequence("Hello$123"))
         );
 
         this.checkEquals(
@@ -115,10 +77,8 @@ public final class ExpressionTemplateValueNameTemplateContextTest implements Tem
     public void testParseTextEmptyTemplateValueName() {
         final EmptyTextException thrown = assertThrows(
                 EmptyTextException.class,
-                () -> ExpressionTemplateValueNameTemplateContext.with(
-                        TemplateDollarSignHandler.THROW,
-                        NAME_TO_STRING
-                ).parse(TextCursors.charSequence("Hello${}123"))
+                () -> this.createContext()
+                        .parse(TextCursors.charSequence("Hello${}123"))
         );
 
         this.checkEquals(
@@ -152,25 +112,11 @@ public final class ExpressionTemplateValueNameTemplateContextTest implements Tem
     }
 
     @Test
-    public void testParseTextUnclosedExpressionIgnored() {
-        this.parseAndRenderAndCheck(
-                ExpressionTemplateValueNameTemplateContext.with(
-                        TemplateDollarSignHandler.IGNORED,
-                        NAME_TO_STRING
-                ),
-                "Hello${abc",
-                "Hello<<ABC>>"
-        );
-    }
-
-    @Test
-    public void testParseTextUnclosedExpressionThrows() {
+    public void testParseTextUnclosedExpressionFails() {
         final IllegalArgumentException thrown = assertThrows(
                 IllegalArgumentException.class,
-                () -> ExpressionTemplateValueNameTemplateContext.with(
-                        TemplateDollarSignHandler.THROW,
-                        NAME_TO_STRING
-                ).parse(TextCursors.charSequence("Hello${abc"))
+                () -> this.createContext()
+                        .parse(TextCursors.charSequence("Hello${abc"))
         );
 
         this.checkEquals(
@@ -183,10 +129,7 @@ public final class ExpressionTemplateValueNameTemplateContextTest implements Tem
 
     @Override
     public ExpressionTemplateValueNameTemplateContext createContext() {
-        return ExpressionTemplateValueNameTemplateContext.with(
-                TemplateDollarSignHandler.THROW,
-                NAME_TO_STRING
-        );
+        return ExpressionTemplateValueNameTemplateContext.with(NAME_TO_STRING);
     }
 
     // class............................................................................................................

@@ -20,8 +20,6 @@ package walkingkooka.template;
 import org.junit.jupiter.api.Test;
 import walkingkooka.template.TemplateContextTesting2Test.TestTemplateContext;
 import walkingkooka.text.cursor.TextCursor;
-import walkingkooka.text.cursor.TextCursorLineInfo;
-import walkingkooka.text.cursor.TextCursorLineInfos;
 import walkingkooka.text.cursor.TextCursors;
 
 import java.util.Objects;
@@ -179,43 +177,6 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
         );
     }
 
-    // dollarSign............................................................................................................
-
-    @Test
-    public void testDollarSign() {
-        final Template template = Templates.string("Hello");
-
-        this.dollarSignAndCheck(
-                new TestTemplateContext() {
-
-                    @Override
-                    public Template dollarSign(final TextCursorLineInfo i) {
-                        return template;
-                    }
-                },
-                TextCursorLineInfos.fake(),
-                template
-        );
-    }
-
-    @Test
-    public void testDollarSignFails() {
-        assertThrows(
-                AssertionError.class,
-                () -> this.dollarSignAndCheck(
-                        new TestTemplateContext() {
-
-                            @Override
-                            public Template dollarSign(final TextCursorLineInfo i) {
-                                return Templates.string("Different");
-                            }
-                        },
-                        TextCursorLineInfos.fake(),
-                        Templates.string("Hello")
-                )
-        );
-    }
-
     // TemplateContext..................................................................................................
 
     @Override
@@ -249,13 +210,6 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
         @Override
         public Template expression(final TextCursor text) {
             Objects.requireNonNull(text, "text");
-
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public Template dollarSign(final TextCursorLineInfo at) {
-            Objects.requireNonNull(at, "at");
 
             throw new UnsupportedOperationException();
         }

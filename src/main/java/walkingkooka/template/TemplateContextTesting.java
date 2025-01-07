@@ -20,7 +20,6 @@ package walkingkooka.template;
 import walkingkooka.ContextTesting;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.TextCursor;
-import walkingkooka.text.cursor.TextCursorLineInfo;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
@@ -85,15 +84,6 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
         this.checkEquals(
                 expected,
                 context.expression(text)
-        );
-    }
-
-    default void dollarSignAndCheck(final TemplateContext context,
-                                    final TextCursorLineInfo at,
-                                    final Template expected) {
-        this.checkEquals(
-                context.dollarSign(at),
-                expected
         );
     }
 

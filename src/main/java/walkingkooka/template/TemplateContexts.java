@@ -29,10 +29,8 @@ public final class TemplateContexts implements PublicStaticHelper {
     /**
      * {@see ExpressionTemplateValueNameTemplateContext}
      */
-    public static TemplateContext expressionTemplateValueName(final TemplateDollarSignHandler dollarSign,
-                                                              final Function<TemplateValueName, String> nameToValue) {
+    public static TemplateContext expressionTemplateValueName(final Function<TemplateValueName, String> nameToValue) {
         return ExpressionTemplateValueNameTemplateContext.with(
-                dollarSign,
                 nameToValue
         );
     }

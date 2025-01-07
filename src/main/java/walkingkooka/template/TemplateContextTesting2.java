@@ -19,7 +19,6 @@ package walkingkooka.template;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.TextCursor;
-import walkingkooka.text.cursor.TextCursorLineInfo;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.printer.Printers;
 
@@ -113,26 +112,6 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
         this.expressionAndCheck(
                 this.createContext(),
                 text,
-                expected
-        );
-    }
-
-    // dollarSign........................................................................................................
-
-    @Test
-    default void testDollarSignWithNullTextFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> this.createContext()
-                        .dollarSign(null)
-        );
-    }
-
-    default void dollarSignAndCheck(final TextCursorLineInfo at,
-                                    final Template expected) {
-        this.dollarSignAndCheck(
-                this.createContext(),
-                at,
                 expected
         );
     }
