@@ -53,11 +53,18 @@ public enum TemplateDollarSignHandler {
         public Template handle(final TextCursorLineInfo at) {
             Objects.requireNonNull(at, "at");
 
-            throw new InvalidCharacterException(
-                    at.text()
-                            .toString(),
-                    at.textOffset()
-            );
+            final String text = at.text()
+                    .toString();
+            final int position = at.textOffset();
+
+            if (position < text.length()) {
+                throw new InvalidCharacterException(
+                        text,
+                        position
+                );
+            } else {
+                throw new IllegalArgumentException("Incomplete expression");
+            }
         }
     };
 
