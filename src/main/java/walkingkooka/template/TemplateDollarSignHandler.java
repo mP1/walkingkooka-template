@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * Three possible options to handle an orphaned dollar sign.
  */
-public enum TemplateDollarHandler {
+public enum TemplateDollarSignHandler {
 
     IGNORED {
         @Override
