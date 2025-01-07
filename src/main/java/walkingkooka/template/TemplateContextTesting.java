@@ -50,6 +50,12 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
                 expected,
                 context.parse(cursor)
         );
+
+        this.checkEquals(
+                true,
+                cursor.isEmpty(),
+                () -> "cursor not empty=" + cursor
+        );
     }
 
     default void expressionAndCheck(final TemplateContext context,
