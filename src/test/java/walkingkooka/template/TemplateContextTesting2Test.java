@@ -17,13 +17,131 @@
 
 package walkingkooka.template;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.template.TemplateContextTesting2Test.TestTemplateContext;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorLineInfo;
+import walkingkooka.text.cursor.TextCursorLineInfos;
+import walkingkooka.text.cursor.TextCursors;
 
 import java.util.Objects;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class TemplateContextTesting2Test implements TemplateContextTesting2<TestTemplateContext> {
+
+    // parse............................................................................................................
+
+    @Test
+    public void testParse() {
+        final Template template = Templates.string("Hello");
+
+        this.parseAndCheck(
+                new TestTemplateContext() {
+
+                    @Override
+                    public Template parse(final TextCursor cursor) {
+                        return template;
+                    }
+                },
+                TextCursors.charSequence(template.toString()),
+                template
+        );
+    }
+
+    @Test
+    public void testParseFails() {
+        assertThrows(
+                AssertionError.class,
+                () -> this.parseAndCheck(
+                        new TestTemplateContext() {
+
+                            @Override
+                            public Template parse(final TextCursor cursor) {
+                                return Templates.string("Different");
+                            }
+                        },
+                        TextCursors.fake(),
+                        Templates.string("Hello")
+                )
+        );
+    }
+
+    // expression............................................................................................................
+
+    @Test
+    public void testExpression() {
+        final Template template = Templates.string("Hello");
+
+        this.expressionAndCheck(
+                new TestTemplateContext() {
+
+                    @Override
+                    public Template expression(final TextCursor cursor) {
+                        return template;
+                    }
+                },
+                TextCursors.charSequence(template.toString()),
+                template
+        );
+    }
+
+    @Test
+    public void testExpressionFails() {
+        assertThrows(
+                AssertionError.class,
+                () -> this.expressionAndCheck(
+                        new TestTemplateContext() {
+
+                            @Override
+                            public Template expression(final TextCursor cursor) {
+                                return Templates.string("Different");
+                            }
+                        },
+                        TextCursors.fake(),
+                        Templates.string("Hello")
+                )
+        );
+    }
+
+    // openBrace............................................................................................................
+
+    @Test
+    public void testOpenBrace() {
+        final Template template = Templates.string("Hello");
+
+        this.openBraceAndCheck(
+                new TestTemplateContext() {
+
+                    @Override
+                    public Template openBrace(final TextCursorLineInfo i) {
+                        return template;
+                    }
+                },
+                TextCursorLineInfos.fake(),
+                template
+        );
+    }
+
+    @Test
+    public void testOpenBraceFails() {
+        assertThrows(
+                AssertionError.class,
+                () -> this.openBraceAndCheck(
+                        new TestTemplateContext() {
+
+                            @Override
+                            public Template openBrace(final TextCursorLineInfo i) {
+                                return Templates.string("Different");
+                            }
+                        },
+                        TextCursorLineInfos.fake(),
+                        Templates.string("Hello")
+                )
+        );
+    }
+
+    // TemplateContext..................................................................................................
 
     @Override
     public void testTypeNaming() {
