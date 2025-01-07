@@ -28,6 +28,16 @@ import walkingkooka.text.printer.Printers;
 public interface TemplateContextTesting<C extends TemplateContext> extends ContextTesting<C> {
 
     default void parseAndRenderAndCheck(final C context,
+                                        final String template,
+                                        final String expected) {
+        this.parseAndRenderAndCheck(
+                context,
+                TextCursors.charSequence(template),
+                expected
+        );
+    }
+
+    default void parseAndRenderAndCheck(final C context,
                                         final TextCursor cursor,
                                         final String expected) {
         final StringBuilder printed = new StringBuilder();

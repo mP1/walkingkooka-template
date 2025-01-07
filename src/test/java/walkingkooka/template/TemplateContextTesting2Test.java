@@ -33,7 +33,25 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
     // parseAndRender...................................................................................................
 
     @Test
-    public void testParseAndRender() {
+    public void testParseAndRenderString() {
+        final String text = "Hello";
+        final Template template = Templates.string(text);
+
+        this.parseAndRenderAndCheck(
+                new TestTemplateContext() {
+
+                    @Override
+                    public Template parse(final TextCursor cursor) {
+                        return template;
+                    }
+                },
+                template.toString(),
+                text
+        );
+    }
+
+    @Test
+    public void testParseAndRenderTextCursor() {
         final String text = "Hello";
         final Template template = Templates.string(text);
 
