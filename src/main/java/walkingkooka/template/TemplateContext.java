@@ -22,10 +22,27 @@ import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorLineInfo;
 import walkingkooka.text.printer.Printer;
 
+import java.util.Objects;
+
 /**
  * The {@link Context} that handles rendering a template using {@link Template#render(Printer, TemplateContext)}
  */
 public interface TemplateContext extends Context {
+
+    /**
+     * Combines parsing of the template followed by rendering.
+     */
+    default void parseAndRender(final TextCursor cursor,
+                                final Printer printer) {
+        Objects.requireNonNull(cursor, "cursor");
+        Objects.requireNonNull(printer, "printer");
+
+        this.parse(cursor)
+                .render(
+                        printer,
+                        this
+                );
+    }
 
     /**
      * Consumes the {@link TextCursor} which contains a template.

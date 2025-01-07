@@ -18,10 +18,30 @@
 package walkingkooka.template;
 
 import walkingkooka.ContextTesting;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorLineInfo;
+import walkingkooka.text.printer.Printer;
+import walkingkooka.text.printer.Printers;
 
 public interface TemplateContextTesting<C extends TemplateContext> extends ContextTesting<C> {
+
+    default void parseAndRenderAndCheck(final C context,
+                                        final TextCursor cursor,
+                                        final String expected) {
+        final StringBuilder printed = new StringBuilder();
+
+        try (final Printer printer = Printers.stringBuilder(printed, LineEnding.NL)) {
+            context.parseAndRender(
+                    cursor,
+                    printer
+            );
+        }
+        this.checkEquals(
+                expected,
+                printed.toString()
+        );
+    }
 
     default void parseAndCheck(final TemplateContext context,
                                final TextCursor cursor,
