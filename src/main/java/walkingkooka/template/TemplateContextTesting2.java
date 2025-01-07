@@ -17,7 +17,22 @@
 
 package walkingkooka.template;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public interface TemplateContextTesting2<C extends TemplateContext> extends TemplateContextTesting<C> {
+
+    // templateValue....................................................................................................
+
+    @Test
+    default void testTemplateValueWithNullNameFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createContext()
+                        .templateValue(null)
+        );
+    }
 
     default void templateValueAndCheck(final TemplateValueName name,
                                        final String expected) {
