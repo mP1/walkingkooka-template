@@ -53,6 +53,24 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
     // parse............................................................................................................
 
     @Test
+    public void testParseString() {
+        final Template template = Templates.string("Hello");
+
+        this.parseAndCheck(
+                new TestTemplateContext() {
+
+                    @Override
+                    public Template parse(final TextCursor cursor) {
+                        cursor.end();
+                        return template;
+                    }
+                },
+                template.toString(),
+                template
+        );
+    }
+
+    @Test
     public void testParse() {
         final Template template = Templates.string("Hello");
 
