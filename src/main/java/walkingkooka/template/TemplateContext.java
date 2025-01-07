@@ -19,7 +19,6 @@ package walkingkooka.template;
 
 import walkingkooka.Context;
 import walkingkooka.text.cursor.TextCursor;
-import walkingkooka.text.cursor.TextCursorLineInfo;
 import walkingkooka.text.printer.Printer;
 
 import java.util.Objects;
@@ -53,12 +52,6 @@ public interface TemplateContext extends Context {
      * Handles consuming a template expression into a {@link Template}.
      */
     Template expression(final TextCursor text);
-
-    /**
-     * Called during parsing to handle an orphaned dollarSign that is not escaped or part of a placeholder expression.
-     * Implementations can either throw an exception, return a template that renders nothing or renders the dollarSign sign.
-     */
-    Template dollarSign(final TextCursorLineInfo at);
 
     /**
      * Resolves the given {@link TemplateValueName} into a {@link String}. When the value is not found,

@@ -38,17 +38,13 @@ import java.util.function.Function;
  */
 final class ExpressionTemplateValueNameTemplateContext implements TemplateContext {
 
-    static ExpressionTemplateValueNameTemplateContext with(final TemplateDollarSignHandler dollarSign,
-                                                           final Function<TemplateValueName, String> nameToValue) {
+    static ExpressionTemplateValueNameTemplateContext with(final Function<TemplateValueName, String> nameToValue) {
         return new ExpressionTemplateValueNameTemplateContext(
-                Objects.requireNonNull(dollarSign, "dollarSign"),
                 Objects.requireNonNull(nameToValue, "nameToValue")
         );
     }
 
-    private ExpressionTemplateValueNameTemplateContext(final TemplateDollarSignHandler dollarSign,
-                                                       final Function<TemplateValueName, String> nameToValue) {
-        this.dollarSign = dollarSign;
+    private ExpressionTemplateValueNameTemplateContext(final Function<TemplateValueName, String> nameToValue) {
         this.nameToValue = nameToValue;
     }
 
@@ -114,12 +110,10 @@ final class ExpressionTemplateValueNameTemplateContext implements TemplateContex
                             mode = MODE_TEXT;
                             break;
                         default:
-                            templates.add(
-                                    this.dollarSign(dollarSignLineInfo)
+                            throw new InvalidCharacterException(
+                                    dollarSignLineInfo.text().toString(),
+                                    dollarSignLineInfo.textOffset()
                             );
-                            b.append(c);
-                            mode = MODE_TEXT;
-                            break;
                     }
                     break;
                 default:
@@ -161,9 +155,7 @@ final class ExpressionTemplateValueNameTemplateContext implements TemplateContex
                 .orElseThrow(() -> new EmptyTextException("template value name"));
 
         if (text.isEmpty()) {
-            this.dollarSign(
-                    text.lineInfo()
-            );
+            throw new IllegalArgumentException("Incomplete expression");
         } else {
             final char c = text.at();
             switch (c) {
@@ -191,13 +183,6 @@ final class ExpressionTemplateValueNameTemplateContext implements TemplateContex
     );
 
     private final static ParserContext PARSER_CONTEXT = ParserContexts.fake();
-
-    @Override
-    public Template dollarSign(final TextCursorLineInfo at) {
-        return this.dollarSign.handle(at);
-    }
-
-    private final TemplateDollarSignHandler dollarSign;
 
     @Override
     public String templateValue(final TemplateValueName name) {

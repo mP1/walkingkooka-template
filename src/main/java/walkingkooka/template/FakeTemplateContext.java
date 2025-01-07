@@ -18,7 +18,6 @@
 package walkingkooka.template;
 
 import walkingkooka.text.cursor.TextCursor;
-import walkingkooka.text.cursor.TextCursorLineInfo;
 
 public class FakeTemplateContext implements TemplateContext{
 
@@ -33,11 +32,6 @@ public class FakeTemplateContext implements TemplateContext{
 
     @Override
     public Template expression(final TextCursor text) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Template dollarSign(final TextCursorLineInfo at) {
         throw new UnsupportedOperationException();
     }
 
