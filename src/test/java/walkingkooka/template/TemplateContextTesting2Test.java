@@ -61,11 +61,30 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
 
                     @Override
                     public Template parse(final TextCursor cursor) {
+                        cursor.end();
                         return template;
                     }
                 },
                 TextCursors.charSequence(template.toString()),
                 template
+        );
+    }
+
+    @Test
+    public void testParseCursorNotEmpty() {
+        assertThrows(
+                AssertionError.class,
+                () -> this.parseAndCheck(
+                        new TestTemplateContext() {
+
+                            @Override
+                            public Template parse(final TextCursor cursor) {
+                                return Templates.string("Different");
+                            }
+                        },
+                        TextCursors.fake(),
+                        Templates.string("Hello")
+                )
         );
     }
 
