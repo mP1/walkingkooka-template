@@ -19,10 +19,23 @@ package walkingkooka.template;
 
 import walkingkooka.reflect.PublicStaticHelper;
 
+import java.util.function.Function;
+
 /**
  * A collection of {@link TemplateContext} factory methods.
  */
 public final class TemplateContexts implements PublicStaticHelper {
+
+    /**
+     * {@see ExpressionTemplateValueNameTemplateContext}
+     */
+    public static TemplateContext expressionTemplateValueName(final TemplateDollarSignHandler dollarSign,
+                                                              final Function<TemplateValueName, String> nameToValue) {
+        return ExpressionTemplateValueNameTemplateContext.with(
+                dollarSign,
+                nameToValue
+        );
+    }
 
     /**
      * {@see FakeTemplateContext}
