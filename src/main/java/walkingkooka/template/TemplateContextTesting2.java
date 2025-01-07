@@ -18,10 +18,72 @@
 package walkingkooka.template;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.text.cursor.TextCursorLineInfo;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface TemplateContextTesting2<C extends TemplateContext> extends TemplateContextTesting<C> {
+
+    // parse............................................................................................................
+
+    @Test
+    default void testParseWithNullCursorFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createContext()
+                        .parse(null)
+        );
+    }
+
+    default void parseAndCheck(final TextCursor cursor,
+                               final Template expected) {
+        this.parseAndCheck(
+                this.createContext(),
+                cursor,
+                expected
+        );
+    }
+
+    // expression.......................................................................................................
+
+    @Test
+    default void testExpressionWithNullCursorFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createContext()
+                        .expression(null)
+        );
+    }
+
+    default void expressionAndCheck(final TextCursor cursor,
+                                    final Template expected) {
+        this.expressionAndCheck(
+                this.createContext(),
+                cursor,
+                expected
+        );
+    }
+
+    // openBrace........................................................................................................
+
+    @Test
+    default void testOpenBraceWithNullCursorFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createContext()
+                        .openBrace(null)
+        );
+    }
+
+    default void openBraceAndCheck(final TextCursorLineInfo at,
+                                   final Template expected) {
+        this.openBraceAndCheck(
+                this.createContext(),
+                at,
+                expected
+        );
+    }
 
     // templateValue....................................................................................................
 

@@ -17,10 +17,28 @@
 
 package walkingkooka.template;
 
+import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.text.cursor.TextCursorLineInfo;
+
 public class FakeTemplateContext implements TemplateContext{
 
     public FakeTemplateContext() {
         super();
+    }
+
+    @Override
+    public Template parse(final TextCursor cursor) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Template expression(final TextCursor cursor) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Template openBrace(final TextCursorLineInfo at) {
+        throw new UnsupportedOperationException();
     }
 
     @Override

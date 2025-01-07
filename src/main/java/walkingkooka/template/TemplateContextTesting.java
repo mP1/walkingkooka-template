@@ -18,8 +18,37 @@
 package walkingkooka.template;
 
 import walkingkooka.ContextTesting;
+import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.text.cursor.TextCursorLineInfo;
 
 public interface TemplateContextTesting<C extends TemplateContext> extends ContextTesting<C> {
+
+    default void parseAndCheck(final TemplateContext context,
+                               final TextCursor cursor,
+                               final Template expected) {
+        this.checkEquals(
+                expected,
+                context.parse(cursor)
+        );
+    }
+
+    default void expressionAndCheck(final TemplateContext context,
+                                    final TextCursor cursor,
+                                    final Template expected) {
+        this.checkEquals(
+                expected,
+                context.expression(cursor)
+        );
+    }
+
+    default void openBraceAndCheck(final TemplateContext context,
+                                   final TextCursorLineInfo at,
+                                   final Template expected) {
+        this.checkEquals(
+                context.openBrace(at),
+                expected
+        );
+    }
 
     default void templateValueAndCheck(final TemplateContext context,
                                        final TemplateValueName name,
