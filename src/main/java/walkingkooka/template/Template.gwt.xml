@@ -19,5 +19,6 @@
 <module>
     <inherits name="walkingkooka.text.cursor.parser.Parser"/>
     <inherits name="walkingkooka.text.printer.Printer"/>
+    <inherits name="walkingkooka.tree.Tree"/>
     <source path=""/>
 </module>
