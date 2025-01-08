@@ -88,67 +88,67 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
         final ExpressionNumberKind expressionNumberKind = ExpressionNumberKind.BIG_DECIMAL;
 
         this.parseAndRenderAndCheck(
-            new TestTemplateContext() {
+                new TestTemplateContext() {
 
-                @Override
-                public Template parse(final TextCursor text) {
-                    return this.expression(text);
-                }
+                    @Override
+                    public Template parse(final TextCursor text) {
+                        return this.expression(text);
+                    }
 
-                @Override
-                public Template expression(final TextCursor text) {
-                    Objects.requireNonNull(text, "text");
+                    @Override
+                    public Template expression(final TextCursor text) {
+                        Objects.requireNonNull(text, "text");
 
-                    text.end();
+                        text.end();
 
-                    return Templates.expression(
-                        Expression.add(
-                            Expression.value(12),
-                            Expression.value(34)
-                        )
-                    );
-                }
+                        return Templates.expression(
+                                Expression.add(
+                                        Expression.value(12),
+                                        Expression.value(34)
+                                )
+                        );
+                    }
 
-                @Override
-                public String evaluate(final Expression expression) {
-                    return ExpressionEvaluationContexts.basic(
-                            expressionNumberKind,
-                            (n) -> {
-                                throw new UnsupportedOperationException();
-                            },
-                            (e) -> {
-                                e.printStackTrace();
-                                throw new UnsupportedOperationException();
-                            },
-                            (r) -> {
-                                throw new UnsupportedOperationException();
-                            },
-                            (r) -> {
-                                throw new UnsupportedOperationException();
-                            },
-                            CaseSensitivity.SENSITIVE,
-                            ExpressionNumberConverterContexts.basic(
-                                Converters.collection(
-                                    Lists.of(
-                                        ExpressionNumberConverters.toNumberOrExpressionNumber(
-                                            Converters.numberToNumber()
+                    @Override
+                    public String evaluate(final Expression expression) {
+                        return ExpressionEvaluationContexts.basic(
+                                        expressionNumberKind,
+                                        (n) -> {
+                                            throw new UnsupportedOperationException();
+                                        },
+                                        (e) -> {
+                                            e.printStackTrace();
+                                            throw new UnsupportedOperationException();
+                                        },
+                                        (r) -> {
+                                            throw new UnsupportedOperationException();
+                                        },
+                                        (r) -> {
+                                            throw new UnsupportedOperationException();
+                                        },
+                                        CaseSensitivity.SENSITIVE,
+                                        ExpressionNumberConverterContexts.basic(
+                                                Converters.collection(
+                                                        Lists.of(
+                                                                ExpressionNumberConverters.toNumberOrExpressionNumber(
+                                                                        Converters.numberToNumber()
+                                                                )
+                                                        )
+                                                ).cast(ExpressionNumberConverterContext.class),
+                                                ConverterContexts.basic(
+                                                        -1,
+                                                        Converters.fake(),
+                                                        DateTimeContexts.fake(),
+                                                        DecimalNumberContexts.american(MathContext.DECIMAL32)
+                                                ),
+                                                expressionNumberKind
                                         )
-                                    )
-                                ).cast(ExpressionNumberConverterContext.class),
-                                ConverterContexts.basic(
-                                    -1,
-                                    Converters.fake(),
-                                    DateTimeContexts.fake(),
-                                    DecimalNumberContexts.american(MathContext.DECIMAL32)
-                                ),
-                                expressionNumberKind
-                            )
-                        ).evaluate(expression)
-                        .toString();
-                }
-            },
-            TextCursors.charSequence(text),
-            "46"
+                                ).evaluate(expression)
+                                .toString();
+                    }
+                },
+                TextCursors.charSequence(text),
+                "46"
         );
     }
 
@@ -231,36 +231,36 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
     @Test
     public void testExpressionExpressionTemplate() {
         final Template template = Templates.expression(
-            Expression.add(
-                Expression.value(12),
-                Expression.value(34)
-            )
+                Expression.add(
+                        Expression.value(12),
+                        Expression.value(34)
+                )
         );
 
         this.expressionAndCheck(
-            new FakeTemplateContext() {
+                new FakeTemplateContext() {
 
-                @Override
-                public Template parse(final TextCursor text) {
-                    Objects.requireNonNull(text, "text");
+                    @Override
+                    public Template parse(final TextCursor text) {
+                        Objects.requireNonNull(text, "text");
 
-                    return this.parse(text);
-                }
+                        return this.parse(text);
+                    }
 
-                @Override
-                public Template expression(final TextCursor text) {
-                    Objects.requireNonNull(text, "text");
+                    @Override
+                    public Template expression(final TextCursor text) {
+                        Objects.requireNonNull(text, "text");
 
-                    Parsers.character(
-                        CharPredicates.is('}')
-                            .negate()
-                    );
+                        Parsers.character(
+                                CharPredicates.is('}')
+                                        .negate()
+                        );
 
-                    return template;
-                }
-            },
-            TextCursors.charSequence(template.toString()),
-            template
+                        return template;
+                    }
+                },
+                TextCursors.charSequence(template.toString()),
+                template
         );
     }
 
@@ -269,33 +269,33 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
         final Template template = Templates.string("Hello");
 
         this.expressionAndCheck(
-            new TestTemplateContext() {
+                new TestTemplateContext() {
 
-                @Override
-                public Template expression(final TextCursor text) {
-                    return template;
-                }
-            },
-            TextCursors.charSequence(template.toString()),
-            template
+                    @Override
+                    public Template expression(final TextCursor text) {
+                        return template;
+                    }
+                },
+                TextCursors.charSequence(template.toString()),
+                template
         );
     }
 
     @Test
     public void testExpressionFails() {
         assertThrows(
-            AssertionError.class,
-            () -> this.expressionAndCheck(
-                new TestTemplateContext() {
+                AssertionError.class,
+                () -> this.expressionAndCheck(
+                        new TestTemplateContext() {
 
-                    @Override
-                    public Template expression(final TextCursor text) {
-                        return Templates.string("Different");
-                    }
-                },
-                TextCursors.fake(),
-                Templates.string("Hello")
-            )
+                            @Override
+                            public Template expression(final TextCursor text) {
+                                return Templates.string("Different");
+                            }
+                        },
+                        TextCursors.fake(),
+                        Templates.string("Hello")
+                )
         );
     }
 
