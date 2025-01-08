@@ -104,13 +104,13 @@
     <dependencies>
         <dependency>
             <groupId>walkingkooka</groupId>
-            <artifactId>walkingkooka-text-printer-gwt</artifactId>
+            <artifactId>walkingkooka-text-cursor-parser-gwt</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>walkingkooka</groupId>
-            <artifactId>walkingkooka-text-cursor-parser-gwt</artifactId>
+            <artifactId>walkingkooka-text-printer-gwt</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
