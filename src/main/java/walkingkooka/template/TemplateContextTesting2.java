@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.printer.Printers;
+import walkingkooka.tree.expression.Expression;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -113,6 +114,17 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
                 this.createContext(),
                 text,
                 expected
+        );
+    }
+
+    // evaluate.........................................................................................................
+
+    default void evaluateAndCheck(final Expression expression,
+                                  final String expected) {
+        this.checkEquals(
+                expected,
+                this.createContext()
+                        .evaluate(expression)
         );
     }
 

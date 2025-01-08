@@ -23,6 +23,7 @@ import walkingkooka.NeverError;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorLineInfo;
+import walkingkooka.tree.expression.Expression;
 
 import java.util.List;
 import java.util.Objects;
@@ -168,6 +169,13 @@ final class ExpressionTemplateValueNameTemplateContext implements TemplateContex
         }
 
         return Templates.templateValueName(templateValueName);
+    }
+
+    @Override
+    public String evaluate(final Expression expression) {
+        Objects.requireNonNull(expression, "expression");
+
+        throw new UnsupportedOperationException();
     }
 
     @Override

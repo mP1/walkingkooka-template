@@ -23,6 +23,7 @@ import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
+import walkingkooka.tree.expression.Expression;
 
 public interface TemplateContextTesting<C extends TemplateContext> extends ContextTesting<C> {
 
@@ -75,6 +76,15 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
                 true,
                 text.isEmpty(),
                 () -> "cursor not empty=" + text
+        );
+    }
+
+    default void evaluateAndCheck(final TemplateContext context,
+                                  final Expression expression,
+                                  final String expected) {
+        this.checkEquals(
+                expected,
+                context.evaluate(expression)
         );
     }
 

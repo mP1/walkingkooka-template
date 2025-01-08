@@ -18,6 +18,7 @@
 package walkingkooka.template;
 
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.tree.expression.Expression;
 
 import java.util.List;
 
@@ -31,6 +32,13 @@ public final class Templates implements PublicStaticHelper {
      */
     public static Template collection(final List<Template> templates) {
         return TemplateCollection.with(templates);
+    }
+
+    /**
+     * {@see ExpressionTemplate}
+     */
+    public static Template expression(final Expression expression) {
+        return ExpressionTemplate.with(expression);
     }
 
     /**
