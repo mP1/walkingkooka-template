@@ -20,6 +20,7 @@ package walkingkooka.template;
 import walkingkooka.Context;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.printer.Printer;
+import walkingkooka.tree.expression.Expression;
 
 import java.util.Objects;
 
@@ -52,6 +53,11 @@ public interface TemplateContext extends Context {
      * Handles consuming a template expression into a {@link Template}.
      */
     Template expression(final TextCursor text);
+
+    /**
+     * Evaluates the given {@link Expression} into a {@link String string value}
+     */
+    String evaluate(final Expression expression);
 
     /**
      * Resolves the given {@link TemplateValueName} into a {@link String}. When the value is not found,
