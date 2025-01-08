@@ -47,7 +47,7 @@ final class TemplateCollection implements Template {
         Objects.requireNonNull(printer, "printer");
         Objects.requireNonNull(context, "context");
 
-        for(final Template template : this.templates) {
+        for (final Template template : this.templates) {
             template.render(
                     printer,
                     context
