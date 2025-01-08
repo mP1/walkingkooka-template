@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * A {@link Template} that renders or inserts the value for a given {@link TemplateValueName}.
  */
-final class TemplateValueNameTemplate implements Template{
+final class TemplateValueNameTemplate implements Template {
 
     static TemplateValueNameTemplate with(final TemplateValueName name) {
         Objects.requireNonNull(name, "name");
@@ -46,7 +46,7 @@ final class TemplateValueNameTemplate implements Template{
                 context.templateValue(this.name)
         );
     }
-    
+
     private final TemplateValueName name;
 
     // Object...........................................................................................................

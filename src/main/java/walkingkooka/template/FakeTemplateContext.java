@@ -19,7 +19,7 @@ package walkingkooka.template;
 
 import walkingkooka.text.cursor.TextCursor;
 
-public class FakeTemplateContext implements TemplateContext{
+public class FakeTemplateContext implements TemplateContext {
 
     public FakeTemplateContext() {
         super();

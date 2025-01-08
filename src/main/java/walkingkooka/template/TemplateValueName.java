@@ -75,7 +75,7 @@ final public class TemplateValueName implements Name, Comparable<TemplateValueNa
     );
 
     private final static ParserContext PARSER_CONTEXT = ParserContexts.fake();
-    
+
     /**
      * Factory that creates a {@link TemplateValueName}
      */
