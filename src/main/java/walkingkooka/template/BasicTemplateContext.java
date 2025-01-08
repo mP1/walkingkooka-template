@@ -17,32 +17,40 @@
 
 package walkingkooka.template;
 
-import walkingkooka.EmptyTextException;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.NeverError;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorLineInfo;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * A {@link TemplateContext} that supports parsing templates including support for backslash escaped characters, and
- * expressions holding a single {@link TemplateValueName}.
+ * A {@link TemplateContext} that uses numerous helpers to support parsing expressions, name lookups, and evaluating
+ * any {@link Expression}.
  */
-final class ExpressionTemplateValueNameTemplateContext implements TemplateContext {
+final class BasicTemplateContext implements TemplateContext {
 
-    static ExpressionTemplateValueNameTemplateContext with(final Function<TemplateValueName, String> nameToValue) {
-        return new ExpressionTemplateValueNameTemplateContext(
-                Objects.requireNonNull(nameToValue, "nameToValue")
+    static BasicTemplateContext with(final Function<TextCursor, Template> expressionParser,
+                                     final Function<TemplateValueName, String> nameToValue,
+                                     final ExpressionEvaluationContext expressionEvaluationContext) {
+        return new BasicTemplateContext(
+                Objects.requireNonNull(expressionParser, "expressionParser"),
+                Objects.requireNonNull(nameToValue, "nameToValue"),
+                Objects.requireNonNull(expressionEvaluationContext, "expressionEvaluationContext")
         );
     }
 
-    private ExpressionTemplateValueNameTemplateContext(final Function<TemplateValueName, String> nameToValue) {
+    private BasicTemplateContext(final Function<TextCursor, Template> expressionParser,
+                                 final Function<TemplateValueName, String> nameToValue,
+                                 final ExpressionEvaluationContext expressionEvaluationContext) {
+        this.expressionParser = expressionParser;
         this.nameToValue = nameToValue;
+        this.expressionEvaluationContext = expressionEvaluationContext;
     }
 
     private final static char BRACE_OPEN = '{';
@@ -138,17 +146,14 @@ final class ExpressionTemplateValueNameTemplateContext implements TemplateContex
         }
     }
 
-    // consume a {@link TemplateValueName}
-
     /**
-     * Expects a {@link TemplateValueName} followed by a closing brace.
+     * Calls the provided parser and then asserts a '}' follows.
      */
     @Override
     public Template expression(final TextCursor text) {
         Objects.requireNonNull(text, "text");
 
-        final TemplateValueName templateValueName = TemplateValueName.parse(text)
-                .orElseThrow(() -> new EmptyTextException("template value name"));
+        final Template template = this.expressionParser.apply(text);
 
         if (text.isEmpty()) {
             throw new IllegalArgumentException("Incomplete expression");
@@ -168,15 +173,22 @@ final class ExpressionTemplateValueNameTemplateContext implements TemplateContex
             }
         }
 
-        return Templates.templateValueName(templateValueName);
+        return template;
     }
+
+    private final Function<TextCursor, Template> expressionParser;
 
     @Override
     public String evaluate(final Expression expression) {
-        Objects.requireNonNull(expression, "expression");
+        final ExpressionEvaluationContext context = this.expressionEvaluationContext;
 
-        throw new UnsupportedOperationException();
+        return context.convertOrFail(
+                context.evaluate(expression),
+                String.class
+        );
     }
+
+    private final ExpressionEvaluationContext expressionEvaluationContext;
 
     @Override
     public String templateValue(final TemplateValueName name) {

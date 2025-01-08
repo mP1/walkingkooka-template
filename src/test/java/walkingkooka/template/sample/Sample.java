@@ -17,21 +17,79 @@
 
 package walkingkooka.template.sample;
 
+import walkingkooka.EmptyTextException;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.ConverterContexts;
+import walkingkooka.convert.Converters;
+import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.template.TemplateContext;
 import walkingkooka.template.TemplateContexts;
+import walkingkooka.template.TemplateValueName;
+import walkingkooka.template.Templates;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.printer.Printers;
+import walkingkooka.tree.expression.ExpressionEvaluationContexts;
+import walkingkooka.tree.expression.ExpressionNumberConverterContext;
+import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
+import walkingkooka.tree.expression.ExpressionNumberConverters;
+import walkingkooka.tree.expression.ExpressionNumberKind;
+
+import java.math.MathContext;
 
 public class Sample {
 
     public static void main(final String[] args) {
         final Sample sample = new Sample();
+        sample.testParseAndRender();
     }
 
     public void testParseAndRender() {
+        final ExpressionNumberKind expressionNumberKind = ExpressionNumberKind.BIG_DECIMAL;
+
         final TemplateContext context = TemplateContexts.expressionTemplateValueName(
-                (n) -> "<<" + n.text().toUpperCase() + ">>"
+                (final TextCursor t) -> Templates.templateValueName(
+                        TemplateValueName.parse(t)
+                                .orElseThrow(() -> new EmptyTextException("template value name"))
+                ),
+                (n) -> "<<" + n.text().toUpperCase() + ">>",
+                ExpressionEvaluationContexts.basic(
+                        expressionNumberKind,
+                        (n) -> {
+                            throw new UnsupportedOperationException();
+                        },
+                        (e) -> {
+                            e.printStackTrace();
+                            throw new UnsupportedOperationException();
+                        },
+                        (r) -> {
+                            throw new UnsupportedOperationException();
+                        },
+                        (r) -> {
+                            throw new UnsupportedOperationException();
+                        },
+                        CaseSensitivity.SENSITIVE,
+                        ExpressionNumberConverterContexts.basic(
+                                Converters.collection(
+                                        Lists.of(
+                                                ExpressionNumberConverters.toNumberOrExpressionNumber(
+                                                        Converters.numberToNumber()
+                                                ),
+                                                Converters.objectToString()
+                                        )
+                                ).cast(ExpressionNumberConverterContext.class),
+                                ConverterContexts.basic(
+                                        -1,
+                                        Converters.fake(),
+                                        DateTimeContexts.fake(),
+                                        DecimalNumberContexts.american(MathContext.DECIMAL32)
+                                ),
+                                expressionNumberKind
+                        )
+                )
         );
 
         final StringBuilder b = new StringBuilder();

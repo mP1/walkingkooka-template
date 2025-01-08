@@ -18,6 +18,8 @@
 package walkingkooka.template;
 
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
 import java.util.function.Function;
 
@@ -27,11 +29,15 @@ import java.util.function.Function;
 public final class TemplateContexts implements PublicStaticHelper {
 
     /**
-     * {@see ExpressionTemplateValueNameTemplateContext}
+     * {@see BasicTemplateContext}
      */
-    public static TemplateContext expressionTemplateValueName(final Function<TemplateValueName, String> nameToValue) {
-        return ExpressionTemplateValueNameTemplateContext.with(
-                nameToValue
+    public static TemplateContext expressionTemplateValueName(final Function<TextCursor, Template> expressionParser,
+                                                              final Function<TemplateValueName, String> nameToValue,
+                                                              final ExpressionEvaluationContext expressionEvaluationContext) {
+        return BasicTemplateContext.with(
+                expressionParser,
+                nameToValue,
+                expressionEvaluationContext
         );
     }
 
