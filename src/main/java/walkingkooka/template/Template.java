@@ -17,7 +17,9 @@
 
 package walkingkooka.template;
 
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
+import walkingkooka.text.printer.Printers;
 
 /**
  * A template handles rendering a template in {@link String} by printing to a {@link Printer}.
@@ -29,4 +31,17 @@ public interface Template {
      */
     void render(final Printer printer,
                 final TemplateContext context);
+
+
+    default String renderToString(final LineEnding lineEnding,
+                                  final TemplateContext context) {
+        final StringBuilder builder = new StringBuilder();
+
+        try (final Printer printer = Printers.stringBuilder(builder, lineEnding)) {
+            this.render(printer, context);
+            printer.flush();
+        }
+
+        return builder.toString();
+    }
 }
