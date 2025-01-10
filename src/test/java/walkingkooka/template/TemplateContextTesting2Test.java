@@ -261,13 +261,6 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                 new FakeTemplateContext() {
 
                     @Override
-                    public Template parse(final TextCursor text) {
-                        Objects.requireNonNull(text, "text");
-
-                        return this.parse(text);
-                    }
-
-                    @Override
                     public Template expression(final TextCursor text) {
                         Objects.requireNonNull(text, "text");
 
