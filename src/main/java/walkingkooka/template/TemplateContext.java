@@ -19,6 +19,7 @@ package walkingkooka.template;
 
 import walkingkooka.Context;
 import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.tree.expression.Expression;
 
@@ -42,6 +43,12 @@ public interface TemplateContext extends Context {
                         printer,
                         this
                 );
+    }
+
+    default Template parseString(final String text) {
+        return this.parse(
+                TextCursors.charSequence(text)
+        );
     }
 
     /**
