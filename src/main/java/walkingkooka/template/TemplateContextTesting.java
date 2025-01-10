@@ -18,6 +18,7 @@
 package walkingkooka.template;
 
 import walkingkooka.ContextTesting;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
@@ -25,7 +26,38 @@ import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.expression.Expression;
 
-public interface TemplateContextTesting<C extends TemplateContext> extends ContextTesting<C> {
+public interface TemplateContextTesting<C extends TemplateContext> extends ContextTesting<C>,
+        ParseStringTesting<Template> {
+
+    // parse............................................................................................................
+
+    @Override
+    default Template parseString(final String text) {
+        return this.createContext()
+                .parseString(text);
+    }
+
+    @Override
+    default Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
+        return thrown;
+    }
+
+    @Override
+    default RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
+        return thrown;
+    }
+
+    default void parseStringAndCheck(final C context,
+                                     final String text,
+                                     final Template expected) {
+        this.parseStringAndCheck(
+                context::parseString,
+                text,
+                expected
+        );
+    }
+
+    // parseAndRender...................................................................................................
 
     default void parseAndRenderAndCheck(final C context,
                                         final String template,

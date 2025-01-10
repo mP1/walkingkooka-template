@@ -27,6 +27,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface TemplateContextTesting2<C extends TemplateContext> extends TemplateContextTesting<C> {
 
+    // parseString......................................................................................................
+
+    @Override
+    default void testParseStringEmptyFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    // parseAndRender...................................................................................................
+
     @Test
     default void testParseAndRenderWithNullTextFails() {
         assertThrows(
