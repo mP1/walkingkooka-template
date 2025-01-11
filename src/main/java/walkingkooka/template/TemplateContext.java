@@ -18,6 +18,7 @@
 package walkingkooka.template;
 
 import walkingkooka.Context;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.printer.Printer;
@@ -41,6 +42,22 @@ public interface TemplateContext extends Context {
         this.parse(text)
                 .render(
                         printer,
+                        this
+                );
+    }
+
+    /**
+     * Identical to {@link #parseAndRenderToString(String, LineEnding)} but returns a {@link String} with the
+     * rendered result without requiring a {@link Printer} parameter.
+     */
+    default String parseAndRenderToString(final String text,
+                                          final LineEnding lineEnding) {
+        Objects.requireNonNull(text, "text");
+        Objects.requireNonNull(lineEnding, "lineEnding");
+
+        return this.parseString(text)
+                .renderToString(
+                        lineEnding,
                         this
                 );
     }

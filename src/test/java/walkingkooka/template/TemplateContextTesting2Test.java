@@ -26,6 +26,7 @@ import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.template.TemplateContextTesting2Test.TestTemplateContext;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.Parsers;
@@ -169,6 +170,27 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                 },
                 TextCursors.charSequence(text),
                 "46"
+        );
+    }
+
+    // parseAndRenderToString...........................................................................................
+
+    @Test
+    public void testParseAndRenderToStringNoParameters() {
+        final String text = "Hello";
+
+        this.parseAndRenderToStringAndCheck(
+                new TestTemplateContext() {
+
+                    @Override
+                    public Template parse(final TextCursor t) {
+                        t.end();
+                        return Templates.string(text);
+                    }
+                },
+                text,
+                LineEnding.NL,
+                text
         );
     }
 
