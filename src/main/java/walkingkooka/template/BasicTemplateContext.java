@@ -17,7 +17,6 @@
 
 package walkingkooka.template;
 
-import walkingkooka.InvalidCharacterException;
 import walkingkooka.NeverError;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.TextCursor;
@@ -115,10 +114,8 @@ final class BasicTemplateContext implements TemplateContext {
                             mode = MODE_TEXT;
                             break;
                         default:
-                            throw new InvalidCharacterException(
-                                    dollarSignLineInfo.text().toString(),
-                                    dollarSignLineInfo.textOffset()
-                            );
+                            throw dollarSignLineInfo.invalidCharacterException()
+                                    .get();
                     }
                     break;
                 default:
@@ -164,12 +161,9 @@ final class BasicTemplateContext implements TemplateContext {
                     text.next();
                     break;
                 default:
-                    final TextCursorLineInfo lineInfo = text.lineInfo();
-
-                    throw new InvalidCharacterException(
-                            lineInfo.text().toString(),
-                            lineInfo.textOffset()
-                    );
+                    throw text.lineInfo()
+                            .invalidCharacterException()
+                            .get();
             }
         }
 
