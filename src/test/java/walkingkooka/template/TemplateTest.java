@@ -38,8 +38,9 @@ public final class TemplateTest implements TemplateTesting, ClassTesting<Templat
                 ),
                 Maps.of(
                         TemplateValueName.with("abc"),
-                        "111"
+                        Templates.string("111")
                 )::get,
+                LineEnding.NL,
                 ExpressionEvaluationContexts.fake()
         );
 
