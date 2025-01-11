@@ -18,6 +18,7 @@
 package walkingkooka.template;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.printer.Printers;
@@ -74,6 +75,52 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
         this.parseAndRenderAndCheck(
                 this.createContext(),
                 text,
+                expected
+        );
+    }
+
+    // parseAndRenderToString...........................................................................................
+
+    @Test
+    default void testParseAndRenderToStringWithNullTextFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createContext()
+                        .parseAndRenderToString(
+                                null,
+                                LineEnding.NL
+                        )
+        );
+    }
+
+    @Test
+    default void testParseAndRenderToStringWithNullLineEndingFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createContext()
+                        .parseAndRenderToString(
+                                "",
+                                null
+                        )
+        );
+    }
+
+    default void parseAndRenderToStringAndCheck(final String text,
+                                                final String expected) {
+        this.parseAndRenderAndCheck(
+                TextCursors.charSequence(text),
+                expected
+        );
+    }
+
+
+    default void parseAndRenderToStringAndCheck(final String text,
+                                                final LineEnding lineEnding,
+                                                final String expected) {
+        this.parseAndRenderToStringAndCheck(
+                this.createContext(),
+                text,
+                lineEnding,
                 expected
         );
     }

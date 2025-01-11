@@ -19,6 +19,7 @@ package walkingkooka.template;
 
 import walkingkooka.ContextTesting;
 import walkingkooka.test.ParseStringTesting;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
@@ -110,6 +111,24 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
                 () -> "cursor not empty=" + text
         );
     }
+
+    // parseAndRenderToStringAndCheck ..................................................................................
+
+    default void parseAndRenderToStringAndCheck(final TemplateContext context,
+                                                final String text,
+                                                final LineEnding lineEnding,
+                                                final String expected) {
+        this.checkEquals(
+                expected,
+                context.parseAndRenderToString(
+                        text,
+                        lineEnding
+                ),
+                () -> "parseAndRenderToString " + CharSequences.quoteAndEscape(text)
+        );
+    }
+
+    // evaluateAndCheck.................................................................................................
 
     default void evaluateAndCheck(final TemplateContext context,
                                   final Expression expression,
