@@ -18,6 +18,7 @@
 package walkingkooka.template;
 
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
@@ -32,11 +33,13 @@ public final class TemplateContexts implements PublicStaticHelper {
      * {@see BasicTemplateContext}
      */
     public static TemplateContext expressionTemplateValueName(final Function<TextCursor, Template> expressionParser,
-                                                              final Function<TemplateValueName, String> nameToValue,
+                                                              final Function<TemplateValueName, Template> nameToTemplate,
+                                                              final LineEnding lineEnding,
                                                               final ExpressionEvaluationContext expressionEvaluationContext) {
         return BasicTemplateContext.with(
                 expressionParser,
-                nameToValue,
+                nameToTemplate,
+                lineEnding,
                 expressionEvaluationContext
         );
     }

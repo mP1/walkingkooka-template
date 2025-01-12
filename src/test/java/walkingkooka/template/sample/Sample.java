@@ -55,7 +55,8 @@ public class Sample {
                         TemplateValueName.parse(t)
                                 .orElseThrow(() -> new EmptyTextException("template value name"))
                 ),
-                (n) -> "<<" + n.text().toUpperCase() + ">>",
+                (n) -> Templates.string("<<" + n.text().toUpperCase() + ">>"),
+                LineEnding.NL,
                 ExpressionEvaluationContexts.basic(
                         expressionNumberKind,
                         (n) -> {

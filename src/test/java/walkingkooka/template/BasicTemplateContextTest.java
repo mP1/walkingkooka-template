@@ -25,6 +25,7 @@ import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.tree.expression.Expression;
@@ -36,6 +37,7 @@ import walkingkooka.tree.expression.ExpressionNumberConverters;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.math.MathContext;
+import java.util.Optional;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -47,9 +49,13 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
                     .orElseThrow(() -> new EmptyTextException("template value name"))
     );
 
-    private final static Function<TemplateValueName, String> NAME_TO_STRING = (n) -> "<<" + n.text().toUpperCase() + ">>";
+    private final static Function<TemplateValueName, Template> NAME_TO_TEMPLATE = (n) -> Templates.string(
+            "<<" + n.text().toUpperCase() + ">>"
+    );
 
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.BIG_DECIMAL;
+
+    private final static LineEnding LINE_ENDING = LineEnding.NL;
 
     private final static ExpressionEvaluationContext EXPRESSION_EVALUATION_CONTEXT = ExpressionEvaluationContexts.basic(
             EXPRESSION_NUMBER_KIND,
@@ -58,13 +64,11 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
             },
             (e) -> {
                 e.printStackTrace();
-                throw new UnsupportedOperationException();
+                throw e;
             },
+            (r) -> Optional.empty(),
             (r) -> {
-                throw new UnsupportedOperationException();
-            },
-            (r) -> {
-                throw new UnsupportedOperationException();
+                throw new RuntimeException("Unknown " + r);
             },
             CaseSensitivity.SENSITIVE,
             ExpressionNumberConverterContexts.basic(
@@ -94,18 +98,33 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
                 NullPointerException.class,
                 () -> BasicTemplateContext.with(
                         null,
-                        NAME_TO_STRING,
+                        NAME_TO_TEMPLATE,
+                        LINE_ENDING,
                         EXPRESSION_EVALUATION_CONTEXT
                 )
         );
     }
 
     @Test
-    public void testWithNullNameToStringFails() {
+    public void testWithNullNameToTemplateFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> BasicTemplateContext.with(
                         EXPRESSION_PARSER,
+                        null,
+                        LINE_ENDING,
+                        EXPRESSION_EVALUATION_CONTEXT
+                )
+        );
+    }
+
+    @Test
+    public void testWithNullLineEndingFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> BasicTemplateContext.with(
+                        EXPRESSION_PARSER,
+                        NAME_TO_TEMPLATE,
                         null,
                         EXPRESSION_EVALUATION_CONTEXT
                 )
@@ -118,7 +137,8 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
                 NullPointerException.class,
                 () -> BasicTemplateContext.with(
                         EXPRESSION_PARSER,
-                        NAME_TO_STRING,
+                        NAME_TO_TEMPLATE,
+                        LINE_ENDING,
                         null
                 )
         );
@@ -213,6 +233,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
                         (n) -> {
                             throw new UnsupportedOperationException();
                         },
+                        LineEnding.NL,
                         EXPRESSION_EVALUATION_CONTEXT
                 ),
                 "Hello${1+2} 999",
@@ -234,13 +255,283 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
         );
     }
 
+    @Test
+    public void testParseTextAndRenderToStringWithCycleOneDeepFails() {
+        final IllegalStateException thrown = assertThrows(
+                IllegalStateException.class,
+                () -> this.createContext(
+                        (n) -> Templates.templateValueName(TemplateValueName.with("Parameter111"))
+                ).parseAndRenderToString(
+                        "${Parameter111}",
+                        LineEnding.NL
+                )
+        );
+
+        this.checkEquals(
+                "Cycle detected \"Parameter111\" -> \"Parameter111\"",
+                thrown.getMessage()
+        );
+    }
+
+    @Test
+    public void testParseTextAndRenderToStringWithCycleTwoDeepFails() {
+        final IllegalStateException thrown = assertThrows(
+                IllegalStateException.class,
+                () -> this.createContext(
+                        (n) -> {
+                            switch (n.value()) {
+                                case "Parameter111":
+                                    return Templates.templateValueName(
+                                            TemplateValueName.with("Parameter222")
+                                    );
+                                case "Parameter222":
+                                    return Templates.templateValueName(
+                                            TemplateValueName.with("Parameter111")
+                                    );
+                                default:
+                                    throw new UnsupportedOperationException(n.toString());
+                            }
+                        }
+                ).parseAndRenderToString(
+                        "${Parameter111}",
+                        LineEnding.NL
+                )
+        );
+
+        this.checkEquals(
+                "Cycle detected \"Parameter111\" -> \"Parameter222\" -> \"Parameter111\"",
+                thrown.getMessage()
+        );
+    }
+
+    @Test
+    public void testParseTextAndRenderToStringWithCycleThreeDeepFails() {
+        final IllegalStateException thrown = assertThrows(
+                IllegalStateException.class,
+                () -> this.createContext(
+                        (n) -> {
+                            switch (n.value()) {
+                                case "Parameter111":
+                                    return Templates.templateValueName(
+                                            TemplateValueName.with("Parameter222")
+                                    );
+                                case "Parameter222":
+                                    return Templates.templateValueName(
+                                            TemplateValueName.with("Parameter333")
+                                    );
+                                case "Parameter333":
+                                    return Templates.templateValueName(
+                                            TemplateValueName.with("Parameter111")
+                                    );
+                                default:
+                                    throw new UnsupportedOperationException(n.toString());
+                            }
+                        }
+                ).parseAndRenderToString(
+                        "${Parameter111}",
+                        LineEnding.NL
+                )
+        );
+
+        this.checkEquals(
+                "Cycle detected \"Parameter111\" -> \"Parameter222\" -> \"Parameter333\" -> \"Parameter111\"",
+                thrown.getMessage()
+        );
+    }
+
+    @Test
+    public void testParseTextAndRenderToStringWithTemplateValueNameIndirect() {
+        this.parseAndRenderToStringAndCheck(
+                this.createContext(
+                        (n) -> {
+                            switch (n.value()) {
+                                case "Parameter111":
+                                    return Templates.templateValueName(
+                                            TemplateValueName.with("Parameter222")
+                                    );
+                                case "Parameter222":
+                                    return Templates.string("Value999");
+                                default:
+                                    throw new UnsupportedOperationException(n.toString());
+                            }
+                        }
+                ),
+                "${Parameter111}",
+                LineEnding.NL,
+                "Value999"
+        );
+    }
+
+    @Test
+    public void testParseTextAndRenderToStringWithCycleChainOfTwoFails2() {
+        final IllegalStateException thrown = assertThrows(
+                IllegalStateException.class,
+                () -> this.createContext(
+                        (n) -> {
+                            switch (n.value()) {
+                                case "Parameter111":
+                                    return Templates.string("Value111");
+                                case "Parameter222":
+                                    return Templates.templateValueName(
+                                            TemplateValueName.with("Parameter333")
+                                    );
+                                case "Parameter333":
+                                    return Templates.templateValueName(
+                                            TemplateValueName.with("Parameter222")
+                                    );
+                                default:
+                                    throw new UnsupportedOperationException(n.toString());
+                            }
+                        }
+                ).parseAndRenderToString(
+                        "${Parameter111}${Parameter222}",
+                        LineEnding.NL
+                )
+        );
+
+        this.checkEquals(
+                "Cycle detected \"Parameter222\" -> \"Parameter333\" -> \"Parameter222\"",
+                thrown.getMessage()
+        );
+    }
+
+    @Test
+    public void testParseTextAndRenderToStringWithExpression() {
+        this.parseAndRenderToStringAndCheck(
+                this.createContext(
+                        (n) -> {
+                            switch (n.value()) {
+                                case "Parameter111":
+                                    return Templates.expression(
+                                            Expression.value("ExpressionValue111")
+                                    );
+                                default:
+                                    throw new UnsupportedOperationException(n.toString());
+                            }
+                        }
+                ),
+                "${Parameter111}",
+                LineEnding.NL,
+                "ExpressionValue111"
+        );
+    }
+
+    @Test
+    public void testParseTextAndRenderToStringWithExpression2() {
+        this.parseAndRenderToStringAndCheck(
+                this.createContext(
+                        (n) -> {
+                            switch (n.value()) {
+                                case "Parameter111":
+                                    return Templates.string("ParameterValue111");
+                                case "Parameter222":
+                                    return Templates.expression(
+                                            Expression.value("ExpressionValue222")
+                                    );
+                                default:
+                                    throw new UnsupportedOperationException(n.toString());
+                            }
+                        }
+                ),
+                "${Parameter111}${Parameter222}",
+                LineEnding.NL,
+                "ParameterValue111ExpressionValue222"
+        );
+    }
+
+    @Test
+    public void testParseTextAndRenderToStringWithExpressionReferenceWithTemplateValueName() {
+        this.parseAndRenderToStringAndCheck(
+                this.createContext(
+                        (n) -> {
+                            switch (n.value()) {
+                                case "Parameter111":
+                                    return Templates.expression(
+                                            Expression.reference(
+                                                    TemplateValueName.with("Parameter222")
+                                            )
+                                    );
+                                case "Parameter222":
+                                    return Templates.string("Value999");
+                                default:
+                                    throw new UnsupportedOperationException(n.toString());
+                            }
+                        }
+                ),
+                "${Parameter111}",
+                LineEnding.NL,
+                "Value999"
+        );
+    }
+
+    @Test
+    public void testParseTextAndRenderToStringWithExpressionReferenceWithTemplateValueName2() {
+        this.parseAndRenderToStringAndCheck(
+                this.createContext(
+                        (n) -> {
+                            switch (n.value()) {
+                                case "Parameter111":
+                                    return Templates.expression(
+                                            Expression.reference(
+                                                    TemplateValueName.with("Parameter222")
+                                            )
+                                    );
+                                case "Parameter222":
+                                    return Templates.string("Value999");
+                                default:
+                                    throw new UnsupportedOperationException(n.toString());
+                            }
+                        }
+                ),
+                "${Parameter111} 999",
+                LineEnding.NL,
+                "Value999 999"
+        );
+    }
+
+    @Test
+    public void testParseTextAndRenderToStringWithExpressionCycleOneDeepFails() {
+        final IllegalStateException thrown = assertThrows(
+                IllegalStateException.class,
+                () -> this.createContext(
+                        (n) -> {
+                            switch (n.value()) {
+                                case "Parameter111":
+                                    return Templates.expression(
+                                            Expression.reference(
+                                                    TemplateValueName.with("Parameter111")
+                                            )
+                                    );
+                                default:
+                                    throw new UnsupportedOperationException(n.toString());
+                            }
+                        }
+                ).parseAndRenderToString(
+                        "${Parameter111}${Parameter222}",
+                        LineEnding.NL
+                )
+        );
+
+        this.checkEquals(
+                "Cycle detected \"Parameter111\" -> \"Parameter111\"",
+                thrown.getMessage()
+        );
+    }
+
     // TemplateContext..................................................................................................
 
     @Override
     public BasicTemplateContext createContext() {
+        return this.createContext(
+                NAME_TO_TEMPLATE
+        );
+    }
+
+    private BasicTemplateContext createContext(final Function<TemplateValueName, Template> nameToTemplate) {
         return BasicTemplateContext.with(
                 EXPRESSION_PARSER,
-                NAME_TO_STRING,
+                nameToTemplate,
+                LINE_ENDING,
                 EXPRESSION_EVALUATION_CONTEXT
         );
     }

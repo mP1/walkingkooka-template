@@ -19,6 +19,7 @@ package walkingkooka.template;
 
 import walkingkooka.NeverError;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorLineInfo;
 import walkingkooka.tree.expression.Expression;
@@ -35,20 +36,24 @@ import java.util.function.Function;
 final class BasicTemplateContext implements TemplateContext {
 
     static BasicTemplateContext with(final Function<TextCursor, Template> expressionParser,
-                                     final Function<TemplateValueName, String> nameToValue,
+                                     final Function<TemplateValueName, Template> nameToTemplate,
+                                     final LineEnding lineEnding,
                                      final ExpressionEvaluationContext expressionEvaluationContext) {
         return new BasicTemplateContext(
                 Objects.requireNonNull(expressionParser, "expressionParser"),
-                Objects.requireNonNull(nameToValue, "nameToValue"),
+                Objects.requireNonNull(nameToTemplate, "nameToTemplate"),
+                Objects.requireNonNull(lineEnding, "lineEnding"),
                 Objects.requireNonNull(expressionEvaluationContext, "expressionEvaluationContext")
         );
     }
 
     private BasicTemplateContext(final Function<TextCursor, Template> expressionParser,
-                                 final Function<TemplateValueName, String> nameToValue,
+                                 final Function<TemplateValueName, Template> nameToTemplate,
+                                 final LineEnding lineEnding,
                                  final ExpressionEvaluationContext expressionEvaluationContext) {
         this.expressionParser = expressionParser;
-        this.nameToValue = nameToValue;
+        this.nameToTemplate = nameToTemplate;
+        this.lineEnding = lineEnding;
         this.expressionEvaluationContext = expressionEvaluationContext;
     }
 
@@ -174,22 +179,23 @@ final class BasicTemplateContext implements TemplateContext {
 
     @Override
     public String evaluate(final Expression expression) {
-        final ExpressionEvaluationContext context = this.expressionEvaluationContext;
-
-        return context.convertOrFail(
-                context.evaluate(expression),
-                String.class
-        );
+        return BasicTemplateContextCycleTemplateContext.with(this)
+                .evaluate(expression);
     }
 
-    private final ExpressionEvaluationContext expressionEvaluationContext;
+    // see BasicTemplateContextCycleTemplateContext
+    final ExpressionEvaluationContext expressionEvaluationContext;
 
     @Override
     public String templateValue(final TemplateValueName name) {
-        return this.nameToValue.apply(name);
+        return BasicTemplateContextCycleTemplateContext.with(this)
+                .templateValue(name);
     }
 
-    private final Function<TemplateValueName, String> nameToValue;
+    // @see BasicTemplateContextCycleTemplateContext
+    final Function<TemplateValueName, Template> nameToTemplate;
+
+    final LineEnding lineEnding;
 
     @Override
     public String toString() {

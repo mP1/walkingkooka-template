@@ -24,11 +24,14 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
+import walkingkooka.tree.expression.ExpressionReference;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -36,7 +39,9 @@ import java.util.Optional;
 /**
  * The name of an template variable value. Names must start with a letter, followed by letters/digits/dash and are case-sensitive.
  */
-final public class TemplateValueName implements Name, Comparable<TemplateValueName> {
+final public class TemplateValueName implements Name,
+        Comparable<TemplateValueName>,
+        ExpressionReference {
 
     /**
      * Names must start with a letter.
@@ -114,6 +119,10 @@ final public class TemplateValueName implements Name, Comparable<TemplateValueNa
 
     private final String name;
 
+    CharSequence nameInQuotes() {
+        return CharSequences.quoteAndEscape(this.name);
+    }
+
     // Comparable........................................................................................................
 
     @Override
@@ -151,4 +160,16 @@ final public class TemplateValueName implements Name, Comparable<TemplateValueNa
     }
 
     public final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
+
+    // ExpressionReference..............................................................................................
+
+    @Override
+    public boolean testParameterName(final ExpressionFunctionParameterName parameterName) {
+        Objects.requireNonNull(parameterName, "parameterName");
+
+        return CASE_SENSITIVITY.equals(
+                this.value(),
+                parameterName.value()
+        );
+    }
 }
