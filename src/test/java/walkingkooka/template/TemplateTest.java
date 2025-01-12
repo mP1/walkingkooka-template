@@ -31,7 +31,7 @@ public final class TemplateTest implements TemplateTesting, ClassTesting<Templat
 
     @Test
     public void testRenderToString() {
-        final TemplateContext context = TemplateContexts.expressionTemplateValueName(
+        final TemplateContext context = TemplateContexts.basic(
                 t -> Templates.templateValueName(
                         TemplateValueName.parse(t)
                                 .orElseThrow(() -> new IllegalArgumentException("Missing name"))

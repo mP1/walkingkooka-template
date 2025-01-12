@@ -32,10 +32,10 @@ public final class TemplateContexts implements PublicStaticHelper {
     /**
      * {@see BasicTemplateContext}
      */
-    public static TemplateContext expressionTemplateValueName(final Function<TextCursor, Template> expressionParser,
-                                                              final Function<TemplateValueName, Template> nameToTemplate,
-                                                              final LineEnding lineEnding,
-                                                              final ExpressionEvaluationContext expressionEvaluationContext) {
+    public static TemplateContext basic(final Function<TextCursor, Template> expressionParser,
+                                        final Function<TemplateValueName, Template> nameToTemplate,
+                                        final LineEnding lineEnding,
+                                        final ExpressionEvaluationContext expressionEvaluationContext) {
         return BasicTemplateContext.with(
                 expressionParser,
                 nameToTemplate,
