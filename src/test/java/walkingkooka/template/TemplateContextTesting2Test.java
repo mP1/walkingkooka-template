@@ -164,7 +164,7 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                                                 ),
                                                 expressionNumberKind
                                         )
-                                ).evaluate(expression)
+                                ).evaluateExpression(expression)
                                 .toString();
                     }
                 },

@@ -59,7 +59,7 @@ final class BasicTemplateContextCycleTemplateContext implements TemplateContext 
 
         return context.convertOrFail(
                 context.context(this::scopedExpressionReference)
-                        .evaluate(expression),
+                        .evaluateExpression(expression),
                 String.class
         );
     }
