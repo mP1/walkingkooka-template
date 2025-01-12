@@ -58,7 +58,7 @@ final class BasicTemplateContextCycleTemplateContext implements TemplateContext 
         final ExpressionEvaluationContext context = this.context.expressionEvaluationContext;
 
         return context.convertOrFail(
-                context.context(this::scopedExpressionReference)
+                context.enterScope(this::scopedExpressionReference)
                         .evaluateExpression(expression),
                 String.class
         );
