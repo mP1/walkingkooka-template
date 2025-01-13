@@ -69,6 +69,17 @@ public interface TemplateContext extends Context {
     }
 
     /**
+     * A default parse method that handles backslash escaping, and calls {@link #expression(TextCursor) to handle
+     * parsing expressions into a {@link Template}.
+     */
+    default Template parseTextCursor(final TextCursor text) {
+        return TemplateContextParseTextCursor.parse(
+                text,
+                this
+        );
+    }
+
+    /**
      * Consumes the {@link TextCursor} which contains a template.
      */
     Template parse(final TextCursor text);
