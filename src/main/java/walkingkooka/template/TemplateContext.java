@@ -69,6 +69,16 @@ public interface TemplateContext extends Context {
     }
 
     /**
+     * Token used to mark the beginning of an expression by {@link #parseTextCursor(TextCursor)}.
+     */
+    String EXPRESSION_OPEN = "${";
+
+    /**
+     * The expression closing token used by {@link #parseTextCursor(TextCursor)}.
+     */
+    String EXPRESSION_CLOSE = "}";
+
+    /**
      * A default parse method that handles backslash escaping, and calls {@link #expression(TextCursor) to handle
      * parsing expressions into a {@link Template}.
      */
