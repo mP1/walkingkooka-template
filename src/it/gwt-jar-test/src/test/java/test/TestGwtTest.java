@@ -61,8 +61,8 @@ public class TestGwtTest extends GWTTestCase {
     public void testParseAndRender() {
         final ExpressionNumberKind expressionNumberKind = ExpressionNumberKind.BIG_DECIMAL;
 
-        final TemplateContext context = TemplateContexts.expressionTemplateValueName(
-                (final TextCursor t) -> Templates.basic(
+        final TemplateContext context = TemplateContexts.basic(
+                (final TextCursor t) -> Templates.templateValueName(
                         TemplateValueName.parse(t)
                                 .orElseThrow(() -> new EmptyTextException("template value name"))
                 ),
