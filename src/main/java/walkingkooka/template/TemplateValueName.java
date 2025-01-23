@@ -72,7 +72,7 @@ final public class TemplateValueName implements Name,
                 .map(t -> TemplateValueName.with(t.text()));
     }
 
-    private final static Parser<ParserContext> PARSER = Parsers.stringInitialAndPartCharPredicate(
+    private final static Parser<ParserContext> PARSER = Parsers.initialAndPartCharPredicateString(
             TemplateValueName.INITIAL,
             TemplateValueName.PART,
             1,
