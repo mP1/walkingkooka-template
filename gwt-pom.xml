@@ -116,7 +116,7 @@
 
         <dependency>
             <groupId>walkingkooka</groupId>
-            <artifactId>walkingkooka-tree-gwt</artifactId>
+            <artifactId>walkingkooka-tree-json-gwt</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

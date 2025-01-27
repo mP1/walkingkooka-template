@@ -27,6 +27,9 @@ import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.printer.TreePrintableTesting;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.Optional;
 
@@ -34,6 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class TemplateValueNameTest implements NameTesting2<TemplateValueName, TemplateValueName>,
         ComparableTesting2<TemplateValueName>,
+        JsonNodeMarshallingTesting<TemplateValueName>,
         TreePrintableTesting {
 
     // parse............................................................................................................
@@ -239,6 +243,32 @@ final public class TemplateValueNameTest implements NameTesting2<TemplateValueNa
                 name,
                 name.text()
         );
+    }
+
+    // json.............................................................................................................
+
+    private final static String NAME = "template-value-name-123";
+
+    @Test
+    public void testMarshall() {
+        this.marshallAndCheck(
+                this.createJsonNodeMarshallingValue(),
+                JsonNode.string(NAME)
+        );
+    }
+
+    @Override
+    public TemplateValueName unmarshall(final JsonNode jsonNode,
+                                        final JsonNodeUnmarshallContext context) {
+        return TemplateValueName.unmarshall(
+                jsonNode,
+                context
+        );
+    }
+
+    @Override
+    public TemplateValueName createJsonNodeMarshallingValue() {
+        return TemplateValueName.with(NAME);
     }
 
     // ClassTesting.....................................................................................................
