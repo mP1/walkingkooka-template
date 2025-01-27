@@ -32,6 +32,10 @@ import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.JsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -170,6 +174,31 @@ final public class TemplateValueName implements Name,
         return CASE_SENSITIVITY.equals(
                 this.value(),
                 parameterName.value()
+        );
+    }
+
+    // json.............................................................................................................
+
+    final JsonNode marshall(final JsonNodeMarshallContext context) {
+        return context.marshall(this.name);
+    }
+
+    static TemplateValueName unmarshall(final JsonNode node,
+                                        final JsonNodeUnmarshallContext context) {
+        return with(
+                context.unmarshall(
+                        node,
+                        String.class
+                )
+        );
+    }
+
+    static {
+        JsonNodeContext.register(
+                JsonNodeContext.computeTypeName(TemplateValueName.class),
+                TemplateValueName::unmarshall,
+                TemplateValueName::marshall,
+                TemplateValueName.class
         );
     }
 }
