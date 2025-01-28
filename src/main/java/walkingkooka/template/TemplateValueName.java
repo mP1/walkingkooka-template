@@ -76,7 +76,10 @@ final public class TemplateValueName implements Name,
                 .map(t -> TemplateValueName.with(t.text()));
     }
 
-    private final static Parser<ParserContext> PARSER = Parsers.initialAndPartCharPredicateString(
+    /**
+     * A {@link Parser} that returns a {@link TemplateValueName} when successful.
+     */
+    public final static Parser<ParserContext> PARSER = Parsers.initialAndPartCharPredicateString(
             TemplateValueName.INITIAL,
             TemplateValueName.PART,
             1,
