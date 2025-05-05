@@ -171,7 +171,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
         );
 
         this.checkEquals(
-                "Invalid character '$' at 5 in \"Hello$123\"",
+                "Invalid character '$' at 5",
                 thrown.getMessage()
         );
     }
