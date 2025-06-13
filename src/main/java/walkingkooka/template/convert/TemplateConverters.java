@@ -17,12 +17,22 @@
 
 package walkingkooka.template.convert;
 
+import walkingkooka.convert.Converter;
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.reflect.PublicStaticHelper;
 
 /**
  * Converters for templates.
  */
 public final class TemplateConverters implements PublicStaticHelper {
+
+    /**
+     * {@see StringToTemplateValueNameConverter}
+     */
+    public static <C extends ConverterContext> Converter<C> textToTemplateValueName() {
+        return StringToTemplateValueNameConverter.instance();
+    }
+
 
     /**
      * Stop creation
