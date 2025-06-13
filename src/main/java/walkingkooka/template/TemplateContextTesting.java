@@ -25,10 +25,12 @@ import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
+import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.expression.Expression;
 
 public interface TemplateContextTesting<C extends TemplateContext> extends ContextTesting<C>,
-        ParseStringTesting<Template> {
+        ParseStringTesting<Template>,
+        TreePrintableTesting {
 
     // parse............................................................................................................
 
