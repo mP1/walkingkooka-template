@@ -113,11 +113,11 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
 
                     @Override
                     public Template parse(final TextCursor text) {
-                        return this.expression(text);
+                        return this.parseTemplateExpression(text);
                     }
 
                     @Override
-                    public Template expression(final TextCursor text) {
+                    public Template parseTemplateExpression(final TextCursor text) {
                         Objects.requireNonNull(text, "text");
 
                         text.end();
@@ -268,10 +268,10 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
         );
     }
 
-    // expression.......................................................................................................
+    // parseTemplateExpression..........................................................................................
 
     @Test
-    public void testExpressionExpressionTemplate() {
+    public void testParseTemplateExpressionWithTemplate() {
         final Template template = Templates.expression(
                 Expression.add(
                         Expression.value(12),
@@ -279,11 +279,11 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                 )
         );
 
-        this.expressionAndCheck(
+        this.parseTemplateExpressionAndCheck(
                 new FakeTemplateContext() {
 
                     @Override
-                    public Template expression(final TextCursor text) {
+                    public Template parseTemplateExpression(final TextCursor text) {
                         Objects.requireNonNull(text, "text");
 
                         Parsers.character(
@@ -300,14 +300,14 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
     }
 
     @Test
-    public void testExpressionStringTemplate() {
+    public void testParseTemplateExpressionWithStringTemplate() {
         final Template template = Templates.string("Hello");
 
-        this.expressionAndCheck(
+        this.parseTemplateExpressionAndCheck(
                 new TestTemplateContext() {
 
                     @Override
-                    public Template expression(final TextCursor text) {
+                    public Template parseTemplateExpression(final TextCursor text) {
                         return template;
                     }
                 },
@@ -317,14 +317,14 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
     }
 
     @Test
-    public void testExpressionFails() {
+    public void testParseTemplateExpressionFails() {
         assertThrows(
                 AssertionError.class,
-                () -> this.expressionAndCheck(
+                () -> this.parseTemplateExpressionAndCheck(
                         new TestTemplateContext() {
 
                             @Override
-                            public Template expression(final TextCursor text) {
+                            public Template parseTemplateExpression(final TextCursor text) {
                                 return Templates.string("Different");
                             }
                         },
@@ -365,7 +365,7 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
         }
 
         @Override
-        public Template expression(final TextCursor text) {
+        public Template parseTemplateExpression(final TextCursor text) {
             Objects.requireNonNull(text, "text");
 
             throw new UnsupportedOperationException();
@@ -373,7 +373,7 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
 
         @Override
         public String evaluate(final Expression expression) {
-            Objects.requireNonNull(expression, "expression");
+            Objects.requireNonNull(expression, "parseTemplateExpression");
 
             throw new UnsupportedOperationException();
         }

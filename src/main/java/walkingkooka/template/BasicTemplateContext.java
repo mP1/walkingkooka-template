@@ -64,7 +64,7 @@ final class BasicTemplateContext implements TemplateContext {
      * Calls the provided parser and then asserts a '}' follows.
      */
     @Override
-    public Template expression(final TextCursor text) {
+    public Template parseTemplateExpression(final TextCursor text) {
         Objects.requireNonNull(text, "text");
 
         final Template template = this.expressionParser.apply(text);

@@ -85,7 +85,7 @@ final class TemplateContextParseTextCursor implements StaticHelper {
                         case BRACE_OPEN:
                             // ${
                             templates.add(
-                                    context.expression(text)
+                                    context.parseTemplateExpression(text)
                             );
 
                             mode = MODE_TEXT;

@@ -153,20 +153,20 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
         );
     }
 
-    // expression.......................................................................................................
+    // parseTemplateExpression..........................................................................................
 
     @Test
-    default void testExpressionWithNullTextFails() {
+    default void testParseTemplateExpressionWithNullTextFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> this.createContext()
-                        .expression(null)
+                        .parseTemplateExpression(null)
         );
     }
 
-    default void expressionAndCheck(final TextCursor text,
-                                    final Template expected) {
-        this.expressionAndCheck(
+    default void parseTemplateExpressionAndCheck(final TextCursor text,
+                                                 final Template expected) {
+        this.parseTemplateExpressionAndCheck(
                 this.createContext(),
                 text,
                 expected

@@ -141,12 +141,12 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
         );
     }
 
-    default void expressionAndCheck(final TemplateContext context,
-                                    final TextCursor text,
-                                    final Template expected) {
+    default void parseTemplateExpressionAndCheck(final TemplateContext context,
+                                                 final TextCursor text,
+                                                 final Template expected) {
         this.checkEquals(
                 expected,
-                context.expression(text)
+                context.parseTemplateExpression(text)
         );
     }
 

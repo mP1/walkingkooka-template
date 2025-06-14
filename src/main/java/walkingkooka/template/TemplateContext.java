@@ -79,7 +79,7 @@ public interface TemplateContext extends Context {
     String EXPRESSION_CLOSE = "}";
 
     /**
-     * A default parse method that handles backslash escaping, and calls {@link #expression(TextCursor) to handle
+     * A default parse method that handles backslash escaping, and calls {@link #parseTemplateExpression(TextCursor) to handle
      * parsing expressions into a {@link Template}.
      */
     default Template parseTextCursor(final TextCursor text) {
@@ -97,7 +97,7 @@ public interface TemplateContext extends Context {
     /**
      * Handles consuming a template expression into a {@link Template}.
      */
-    Template expression(final TextCursor text);
+    Template parseTemplateExpression(final TextCursor text);
 
     /**
      * Evaluates the given {@link Expression} into a {@link String string value}
