@@ -67,7 +67,7 @@ final public class TemplateValueName implements Name,
     public final static int MAX_LENGTH = 255;
 
     /**
-     * Makes a best effort to try and parse a {@link TemplateValueName} advancing the {@link TextCursor}.
+     * Makes a best effort to try and parseTemplate a {@link TemplateValueName} advancing the {@link TextCursor}.
      */
     public static Optional<TemplateValueName> parse(final TextCursor text) {
         Objects.requireNonNull(text, "text");

@@ -32,12 +32,12 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
         ParseStringTesting<Template>,
         TreePrintableTesting {
 
-    // parse............................................................................................................
+    // parseTemplate....................................................................................................
 
     @Override
     default Template parseString(final String text) {
         return this.createContext()
-                .parseString(text);
+                .parseTemplateString(text);
     }
 
     @Override
@@ -50,35 +50,35 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
         return thrown;
     }
 
-    default void parseStringAndCheck(final C context,
-                                     final String text,
-                                     final Template expected) {
+    default void parseTemplateStringAndCheck(final C context,
+                                             final String text,
+                                             final Template expected) {
         this.parseStringAndCheck(
-                context::parseString,
+                context::parseTemplateString,
                 text,
                 expected
         );
     }
 
-    // parseAndRender...................................................................................................
+    // parseTemplateAndRender...........................................................................................
 
-    default void parseAndRenderAndCheck(final C context,
-                                        final String template,
-                                        final String expected) {
-        this.parseAndRenderAndCheck(
+    default void parseTemplateAndRenderAndCheck(final C context,
+                                                final String template,
+                                                final String expected) {
+        this.parseTemplateAndRenderAndCheck(
                 context,
                 TextCursors.charSequence(template),
                 expected
         );
     }
 
-    default void parseAndRenderAndCheck(final C context,
-                                        final TextCursor text,
-                                        final String expected) {
+    default void parseTemplateAndRenderAndCheck(final C context,
+                                                final TextCursor text,
+                                                final String expected) {
         final StringBuilder printed = new StringBuilder();
 
         try (final Printer printer = Printers.stringBuilder(printed, LineEnding.NL)) {
-            context.parseAndRender(
+            context.parseTemplateAndRender(
                     text,
                     printer
             );
@@ -89,22 +89,22 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
         );
     }
 
-    default void parseAndCheck(final TemplateContext context,
-                               final String text,
-                               final Template expected) {
-        this.parseAndCheck(
+    default void parseTemplateAndCheck(final TemplateContext context,
+                                       final String text,
+                                       final Template expected) {
+        this.parseTemplateAndCheck(
                 context,
                 TextCursors.charSequence(text),
                 expected
         );
     }
 
-    default void parseAndCheck(final TemplateContext context,
-                               final TextCursor text,
-                               final Template expected) {
+    default void parseTemplateAndCheck(final TemplateContext context,
+                                       final TextCursor text,
+                                       final Template expected) {
         this.checkEquals(
                 expected,
-                context.parse(text)
+                context.parseTemplate(text)
         );
 
         this.checkEquals(
@@ -114,19 +114,19 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
         );
     }
 
-    // parseAndRenderToStringAndCheck ..................................................................................
+    // parseTemplateAndRenderToStringAndCheck ..........................................................................
 
-    default void parseAndRenderToStringAndCheck(final TemplateContext context,
-                                                final String text,
-                                                final LineEnding lineEnding,
-                                                final String expected) {
+    default void parseTemplateAndRenderToStringAndCheck(final TemplateContext context,
+                                                        final String text,
+                                                        final LineEnding lineEnding,
+                                                        final String expected) {
         this.checkEquals(
                 expected,
-                context.parseAndRenderToString(
+                context.parseTemplateAndRenderToString(
                         text,
                         lineEnding
                 ),
-                () -> "parseAndRenderToString " + CharSequences.quoteAndEscape(text)
+                () -> "parseTemplateAndRenderToString " + CharSequences.quoteAndEscape(text)
         );
     }
 

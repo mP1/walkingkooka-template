@@ -44,18 +44,18 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TemplateContextTesting2Test implements TemplateContextTesting2<TestTemplateContext> {
 
-    // parseString......................................................................................................
+    // parseTemplateString..............................................................................................
 
     @Test
-    public void testParseString() {
+    public void testParseTemplateString() {
         final String text = "Hello";
         final Template template = Templates.string(text);
 
-        this.parseStringAndCheck(
+        this.parseTemplateStringAndCheck(
                 new TestTemplateContext() {
 
                     @Override
-                    public Template parse(final TextCursor text) {
+                    public Template parseTemplate(final TextCursor text) {
                         return template;
                     }
                 },
@@ -64,18 +64,18 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
         );
     }
 
-    // parseAndRender...................................................................................................
+    // parseTemplateAndRender...........................................................................................
 
     @Test
-    public void testParseAndRenderString() {
+    public void testParseTemplateAndRenderString() {
         final String text = "Hello";
         final Template template = Templates.string(text);
 
-        this.parseAndRenderAndCheck(
+        this.parseTemplateAndRenderAndCheck(
                 new TestTemplateContext() {
 
                     @Override
-                    public Template parse(final TextCursor text) {
+                    public Template parseTemplate(final TextCursor text) {
                         return template;
                     }
                 },
@@ -85,15 +85,15 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
     }
 
     @Test
-    public void testParseAndRenderTextCursor() {
+    public void testParseTemplateAndRenderTextCursor() {
         final String text = "Hello";
         final Template template = Templates.string(text);
 
-        this.parseAndRenderAndCheck(
+        this.parseTemplateAndRenderAndCheck(
                 new TestTemplateContext() {
 
                     @Override
-                    public Template parse(final TextCursor text) {
+                    public Template parseTemplate(final TextCursor text) {
                         return template;
                     }
                 },
@@ -103,16 +103,16 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
     }
 
     @Test
-    public void testParseAndRenderExpression() {
+    public void testParseTemplateAndRenderExpression() {
         final String text = "${12+34}";
 
         final ExpressionNumberKind expressionNumberKind = ExpressionNumberKind.BIG_DECIMAL;
 
-        this.parseAndRenderAndCheck(
+        this.parseTemplateAndRenderAndCheck(
                 new TestTemplateContext() {
 
                     @Override
-                    public Template parse(final TextCursor text) {
+                    public Template parseTemplate(final TextCursor text) {
                         return this.parseTemplateExpression(text);
                     }
 
@@ -173,17 +173,17 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
         );
     }
 
-    // parseAndRenderToString...........................................................................................
+    // parseTemplateAndRenderToString...................................................................................
 
     @Test
-    public void testParseAndRenderToStringNoParameters() {
+    public void testParseTemplateAndRenderToStringNoParameters() {
         final String text = "Hello";
 
-        this.parseAndRenderToStringAndCheck(
+        this.parseTemplateAndRenderToStringAndCheck(
                 new TestTemplateContext() {
 
                     @Override
-                    public Template parse(final TextCursor t) {
+                    public Template parseTemplate(final TextCursor t) {
                         t.end();
                         return Templates.string(text);
                     }
@@ -194,17 +194,17 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
         );
     }
 
-    // parse............................................................................................................
+    // parseTemplate....................................................................................................
 
     @Test
-    public void testParseStringTemplate() {
+    public void testParseTemplateStringWithTemplate() {
         final Template template = Templates.string("Hello");
 
-        this.parseAndCheck(
+        this.parseTemplateAndCheck(
                 new TestTemplateContext() {
 
                     @Override
-                    public Template parse(final TextCursor text) {
+                    public Template parseTemplate(final TextCursor text) {
                         text.end();
                         return template;
                     }
@@ -215,14 +215,14 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
     }
 
     @Test
-    public void testParse() {
+    public void testParseTemplate() {
         final Template template = Templates.string("Hello");
 
-        this.parseAndCheck(
+        this.parseTemplateAndCheck(
                 new TestTemplateContext() {
 
                     @Override
-                    public Template parse(final TextCursor text) {
+                    public Template parseTemplate(final TextCursor text) {
                         text.end();
                         return template;
                     }
@@ -233,14 +233,14 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
     }
 
     @Test
-    public void testParseCursorNotEmpty() {
+    public void testParseTemplateCursorNotEmpty() {
         assertThrows(
                 AssertionError.class,
-                () -> this.parseAndCheck(
+                () -> this.parseTemplateAndCheck(
                         new TestTemplateContext() {
 
                             @Override
-                            public Template parse(final TextCursor text) {
+                            public Template parseTemplate(final TextCursor text) {
                                 return Templates.string("Different");
                             }
                         },
@@ -251,14 +251,14 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
     }
 
     @Test
-    public void testParseFails() {
+    public void testParseTemplateFails() {
         assertThrows(
                 AssertionError.class,
-                () -> this.parseAndCheck(
+                () -> this.parseTemplateAndCheck(
                         new TestTemplateContext() {
 
                             @Override
-                            public Template parse(final TextCursor text) {
+                            public Template parseTemplate(final TextCursor text) {
                                 return Templates.string("Different");
                             }
                         },
@@ -359,7 +359,7 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
     static class TestTemplateContext implements TemplateContext {
 
         @Override
-        public Template parse(final TextCursor text) {
+        public Template parseTemplate(final TextCursor text) {
             Objects.requireNonNull(text, "text");
             throw new UnsupportedOperationException();
         }

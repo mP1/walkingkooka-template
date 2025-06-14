@@ -28,21 +28,21 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface TemplateContextTesting2<C extends TemplateContext> extends TemplateContextTesting<C> {
 
-    // parseString......................................................................................................
+    // parseTemplateString..............................................................................................
 
     @Override
     default void testParseStringEmptyFails() {
         throw new UnsupportedOperationException();
     }
 
-    // parseAndRender...................................................................................................
+    // parseTemplateAndRender...........................................................................................
 
     @Test
-    default void testParseAndRenderWithNullTextFails() {
+    default void testParseTemplateAndRenderWithNullTextFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> this.createContext()
-                        .parseAndRender(
+                        .parseTemplateAndRender(
                                 null,
                                 Printers.fake()
                         )
@@ -50,43 +50,43 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
     }
 
     @Test
-    default void testParseAndRenderWithNullPrinterFails() {
+    default void testParseTemplateAndRenderWithNullPrinterFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> this.createContext()
-                        .parseAndRender(
+                        .parseTemplateAndRender(
                                 TextCursors.fake(),
                                 null
                         )
         );
     }
 
-    default void parseAndRenderAndCheck(final String text,
-                                        final String expected) {
-        this.parseAndRenderAndCheck(
+    default void parseTemplateAndRenderAndCheck(final String text,
+                                                final String expected) {
+        this.parseTemplateAndRenderAndCheck(
                 TextCursors.charSequence(text),
                 expected
         );
     }
 
 
-    default void parseAndRenderAndCheck(final TextCursor text,
-                                        final String expected) {
-        this.parseAndRenderAndCheck(
+    default void parseTemplateAndRenderAndCheck(final TextCursor text,
+                                                final String expected) {
+        this.parseTemplateAndRenderAndCheck(
                 this.createContext(),
                 text,
                 expected
         );
     }
 
-    // parseAndRenderToString...........................................................................................
+    // parseTemplateAndRenderToString...................................................................................
 
     @Test
-    default void testParseAndRenderToStringWithNullTextFails() {
+    default void testParseTemplateAndRenderToStringWithNullTextFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> this.createContext()
-                        .parseAndRenderToString(
+                        .parseTemplateAndRenderToString(
                                 null,
                                 LineEnding.NL
                         )
@@ -94,30 +94,30 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
     }
 
     @Test
-    default void testParseAndRenderToStringWithNullLineEndingFails() {
+    default void testParseTemplateAndRenderToStringWithNullLineEndingFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> this.createContext()
-                        .parseAndRenderToString(
+                        .parseTemplateAndRenderToString(
                                 "",
                                 null
                         )
         );
     }
 
-    default void parseAndRenderToStringAndCheck(final String text,
-                                                final String expected) {
-        this.parseAndRenderAndCheck(
+    default void parseTemplateAndRenderToStringAndCheck(final String text,
+                                                        final String expected) {
+        this.parseTemplateAndRenderAndCheck(
                 TextCursors.charSequence(text),
                 expected
         );
     }
 
 
-    default void parseAndRenderToStringAndCheck(final String text,
-                                                final LineEnding lineEnding,
-                                                final String expected) {
-        this.parseAndRenderToStringAndCheck(
+    default void parseTemplateAndRenderToStringAndCheck(final String text,
+                                                        final LineEnding lineEnding,
+                                                        final String expected) {
+        this.parseTemplateAndRenderToStringAndCheck(
                 this.createContext(),
                 text,
                 lineEnding,
@@ -125,28 +125,28 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
         );
     }
 
-    // parse............................................................................................................
+    // parseTemplate....................................................................................................
 
     @Test
-    default void testParseWithNullTextFails() {
+    default void testParseTemplateWithNullTextFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> this.createContext()
-                        .parse(null)
+                        .parseTemplate(null)
         );
     }
 
-    default void parseAndCheck(final String text,
-                               final Template expected) {
-        this.parseAndCheck(
+    default void parseTemplateAndCheck(final String text,
+                                       final Template expected) {
+        this.parseTemplateAndCheck(
                 TextCursors.charSequence(text),
                 expected
         );
     }
 
-    default void parseAndCheck(final TextCursor text,
-                               final Template expected) {
-        this.parseAndCheck(
+    default void parseTemplateAndCheck(final TextCursor text,
+                                       final Template expected) {
+        this.parseTemplateAndCheck(
                 this.createContext(),
                 text,
                 expected

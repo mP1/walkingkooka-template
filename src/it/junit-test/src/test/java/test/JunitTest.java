@@ -104,7 +104,7 @@ public class JunitTest {
 
         final StringBuilder b = new StringBuilder();
 
-        context.parseAndRender(
+        context.parseTemplateAndRender(
                 TextCursors.charSequence("Hello ${abc} 123"),
                 Printers.stringBuilder(
                         b,

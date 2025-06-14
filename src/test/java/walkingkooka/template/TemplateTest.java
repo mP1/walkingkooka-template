@@ -46,7 +46,7 @@ public final class TemplateTest implements TemplateTesting, ClassTesting<Templat
 
         this.checkEquals(
                 "Hello 111 999",
-                context.parse(TextCursors.charSequence("Hello ${abc} 999"))
+                context.parseTemplate(TextCursors.charSequence("Hello ${abc} 999"))
                         .renderToString(
                                 LineEnding.NL,
                                 context

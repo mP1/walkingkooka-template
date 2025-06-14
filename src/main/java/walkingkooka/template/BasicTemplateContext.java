@@ -54,8 +54,8 @@ final class BasicTemplateContext implements TemplateContext {
     }
 
     @Override
-    public Template parse(final TextCursor text) {
-        return this.parseTextCursor(
+    public Template parseTemplate(final TextCursor text) {
+        return this.parseTemplateWithBackslashEscaping(
                 text
         );
     }

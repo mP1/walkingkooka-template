@@ -27,7 +27,7 @@ public class FakeTemplateContext implements TemplateContext {
     }
 
     @Override
-    public Template parse(final TextCursor text) {
+    public Template parseTemplate(final TextCursor text) {
         throw new UnsupportedOperationException();
     }
 
