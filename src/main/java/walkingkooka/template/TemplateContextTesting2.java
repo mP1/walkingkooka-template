@@ -175,6 +175,15 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
 
     // evaluateAsString.................................................................................................
 
+    @Test
+    default void testEvaluateAsStringWithNullExpressionFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createContext()
+                        .evaluateAsString(null)
+        );
+    }
+
     default void evaluateAsStringAndCheck(final Expression expression,
                                           final String expected) {
         this.checkEquals(
