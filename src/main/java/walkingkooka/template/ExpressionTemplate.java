@@ -44,7 +44,7 @@ final class ExpressionTemplate implements Template {
         Objects.requireNonNull(context, "context");
 
         printer.print(
-                context.evaluate(this.expression)
+                context.evaluateAsString(this.expression)
         );
     }
 

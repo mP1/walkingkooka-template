@@ -90,9 +90,9 @@ final class BasicTemplateContext implements TemplateContext {
     private final Function<TextCursor, Template> expressionParser;
 
     @Override
-    public String evaluate(final Expression expression) {
+    public String evaluateAsString(final Expression expression) {
         return BasicTemplateContextCycleTemplateContext.with(this)
-                .evaluate(expression);
+                .evaluateAsString(expression);
     }
 
     // see BasicTemplateContextCycleTemplateContext

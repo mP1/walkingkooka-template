@@ -173,14 +173,14 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
         );
     }
 
-    // evaluate.........................................................................................................
+    // evaluateAsString.................................................................................................
 
-    default void evaluateAndCheck(final Expression expression,
-                                  final String expected) {
+    default void evaluateAsStringAndCheck(final Expression expression,
+                                          final String expected) {
         this.checkEquals(
                 expected,
                 this.createContext()
-                        .evaluate(expression)
+                        .evaluateAsString(expression)
         );
     }
 

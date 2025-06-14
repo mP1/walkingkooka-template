@@ -130,14 +130,14 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
         );
     }
 
-    // evaluateAndCheck.................................................................................................
+    // evaluateAsString.................................................................................................
 
-    default void evaluateAndCheck(final TemplateContext context,
-                                  final Expression expression,
-                                  final String expected) {
+    default void evaluateAsStringAndCheck(final TemplateContext context,
+                                          final Expression expression,
+                                          final String expected) {
         this.checkEquals(
                 expected,
-                context.evaluate(expression)
+                context.evaluateAsString(expression)
         );
     }
 

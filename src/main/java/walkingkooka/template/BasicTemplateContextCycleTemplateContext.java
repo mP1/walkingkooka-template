@@ -54,7 +54,7 @@ final class BasicTemplateContextCycleTemplateContext implements TemplateContext 
     }
 
     @Override
-    public String evaluate(final Expression expression) {
+    public String evaluateAsString(final Expression expression) {
         final ExpressionEvaluationContext context = this.context.expressionEvaluationContext;
 
         return context.convertOrFail(

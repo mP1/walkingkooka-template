@@ -37,7 +37,7 @@ public class FakeTemplateContext implements TemplateContext {
     }
 
     @Override
-    public String evaluate(final Expression expression) {
+    public String evaluateAsString(final Expression expression) {
         throw new UnsupportedOperationException();
     }
 
