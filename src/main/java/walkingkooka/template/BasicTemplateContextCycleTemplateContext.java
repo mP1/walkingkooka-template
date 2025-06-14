@@ -49,8 +49,8 @@ final class BasicTemplateContextCycleTemplateContext implements TemplateContext 
     }
 
     @Override
-    public Template expression(final TextCursor text) {
-        return this.context.expression(text);
+    public Template parseTemplateExpression(final TextCursor text) {
+        return this.context.parseTemplateExpression(text);
     }
 
     @Override
