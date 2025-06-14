@@ -44,8 +44,8 @@ final class BasicTemplateContextCycleTemplateContext implements TemplateContext 
     }
 
     @Override
-    public Template parse(final TextCursor text) {
-        return this.context.parse(text);
+    public Template parseTemplate(final TextCursor text) {
+        return this.context.parseTemplate(text);
     }
 
     @Override

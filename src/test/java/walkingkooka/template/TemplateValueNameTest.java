@@ -40,7 +40,7 @@ final public class TemplateValueNameTest implements NameTesting2<TemplateValueNa
         JsonNodeMarshallingTesting<TemplateValueName>,
         TreePrintableTesting {
 
-    // parse............................................................................................................
+    // parseTemplate............................................................................................................
 
     @Test
     public void testParseWithNullTextCursorFails() {

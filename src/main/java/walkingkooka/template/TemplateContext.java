@@ -34,12 +34,12 @@ public interface TemplateContext extends Context {
     /**
      * Combines parsing of the template followed by rendering.
      */
-    default void parseAndRender(final TextCursor text,
-                                final Printer printer) {
+    default void parseTemplateAndRender(final TextCursor text,
+                                        final Printer printer) {
         Objects.requireNonNull(text, "text");
         Objects.requireNonNull(printer, "printer");
 
-        this.parse(text)
+        this.parseTemplate(text)
                 .render(
                         printer,
                         this
@@ -47,42 +47,42 @@ public interface TemplateContext extends Context {
     }
 
     /**
-     * Identical to {@link #parseAndRenderToString(String, LineEnding)} but returns a {@link String} with the
+     * Identical to {@link #parseTemplateAndRenderToString(String, LineEnding)} but returns a {@link String} with the
      * rendered result without requiring a {@link Printer} parameter.
      */
-    default String parseAndRenderToString(final String text,
-                                          final LineEnding lineEnding) {
+    default String parseTemplateAndRenderToString(final String text,
+                                                  final LineEnding lineEnding) {
         Objects.requireNonNull(text, "text");
         Objects.requireNonNull(lineEnding, "lineEnding");
 
-        return this.parseString(text)
+        return this.parseTemplateString(text)
                 .renderToString(
                         lineEnding,
                         this
                 );
     }
 
-    default Template parseString(final String text) {
-        return this.parse(
+    default Template parseTemplateString(final String text) {
+        return this.parseTemplate(
                 TextCursors.charSequence(text)
         );
     }
 
     /**
-     * Token used to mark the beginning of an expression by {@link #parseTextCursor(TextCursor)}.
+     * Token used to mark the beginning of an expression.
      */
     String EXPRESSION_OPEN = "${";
 
     /**
-     * The expression closing token used by {@link #parseTextCursor(TextCursor)}.
+     * The expression closing token.
      */
     String EXPRESSION_CLOSE = "}";
 
     /**
-     * A default parse method that handles backslash escaping, and calls {@link #parseTemplateExpression(TextCursor) to handle
+     * A default parseTemplate method that handles backslash escaping, and calls {@link #parseTemplateExpression(TextCursor) to handle
      * parsing expressions into a {@link Template}.
      */
-    default Template parseTextCursor(final TextCursor text) {
+    default Template parseTemplateWithBackslashEscaping(final TextCursor text) {
         return TemplateContextParseTextCursor.parse(
                 text,
                 this
@@ -92,7 +92,7 @@ public interface TemplateContext extends Context {
     /**
      * Consumes the {@link TextCursor} which contains a template.
      */
-    Template parse(final TextCursor text);
+    Template parseTemplate(final TextCursor text);
 
     /**
      * Handles consuming a template expression into a {@link Template}.

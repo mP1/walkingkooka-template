@@ -144,30 +144,30 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
         );
     }
 
-    // parse............................................................................................................
+    // parseTemplate............................................................................................................
 
     @Test
-    public void testParseAndRenderOnlyText() {
-        this.parseAndRenderAndCheck(
+    public void testParseTemplateAndRenderOnlyText() {
+        this.parseTemplateAndRenderAndCheck(
                 "Hello",
                 "Hello"
         );
     }
 
     @Test
-    public void testParseAndRenderOnlyTextIncludesBackslashEscaping() {
-        this.parseAndRenderAndCheck(
+    public void testParseTemplateAndRenderOnlyTextIncludesBackslashEscaping() {
+        this.parseTemplateAndRenderAndCheck(
                 "Hello\\\\123",
                 "Hello\\123"
         );
     }
 
     @Test
-    public void testParseTextDollarSignTextFails() {
+    public void testParseTemplateDollarSignTextFails() {
         final IllegalArgumentException thrown = assertThrows(
                 IllegalArgumentException.class,
                 () -> this.createContext()
-                        .parse(TextCursors.charSequence("Hello$123"))
+                        .parseTemplate(TextCursors.charSequence("Hello$123"))
         );
 
         this.checkEquals(
@@ -177,11 +177,11 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     }
 
     @Test
-    public void testParseTextEmptyTemplateValueName() {
+    public void testParseTemplateWithEmptyTemplateValueName() {
         final EmptyTextException thrown = assertThrows(
                 EmptyTextException.class,
                 () -> this.createContext()
-                        .parse(TextCursors.charSequence("Hello${}123"))
+                        .parseTemplate(TextCursors.charSequence("Hello${}123"))
         );
 
         this.checkEquals(
@@ -191,32 +191,32 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     }
 
     @Test
-    public void testParseAndRenderTextIncludesValue() {
-        this.parseAndRenderAndCheck(
+    public void testParseTemplateAndRenderTextIncludesValue() {
+        this.parseTemplateAndRenderAndCheck(
                 "Hello${abc}123",
                 "Hello<<ABC>>123"
         );
     }
 
     @Test
-    public void testParseAndRenderTextIncludesValue2() {
-        this.parseAndRenderAndCheck(
+    public void testParseTemplateAndRenderTextIncludesValue2() {
+        this.parseTemplateAndRenderAndCheck(
                 "Hello${abc}${def}123",
                 "Hello<<ABC>><<DEF>>123"
         );
     }
 
     @Test
-    public void testParseAndRenderTextIncludesValue3() {
-        this.parseAndRenderAndCheck(
+    public void testParseTemplateAndRenderTextIncludE() {
+        this.parseTemplateAndRenderAndCheck(
                 "Hello${abc}...${def}123",
                 "Hello<<ABC>>...<<DEF>>123"
         );
     }
 
     @Test
-    public void testParseAndRenderIncludesExpression() {
-        this.parseAndRenderAndCheck(
+    public void testParseTemplateAndRenderIncludesExpression() {
+        this.parseTemplateAndRenderAndCheck(
                 BasicTemplateContext.with(
                         (final TextCursor t) -> {
                             t.next(); // 1
@@ -242,11 +242,11 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     }
 
     @Test
-    public void testParseTextUnclosedExpressionFails() {
+    public void testParseTemplateWithUnclosedExpressionFails() {
         final IllegalArgumentException thrown = assertThrows(
                 IllegalArgumentException.class,
                 () -> this.createContext()
-                        .parse(TextCursors.charSequence("Hello${abc"))
+                        .parseTemplate(TextCursors.charSequence("Hello${abc"))
         );
 
         this.checkEquals(
@@ -256,12 +256,12 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     }
 
     @Test
-    public void testParseTextAndRenderToStringWithCycleOneDeepFails() {
+    public void testParseTemplateAndRenderToStringWithCycleOneDeepFails() {
         final IllegalStateException thrown = assertThrows(
                 IllegalStateException.class,
                 () -> this.createContext(
                         (n) -> Templates.templateValueName(TemplateValueName.with("Parameter111"))
-                ).parseAndRenderToString(
+                ).parseTemplateAndRenderToString(
                         "${Parameter111}",
                         LineEnding.NL
                 )
@@ -274,7 +274,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     }
 
     @Test
-    public void testParseTextAndRenderToStringWithCycleTwoDeepFails() {
+    public void testParseTemplateAndRenderToStringWithCycleTwoDeepFails() {
         final IllegalStateException thrown = assertThrows(
                 IllegalStateException.class,
                 () -> this.createContext(
@@ -292,7 +292,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
                                     throw new UnsupportedOperationException(n.toString());
                             }
                         }
-                ).parseAndRenderToString(
+                ).parseTemplateAndRenderToString(
                         "${Parameter111}",
                         LineEnding.NL
                 )
@@ -305,7 +305,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     }
 
     @Test
-    public void testParseTextAndRenderToStringWithCycleThreeDeepFails() {
+    public void testParseTemplateAndRenderToStringWithCycleThreeDeepFails() {
         final IllegalStateException thrown = assertThrows(
                 IllegalStateException.class,
                 () -> this.createContext(
@@ -327,7 +327,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
                                     throw new UnsupportedOperationException(n.toString());
                             }
                         }
-                ).parseAndRenderToString(
+                ).parseTemplateAndRenderToString(
                         "${Parameter111}",
                         LineEnding.NL
                 )
@@ -340,8 +340,8 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     }
 
     @Test
-    public void testParseTextAndRenderToStringWithTemplateValueNameIndirect() {
-        this.parseAndRenderToStringAndCheck(
+    public void testParseTemplateAndRenderToStringWithTemplateValueNameIndirect() {
+        this.parseTemplateAndRenderToStringAndCheck(
                 this.createContext(
                         (n) -> {
                             switch (n.value()) {
@@ -363,7 +363,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     }
 
     @Test
-    public void testParseTextAndRenderToStringWithCycleChainOfTwoFails2() {
+    public void testParseTemplateAndRenderToStringWithCycleChainOfTwoFails2() {
         final IllegalStateException thrown = assertThrows(
                 IllegalStateException.class,
                 () -> this.createContext(
@@ -383,7 +383,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
                                     throw new UnsupportedOperationException(n.toString());
                             }
                         }
-                ).parseAndRenderToString(
+                ).parseTemplateAndRenderToString(
                         "${Parameter111}${Parameter222}",
                         LineEnding.NL
                 )
@@ -396,8 +396,8 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     }
 
     @Test
-    public void testParseTextAndRenderToStringWithExpression() {
-        this.parseAndRenderToStringAndCheck(
+    public void testParseTemplateAndRenderToStringWithExpression() {
+        this.parseTemplateAndRenderToStringAndCheck(
                 this.createContext(
                         (n) -> {
                             switch (n.value()) {
@@ -417,8 +417,8 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     }
 
     @Test
-    public void testParseTextAndRenderToStringWithExpression2() {
-        this.parseAndRenderToStringAndCheck(
+    public void testParseTemplateAndRenderToStringWithExpression2() {
+        this.parseTemplateAndRenderToStringAndCheck(
                 this.createContext(
                         (n) -> {
                             switch (n.value()) {
@@ -440,8 +440,8 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     }
 
     @Test
-    public void testParseTextAndRenderToStringWithExpressionReferenceWithTemplateValueName() {
-        this.parseAndRenderToStringAndCheck(
+    public void testParseTemplateAndRenderToStringWithExpressionReferenceWithTemplateValueName() {
+        this.parseTemplateAndRenderToStringAndCheck(
                 this.createContext(
                         (n) -> {
                             switch (n.value()) {
@@ -465,8 +465,8 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     }
 
     @Test
-    public void testParseTextAndRenderToStringWithExpressionReferenceWithTemplateValueName2() {
-        this.parseAndRenderToStringAndCheck(
+    public void testParseTemplateAndRenderToStringWithExpressionReferenceWithTemplateValueName2() {
+        this.parseTemplateAndRenderToStringAndCheck(
                 this.createContext(
                         (n) -> {
                             switch (n.value()) {
@@ -490,7 +490,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     }
 
     @Test
-    public void testParseTextAndRenderToStringWithExpressionCycleOneDeepFails() {
+    public void testParseTemplateAndRenderToStringWithExpressionCycleOneDeepFails() {
         final IllegalStateException thrown = assertThrows(
                 IllegalStateException.class,
                 () -> this.createContext(
@@ -506,7 +506,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
                                     throw new UnsupportedOperationException(n.toString());
                             }
                         }
-                ).parseAndRenderToString(
+                ).parseTemplateAndRenderToString(
                         "${Parameter111}${Parameter222}",
                         LineEnding.NL
                 )
