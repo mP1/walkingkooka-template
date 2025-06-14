@@ -131,7 +131,7 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                     }
 
                     @Override
-                    public String evaluate(final Expression expression) {
+                    public String evaluateAsString(final Expression expression) {
                         return ExpressionEvaluationContexts.basic(
                                         expressionNumberKind,
                                         (n) -> {
@@ -372,7 +372,7 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
         }
 
         @Override
-        public String evaluate(final Expression expression) {
+        public String evaluateAsString(final Expression expression) {
             Objects.requireNonNull(expression, "parseTemplateExpression");
 
             throw new UnsupportedOperationException();

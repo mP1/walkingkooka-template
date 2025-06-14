@@ -102,7 +102,7 @@ public interface TemplateContext extends Context {
     /**
      * Evaluates the given {@link Expression} into a {@link String string value}
      */
-    String evaluate(final Expression expression);
+    String evaluateAsString(final Expression expression);
 
     /**
      * Resolves the given {@link TemplateValueName} into a {@link String}. When the value is not found,
