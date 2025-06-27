@@ -24,6 +24,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.template.TemplateContext;
 import walkingkooka.template.TemplateContexts;
@@ -100,7 +101,8 @@ public class TestGwtTest extends GWTTestCase {
                                         DecimalNumberContexts.american(MathContext.DECIMAL32)
                                 ),
                                 expressionNumberKind
-                        )
+                        ),
+                        LocaleContexts.fake()
                 )
         );
 
