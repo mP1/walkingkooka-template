@@ -17,6 +17,7 @@
 
 package walkingkooka.template.sample;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.EmptyTextException;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
@@ -48,6 +49,7 @@ public class Sample {
         sample.testParseAndRender();
     }
 
+    @Test
     public void testParseAndRender() {
         final ExpressionNumberKind expressionNumberKind = ExpressionNumberKind.BIG_DECIMAL;
 
