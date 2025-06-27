@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.LineEnding;
@@ -87,7 +88,8 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
                             DecimalNumberContexts.american(MathContext.DECIMAL32)
                     ),
                     EXPRESSION_NUMBER_KIND
-            )
+            ),
+            LocaleContexts.fake()
     );
 
     // with.............................................................................................................
