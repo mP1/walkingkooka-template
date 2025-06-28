@@ -27,10 +27,10 @@ import walkingkooka.reflect.PublicStaticHelper;
 public final class TemplateConverters implements PublicStaticHelper {
 
     /**
-     * {@see StringToTemplateValueNameConverter}
+     * {@see TextToTemplateValueNameConverter}
      */
     public static <C extends ConverterContext> Converter<C> textToTemplateValueName() {
-        return StringToTemplateValueNameConverter.instance();
+        return TextToTemplateValueNameConverter.instance();
     }
 
 

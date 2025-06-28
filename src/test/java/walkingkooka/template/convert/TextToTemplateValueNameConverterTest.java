@@ -27,8 +27,8 @@ import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.template.TemplateValueName;
 
-public final class StringToTemplateValueNameConverterTest implements ConverterTesting2<StringToTemplateValueNameConverter<FakeConverterContext>, FakeConverterContext>,
-        ToStringTesting<StringToTemplateValueNameConverter<FakeConverterContext>> {
+public final class TextToTemplateValueNameConverterTest implements ConverterTesting2<TextToTemplateValueNameConverter<FakeConverterContext>, FakeConverterContext>,
+        ToStringTesting<TextToTemplateValueNameConverter<FakeConverterContext>> {
 
     @Test
     public void testConvertStringBuilderToTemplateValueName() {
@@ -53,8 +53,8 @@ public final class StringToTemplateValueNameConverterTest implements ConverterTe
     }
 
     @Override
-    public StringToTemplateValueNameConverter<FakeConverterContext> createConverter() {
-        return StringToTemplateValueNameConverter.instance();
+    public TextToTemplateValueNameConverter<FakeConverterContext> createConverter() {
+        return TextToTemplateValueNameConverter.instance();
     }
 
     @Override
@@ -90,7 +90,7 @@ public final class StringToTemplateValueNameConverterTest implements ConverterTe
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                StringToTemplateValueNameConverter.instance(),
+                TextToTemplateValueNameConverter.instance(),
                 "String to TemplateValueName"
         );
     }
@@ -98,7 +98,7 @@ public final class StringToTemplateValueNameConverterTest implements ConverterTe
     // class............................................................................................................
 
     @Override
-    public Class<StringToTemplateValueNameConverter<FakeConverterContext>> type() {
-        return Cast.to(StringToTemplateValueNameConverter.class);
+    public Class<TextToTemplateValueNameConverter<FakeConverterContext>> type() {
+        return Cast.to(TextToTemplateValueNameConverter.class);
     }
 }
