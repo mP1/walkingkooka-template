@@ -25,21 +25,21 @@ import walkingkooka.template.TemplateValueName;
 /**
  * Converts text into a {@link TemplateValueName}.
  */
-final class StringToTemplateValueNameConverter<C extends ConverterContext> implements TextToTryingShortCircuitingConverter<C> {
+final class TextToTemplateValueNameConverter<C extends ConverterContext> implements TextToTryingShortCircuitingConverter<C> {
 
     /**
      * Type safe getter
      */
-    static <C extends ConverterContext> StringToTemplateValueNameConverter<C> instance() {
+    static <C extends ConverterContext> TextToTemplateValueNameConverter<C> instance() {
         return Cast.to(INSTANCE);
     }
 
     /**
      * Singleton
      */
-    private final static StringToTemplateValueNameConverter<?> INSTANCE = new StringToTemplateValueNameConverter<>();
+    private final static TextToTemplateValueNameConverter<?> INSTANCE = new TextToTemplateValueNameConverter<>();
 
-    private StringToTemplateValueNameConverter() {
+    private TextToTemplateValueNameConverter() {
         super();
     }
 
