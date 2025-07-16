@@ -182,7 +182,7 @@ final public class TemplateValueName implements Name,
 
     // json.............................................................................................................
 
-    final JsonNode marshall(final JsonNodeMarshallContext context) {
+    private JsonNode marshall(final JsonNodeMarshallContext context) {
         return context.marshall(this.name);
     }
 
