@@ -32,7 +32,9 @@ public interface Template {
     void render(final Printer printer,
                 final TemplateContext context);
 
-
+    /**
+     * Helper that invokes {@link #render(Printer, TemplateContext)}, returning the complete {@link String text}.
+     */
     default String renderToString(final LineEnding lineEnding,
                                   final TemplateContext context) {
         final StringBuilder builder = new StringBuilder();
