@@ -22,6 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.Expression;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TemplateCollectionTest implements TemplateTesting2<TemplateCollection> {
@@ -31,8 +32,58 @@ public final class TemplateCollectionTest implements TemplateTesting2<TemplateCo
     @Test
     public void testWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> TemplateCollection.with(null)
+            NullPointerException.class,
+            () -> TemplateCollection.with(null)
+        );
+    }
+
+    @Test
+    public void testWithEmpty() {
+        this.checkEquals(
+            Templates.string(""),
+            TemplateCollection.with(
+                Lists.empty()
+            )
+        );
+    }
+
+    @Test
+    public void testWithOne() {
+        final Template template = Templates.string("Hello123");
+
+        assertSame(
+            template,
+            TemplateCollection.with(
+                Lists.of(template)
+            )
+        );
+    }
+
+    @Test
+    public void testWithIncludesTemplateCollection() {
+        final Template string111 = Templates.string("111");
+        final Template string222 = Templates.string("222");
+        final Template string333 = Templates.string("333");
+
+        this.checkEquals(
+            TemplateCollection.with(
+                Lists.of(
+                    string111,
+                    string222,
+                    string333
+                )
+            ),
+            TemplateCollection.with(
+                Lists.of(
+                    TemplateCollection.with(
+                        Lists.of(
+                            string111,
+                            string222
+                        )
+                    ),
+                    string333
+                )
+            )
         );
     }
 
@@ -74,9 +125,13 @@ public final class TemplateCollectionTest implements TemplateTesting2<TemplateCo
 
     @Override
     public TemplateCollection createTemplate() {
-        return TemplateCollection.with(
-                Lists.empty()
-        );
+        return (TemplateCollection)
+            TemplateCollection.with(
+                Lists.of(
+                    Templates.string("Hello1"),
+                    Templates.string("Hello2")
+                )
+            );
     }
 
     @Override

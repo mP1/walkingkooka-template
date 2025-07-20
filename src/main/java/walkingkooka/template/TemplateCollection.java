@@ -30,12 +30,39 @@ import java.util.stream.Collectors;
  */
 final class TemplateCollection implements Template {
 
-    static TemplateCollection with(final List<Template> templates) {
+    static Template with(final List<Template> templates) {
         Objects.requireNonNull(templates, "templates");
 
-        return new TemplateCollection(
-                Lists.immutable(templates)
-        );
+        final List<Template> copy = Lists.array();
+
+        for (final Template template : templates) {
+            if (template instanceof TemplateCollection) {
+                copy.addAll(
+                    ((TemplateCollection) template)
+                        .templates
+                );
+            } else {
+                copy.add(template);
+            }
+        }
+
+        final Template templateTemplate;
+
+        switch (copy.size()) {
+            case 0:
+                templateTemplate = Templates.string("");
+                break;
+            case 1:
+                templateTemplate = copy.get(0);
+                break;
+            default:
+                templateTemplate = new TemplateCollection(
+                    Lists.immutable(copy)
+                );
+                break;
+        }
+
+        return templateTemplate;
     }
 
     private TemplateCollection(final List<Template> templates) {
