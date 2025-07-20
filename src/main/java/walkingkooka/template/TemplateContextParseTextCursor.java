@@ -78,7 +78,8 @@ final class TemplateContextParseTextCursor implements StaticHelper {
 
                     addIfNotEmpty(
                             b,
-                            templates
+                            templates,
+                            context
                     );
 
                     switch (c) {
@@ -102,17 +103,19 @@ final class TemplateContextParseTextCursor implements StaticHelper {
 
         addIfNotEmpty(
                 b,
-                templates
+                templates,
+                context
         );
 
         return context.templateCollection(templates);
     }
 
     private static void addIfNotEmpty(final StringBuilder b,
-                                      final List<Template> templates) {
+                                      final List<Template> templates,
+                                      final TemplateContext context) {
         if (b.length() > 0) {
             templates.add(
-                    Templates.string(
+                    context.templateText(
                             b.toString()
                     )
             );

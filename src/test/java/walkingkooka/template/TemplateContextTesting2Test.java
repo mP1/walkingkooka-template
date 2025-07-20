@@ -337,6 +337,32 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
         );
     }
 
+    @Test
+    public void testTemplateText() {
+        this.parseTemplateAndRenderToStringAndCheck(
+                new TestTemplateContext() {
+
+                    @Override
+                    public Template parseTemplate(final TextCursor text) {
+                        return this.parseTemplateWithBackslashEscaping(text);
+                    }
+
+                    @Override
+                    public Template templateText(final String text) {
+                        return Templates.string(text + text);
+                    }
+
+                    @Override
+                    public Template templateCollection(final List<Template> templates) {
+                        return Templates.collection(templates);
+                    }
+                },
+                "Hello",
+                LineEnding.NL,
+                "HelloHello"
+        );
+    }
+
     // TemplateContext..................................................................................................
 
     @Override
@@ -384,6 +410,13 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
         @Override
         public Template templateCollection(final List<Template> templates) {
             Objects.requireNonNull(templates, "templates");
+
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Template templateText(final String text) {
+            Objects.requireNonNull(text, "text");
 
             throw new UnsupportedOperationException();
         }

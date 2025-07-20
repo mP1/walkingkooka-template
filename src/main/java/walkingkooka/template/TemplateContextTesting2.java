@@ -204,6 +204,17 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
         );
     }
 
+    // templateText.....................................................................................................
+
+    @Test
+    default void testTemplateTextWithNullStringFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createContext()
+                .templateText(null)
+        );
+    }
+
     // templateValue....................................................................................................
 
     @Test

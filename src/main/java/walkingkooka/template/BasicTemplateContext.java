@@ -96,6 +96,11 @@ final class BasicTemplateContext implements TemplateContext {
     }
 
     @Override
+    public Template templateText(final String text) {
+        return Templates.string(text);
+    }
+
+    @Override
     public String evaluateAsString(final Expression expression) {
         return BasicTemplateContextCycleTemplateContext.with(this)
             .evaluateAsString(expression);
