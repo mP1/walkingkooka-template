@@ -27,7 +27,7 @@ public final class TemplateTestingTest implements TemplateTesting {
         final String text = "Hello123";
 
         this.renderAndCheck(
-                new Template() {
+            new FakeTemplate() {
                     @Override
                     public void render(final Printer printer,
                                        final TemplateContext context) {

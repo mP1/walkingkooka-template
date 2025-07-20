@@ -48,6 +48,13 @@ final class ExpressionTemplate implements Template {
         );
     }
 
+    // Value............................................................................................................
+
+    @Override
+    public Expression value() {
+        return this.expression;
+    }
+
     private final Expression expression;
 
     // Object...........................................................................................................

@@ -53,6 +53,13 @@ final class StringTemplate implements Template {
         printer.print(this.text);
     }
 
+    // Value............................................................................................................
+
+    @Override
+    public String value() {
+        return this.text;
+    }
+
     private final String text;
 
     // Object...........................................................................................................

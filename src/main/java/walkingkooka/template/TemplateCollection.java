@@ -55,6 +55,13 @@ final class TemplateCollection implements Template {
         }
     }
 
+    // Value............................................................................................................
+
+    @Override
+    public List<Template> value() {
+        return this.templates;
+    }
+
     private final List<Template> templates;
 
     // Object...........................................................................................................
