@@ -68,6 +68,6 @@ final class TemplateValueNameTemplate implements Template {
 
     @Override
     public String toString() {
-        return "${" + this.name + "}";
+        return TemplateContext.EXPRESSION_OPEN + this.name + TemplateContext.EXPRESSION_CLOSE;
     }
 }

@@ -69,6 +69,6 @@ final class ExpressionTemplate implements Template {
 
     @Override
     public String toString() {
-        return "${" + this.expression + "}";
+        return TemplateContext.EXPRESSION_OPEN + this.expression + TemplateContext.EXPRESSION_CLOSE;
     }
 }
