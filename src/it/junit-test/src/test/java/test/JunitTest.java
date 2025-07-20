@@ -51,8 +51,8 @@ public class JunitTest {
     @Test
     public void testTrue() {
         Assert.assertEquals(
-                true,
-                true
+            true,
+            true
         );
     }
 
@@ -61,70 +61,70 @@ public class JunitTest {
         final ExpressionNumberKind expressionNumberKind = ExpressionNumberKind.BIG_DECIMAL;
 
         final TemplateContext context = TemplateContexts.basic(
-                (final TextCursor t) -> Templates.templateValueName(
-                        TemplateValueName.parse(t)
-                                .orElseThrow(() -> new EmptyTextException("template value name"))
+            (final TextCursor t) -> Templates.templateValueName(
+                TemplateValueName.parse(t)
+                    .orElseThrow(() -> new EmptyTextException("template value name"))
+            ),
+            (n) -> Templates.string("<<" + n.text().toUpperCase() + ">>"),
+            LineEnding.NL,
+            ExpressionEvaluationContexts.basic(
+                expressionNumberKind,
+                (n) -> {
+                    throw new UnsupportedOperationException();
+                },
+                (e) -> {
+                    e.printStackTrace();
+                    throw new UnsupportedOperationException();
+                },
+                (r) -> {
+                    throw new UnsupportedOperationException();
+                },
+                (r) -> {
+                    throw new UnsupportedOperationException();
+                },
+                CaseSensitivity.SENSITIVE,
+                ExpressionNumberConverterContexts.basic(
+                    Converters.collection(
+                        Lists.of(
+                            ExpressionNumberConverters.toNumberOrExpressionNumber(
+                                Converters.numberToNumber()
+                            ),
+                            Converters.objectToString()
+                        )
+                    ).cast(ExpressionNumberConverterContext.class),
+                    ConverterContexts.basic(
+                        -1,
+                        Converters.fake(),
+                        DateTimeContexts.fake(),
+                        DecimalNumberContexts.american(MathContext.DECIMAL32)
+                    ),
+                    expressionNumberKind
                 ),
-                (n) -> Templates.string("<<" + n.text().toUpperCase() + ">>"),
-                LineEnding.NL,
-                ExpressionEvaluationContexts.basic(
-                        expressionNumberKind,
-                        (n) -> {
-                            throw new UnsupportedOperationException();
-                        },
-                        (e) -> {
-                            e.printStackTrace();
-                            throw new UnsupportedOperationException();
-                        },
-                        (r) -> {
-                            throw new UnsupportedOperationException();
-                        },
-                        (r) -> {
-                            throw new UnsupportedOperationException();
-                        },
-                        CaseSensitivity.SENSITIVE,
-                        ExpressionNumberConverterContexts.basic(
-                                Converters.collection(
-                                        Lists.of(
-                                                ExpressionNumberConverters.toNumberOrExpressionNumber(
-                                                        Converters.numberToNumber()
-                                                ),
-                                                Converters.objectToString()
-                                        )
-                                ).cast(ExpressionNumberConverterContext.class),
-                                ConverterContexts.basic(
-                                        -1,
-                                        Converters.fake(),
-                                        DateTimeContexts.fake(),
-                                        DecimalNumberContexts.american(MathContext.DECIMAL32)
-                                ),
-                                expressionNumberKind
-                        ),
-                        LocaleContexts.fake()
-                )
+                LocaleContexts.fake()
+            )
         );
 
         final StringBuilder b = new StringBuilder();
 
         context.parseTemplateAndRender(
-                TextCursors.charSequence("Hello ${abc} 123"),
-                Printers.stringBuilder(
-                        b,
-                        LineEnding.NL
-                )
+            TextCursors.charSequence("Hello ${abc} 123"),
+            Printers.stringBuilder(
+                b,
+                LineEnding.NL
+            )
         );
 
         checkEquals(
-                "Hello <<ABC>> 123",
-                b.toString()
+            "Hello <<ABC>> 123",
+            b.toString()
         );
     }
 
     private void checkEquals(final String expected,
                              final String actual) {
         Assert.assertEquals(
-                expected,
-                actual
+            expected,
+            actual
         );
     }
 }

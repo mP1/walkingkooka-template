@@ -41,10 +41,10 @@ public interface TemplateContext extends Context {
         Objects.requireNonNull(printer, "printer");
 
         this.parseTemplate(text)
-                .render(
-                        printer,
-                        this
-                );
+            .render(
+                printer,
+                this
+            );
     }
 
     /**
@@ -57,15 +57,15 @@ public interface TemplateContext extends Context {
         Objects.requireNonNull(lineEnding, "lineEnding");
 
         return this.parseTemplateString(text)
-                .renderToString(
-                        lineEnding,
-                        this
-                );
+            .renderToString(
+                lineEnding,
+                this
+            );
     }
 
     default Template parseTemplateString(final String text) {
         return this.parseTemplate(
-                TextCursors.charSequence(text)
+            TextCursors.charSequence(text)
         );
     }
 
@@ -85,8 +85,8 @@ public interface TemplateContext extends Context {
      */
     default Template parseTemplateWithBackslashEscaping(final TextCursor text) {
         return TemplateContextParseTextCursor.parse(
-                text,
-                this
+            text,
+            this
         );
     }
 

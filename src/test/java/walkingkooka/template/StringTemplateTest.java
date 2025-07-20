@@ -30,16 +30,16 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
     @Test
     public void testWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> StringTemplate.with(null)
+            NullPointerException.class,
+            () -> StringTemplate.with(null)
         );
     }
 
     @Test
     public void testWithEmptyString() {
         assertSame(
-                StringTemplate.EMPTY,
-                StringTemplate.with("")
+            StringTemplate.EMPTY,
+            StringTemplate.with("")
         );
     }
 
@@ -50,9 +50,9 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
         final String text = "Hello123";
 
         this.renderAndCheck(
-                StringTemplate.with(text),
-                TemplateContexts.fake(),
-                text
+            StringTemplate.with(text),
+            TemplateContexts.fake(),
+            text
         );
     }
 
@@ -71,7 +71,7 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
     @Test
     public void testEqualsDifferentText() {
         this.checkNotEquals(
-                StringTemplate.with("different")
+            StringTemplate.with("different")
         );
     }
 
@@ -80,40 +80,40 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                StringTemplate.with("Hello"),
-                "Hello"
+            StringTemplate.with("Hello"),
+            "Hello"
         );
     }
 
     @Test
     public void testToStringEscapesBackslash() {
         this.toStringAndCheck(
-                StringTemplate.with("Hello\\"),
-                "Hello\\\\"
+            StringTemplate.with("Hello\\"),
+            "Hello\\\\"
         );
     }
 
     @Test
     public void testToStringIncludesCarriageReturn() {
         this.toStringAndCheck(
-                StringTemplate.with("Hello\r"),
-                "Hello\r"
+            StringTemplate.with("Hello\r"),
+            "Hello\r"
         );
     }
 
     @Test
     public void testToStringIncludesNewLine() {
         this.toStringAndCheck(
-                StringTemplate.with("Hello\n"),
-                "Hello\n"
+            StringTemplate.with("Hello\n"),
+            "Hello\n"
         );
     }
 
     @Test
     public void testToStringIncludesTab() {
         this.toStringAndCheck(
-                StringTemplate.with("Hello\t"),
-                "Hello\t"
+            StringTemplate.with("Hello\t"),
+            "Hello\t"
         );
     }
 

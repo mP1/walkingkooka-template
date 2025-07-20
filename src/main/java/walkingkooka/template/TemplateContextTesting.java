@@ -29,15 +29,15 @@ import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.expression.Expression;
 
 public interface TemplateContextTesting<C extends TemplateContext> extends ContextTesting<C>,
-        ParseStringTesting<Template>,
-        TreePrintableTesting {
+    ParseStringTesting<Template>,
+    TreePrintableTesting {
 
     // parseTemplate....................................................................................................
 
     @Override
     default Template parseString(final String text) {
         return this.createContext()
-                .parseTemplateString(text);
+            .parseTemplateString(text);
     }
 
     @Override
@@ -54,9 +54,9 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
                                              final String text,
                                              final Template expected) {
         this.parseStringAndCheck(
-                context::parseTemplateString,
-                text,
-                expected
+            context::parseTemplateString,
+            text,
+            expected
         );
     }
 
@@ -66,9 +66,9 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
                                                 final String template,
                                                 final String expected) {
         this.parseTemplateAndRenderAndCheck(
-                context,
-                TextCursors.charSequence(template),
-                expected
+            context,
+            TextCursors.charSequence(template),
+            expected
         );
     }
 
@@ -79,13 +79,13 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
 
         try (final Printer printer = Printers.stringBuilder(printed, LineEnding.NL)) {
             context.parseTemplateAndRender(
-                    text,
-                    printer
+                text,
+                printer
             );
         }
         this.checkEquals(
-                expected,
-                printed.toString()
+            expected,
+            printed.toString()
         );
     }
 
@@ -93,9 +93,9 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
                                        final String text,
                                        final Template expected) {
         this.parseTemplateAndCheck(
-                context,
-                TextCursors.charSequence(text),
-                expected
+            context,
+            TextCursors.charSequence(text),
+            expected
         );
     }
 
@@ -103,14 +103,14 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
                                        final TextCursor text,
                                        final Template expected) {
         this.checkEquals(
-                expected,
-                context.parseTemplate(text)
+            expected,
+            context.parseTemplate(text)
         );
 
         this.checkEquals(
-                true,
-                text.isEmpty(),
-                () -> "cursor not empty=" + text
+            true,
+            text.isEmpty(),
+            () -> "cursor not empty=" + text
         );
     }
 
@@ -121,12 +121,12 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
                                                         final LineEnding lineEnding,
                                                         final String expected) {
         this.checkEquals(
-                expected,
-                context.parseTemplateAndRenderToString(
-                        text,
-                        lineEnding
-                ),
-                () -> "parseTemplateAndRenderToString " + CharSequences.quoteAndEscape(text)
+            expected,
+            context.parseTemplateAndRenderToString(
+                text,
+                lineEnding
+            ),
+            () -> "parseTemplateAndRenderToString " + CharSequences.quoteAndEscape(text)
         );
     }
 
@@ -136,8 +136,8 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
                                           final Expression expression,
                                           final String expected) {
         this.checkEquals(
-                expected,
-                context.evaluateAsString(expression)
+            expected,
+            context.evaluateAsString(expression)
         );
     }
 
@@ -145,8 +145,8 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
                                                  final TextCursor text,
                                                  final Template expected) {
         this.checkEquals(
-                expected,
-                context.parseTemplateExpression(text)
+            expected,
+            context.parseTemplateExpression(text)
         );
     }
 
@@ -154,8 +154,8 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
                                        final TemplateValueName name,
                                        final String expected) {
         this.checkEquals(
-                expected,
-                context.templateValue(name)
+            expected,
+            context.templateValue(name)
         );
     }
 }
