@@ -193,6 +193,17 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
         );
     }
 
+    // templateCollection...............................................................................................
+
+    @Test
+    default void testTemplateCollectionWithNullTemplatesFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createContext()
+                        .templateCollection(null)
+        );
+    }
+
     // templateValue....................................................................................................
 
     @Test

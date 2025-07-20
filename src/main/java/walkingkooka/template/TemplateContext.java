@@ -24,6 +24,7 @@ import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.tree.expression.Expression;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -98,6 +99,11 @@ public interface TemplateContext extends Context {
      * Handles consuming a template expression into a {@link Template}.
      */
     Template parseTemplateExpression(final TextCursor text);
+
+    /**
+     * Factory that creates a {@link Template} containing the given child templates.
+     */
+    Template templateCollection(final List<Template> templates);
 
     /**
      * Evaluates the given {@link Expression} into a {@link String string value}

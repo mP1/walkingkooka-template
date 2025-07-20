@@ -39,6 +39,7 @@ import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
 
 import java.math.MathContext;
+import java.util.List;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -377,6 +378,13 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
         public String evaluateAsString(final Expression expression) {
             Objects.requireNonNull(expression, "parseTemplateExpression");
 
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Template templateCollection(final List<Template> templates) {
+            Objects.requireNonNull(templates, "templates");
+            
             throw new UnsupportedOperationException();
         }
 
