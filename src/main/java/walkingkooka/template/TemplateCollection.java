@@ -18,6 +18,7 @@
 package walkingkooka.template;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.Printer;
 
 import java.util.List;
@@ -86,5 +87,19 @@ final class TemplateCollection implements Template {
         return this.templates.stream()
                 .map(Object::toString)
                 .collect(Collectors.joining(""));
+    }
+
+    // TreePrintable....................................................................................................
+
+    @Override
+    public void printTree(final IndentingPrinter printer) {
+        printer.println(this.getClass().getSimpleName());
+        printer.indent();
+        {
+            for (final Template template : this.templates) {
+                template.printTree(printer);
+            }
+        }
+        printer.outdent();
     }
 }

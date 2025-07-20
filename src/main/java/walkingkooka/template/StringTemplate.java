@@ -17,6 +17,8 @@
 
 package walkingkooka.template;
 
+import walkingkooka.text.CharSequences;
+import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.Printer;
 
 import java.util.Objects;
@@ -82,5 +84,19 @@ final class StringTemplate implements Template {
     @Override
     public String toString() {
         return this.text.replace("\\", "\\\\");
+    }
+
+    // TreePrintable....................................................................................................
+
+    @Override
+    public void printTree(final IndentingPrinter printer) {
+        printer.println(this.getClass().getSimpleName());
+        printer.indent();
+        {
+            printer.println(
+                CharSequences.quote(this.text)
+            );
+        }
+        printer.outdent();
     }
 }

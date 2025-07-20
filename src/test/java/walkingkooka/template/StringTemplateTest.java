@@ -117,6 +117,17 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
         );
     }
 
+    // TreePrintable....................................................................................................
+
+    @Test
+    public void testPrintTree() {
+        this.treePrintAndCheck(
+            StringTemplate.with("Hello"),
+            "StringTemplate\n" +
+                "  \"Hello\"\n"
+        );
+    }
+
     // class............................................................................................................
 
     @Override

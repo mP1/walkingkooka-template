@@ -17,7 +17,9 @@
 
 package walkingkooka.template;
 
+import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.Printer;
+import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.expression.Expression;
 
 import java.util.Objects;
@@ -77,5 +79,20 @@ final class ExpressionTemplate implements Template {
     @Override
     public String toString() {
         return TemplateContext.EXPRESSION_OPEN + this.expression + TemplateContext.EXPRESSION_CLOSE;
+    }
+
+    // TreePrintable....................................................................................................
+
+    @Override
+    public void printTree(final IndentingPrinter printer) {
+        printer.println(this.getClass().getSimpleName());
+        printer.indent();
+        {
+            TreePrintable.printTreeOrToString(
+                this.value(),
+                printer
+            );
+        }
+        printer.outdent();
     }
 }
