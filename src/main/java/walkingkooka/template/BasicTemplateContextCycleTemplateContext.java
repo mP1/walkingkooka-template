@@ -23,6 +23,7 @@ import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionReference;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -78,6 +79,11 @@ final class BasicTemplateContextCycleTemplateContext implements TemplateContext 
         }
 
         return result;
+    }
+
+    @Override
+    public Template templateCollection(final List<Template> templates) {
+        return this.context.templateCollection(templates);
     }
 
     @Override

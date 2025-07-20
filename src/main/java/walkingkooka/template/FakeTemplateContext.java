@@ -20,6 +20,8 @@ package walkingkooka.template;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.tree.expression.Expression;
 
+import java.util.List;
+
 public class FakeTemplateContext implements TemplateContext {
 
     public FakeTemplateContext() {
@@ -33,6 +35,11 @@ public class FakeTemplateContext implements TemplateContext {
 
     @Override
     public Template parseTemplateExpression(final TextCursor text) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Template templateCollection(final List<Template> templates) {
         throw new UnsupportedOperationException();
     }
 

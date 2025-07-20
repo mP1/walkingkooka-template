@@ -105,7 +105,7 @@ final class TemplateContextParseTextCursor implements StaticHelper {
                 templates
         );
 
-        return Templates.collection(templates);
+        return context.templateCollection(templates);
     }
 
     private static void addIfNotEmpty(final StringBuilder b,

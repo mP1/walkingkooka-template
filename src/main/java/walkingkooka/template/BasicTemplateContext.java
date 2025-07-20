@@ -22,6 +22,7 @@ import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -88,6 +89,11 @@ final class BasicTemplateContext implements TemplateContext {
     }
 
     private final Function<TextCursor, Template> expressionParser;
+
+    @Override
+    public Template templateCollection(final List<Template> templates) {
+        return Templates.collection(templates);
+    }
 
     @Override
     public String evaluateAsString(final Expression expression) {
