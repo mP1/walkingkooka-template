@@ -87,6 +87,11 @@ final class BasicTemplateContextCycleTemplateContext implements TemplateContext 
     }
 
     @Override
+    public Template templateText(final String text) {
+        return this.context.templateText(text);
+    }
+
+    @Override
     public String templateValue(final TemplateValueName name) {
         Objects.requireNonNull(name, "name");
 

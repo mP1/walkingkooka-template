@@ -44,6 +44,11 @@ public class FakeTemplateContext implements TemplateContext {
     }
 
     @Override
+    public Template templateText(final String text) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public String evaluateAsString(final Expression expression) {
         throw new UnsupportedOperationException();
     }

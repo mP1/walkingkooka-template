@@ -106,6 +106,11 @@ public interface TemplateContext extends Context {
     Template templateCollection(final List<Template> templates);
 
     /**
+     * Factory that creates a {@link Template} with the given {@link String text}.
+     */
+    Template templateText(final String text);
+
+    /**
      * Evaluates the given {@link Expression} into a {@link String string value}
      */
     String evaluateAsString(final Expression expression);
