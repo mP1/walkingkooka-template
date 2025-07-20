@@ -36,7 +36,7 @@ final class BasicTemplateContextCycleTemplateContext implements TemplateContext 
 
     static BasicTemplateContextCycleTemplateContext with(final BasicTemplateContext context) {
         return new BasicTemplateContextCycleTemplateContext(
-                Objects.requireNonNull(context, "context")
+            Objects.requireNonNull(context, "context")
         );
     }
 
@@ -59,9 +59,9 @@ final class BasicTemplateContextCycleTemplateContext implements TemplateContext 
         final ExpressionEvaluationContext context = this.context.expressionEvaluationContext;
 
         return context.convertOrFail(
-                context.enterScope(this::scopedExpressionReference)
-                        .evaluateExpression(expression),
-                String.class
+            context.enterScope(this::scopedExpressionReference)
+                .evaluateExpression(expression),
+            String.class
         );
     }
 
@@ -70,9 +70,9 @@ final class BasicTemplateContextCycleTemplateContext implements TemplateContext 
 
         if (reference instanceof TemplateValueName) {
             result = Optional.of(
-                    Optional.of(
-                            this.templateValue((TemplateValueName) reference)
-                    )
+                Optional.of(
+                    this.templateValue((TemplateValueName) reference)
+                )
             );
         } else {
             result = this.context.expressionEvaluationContext.reference(reference);
@@ -97,12 +97,12 @@ final class BasicTemplateContextCycleTemplateContext implements TemplateContext 
 
             // Cycle detected \"Abc\" -> \"Def\" -> \"Ghi\" -> \"Abc\"
             throw new IllegalStateException(
-                    "Cycle detected " +
-                            cycles.stream()
-                                    .map(TemplateValueName::nameInQuotes)
-                                    .collect(Collectors.joining(separator)) +
-                            separator +
-                            name.nameInQuotes()
+                "Cycle detected " +
+                    cycles.stream()
+                        .map(TemplateValueName::nameInQuotes)
+                        .collect(Collectors.joining(separator)) +
+                    separator +
+                    name.nameInQuotes()
             );
         }
 
@@ -113,8 +113,8 @@ final class BasicTemplateContextCycleTemplateContext implements TemplateContext 
         }
 
         final String rendered = template.renderToString(
-                context.lineEnding,
-                this
+            context.lineEnding,
+            this
         );
 
         cycles.remove(name);

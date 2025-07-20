@@ -40,32 +40,32 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
     @Test
     default void testParseTemplateAndRenderWithNullTextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createContext()
-                        .parseTemplateAndRender(
-                                null,
-                                Printers.fake()
-                        )
+            NullPointerException.class,
+            () -> this.createContext()
+                .parseTemplateAndRender(
+                    null,
+                    Printers.fake()
+                )
         );
     }
 
     @Test
     default void testParseTemplateAndRenderWithNullPrinterFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createContext()
-                        .parseTemplateAndRender(
-                                TextCursors.fake(),
-                                null
-                        )
+            NullPointerException.class,
+            () -> this.createContext()
+                .parseTemplateAndRender(
+                    TextCursors.fake(),
+                    null
+                )
         );
     }
 
     default void parseTemplateAndRenderAndCheck(final String text,
                                                 final String expected) {
         this.parseTemplateAndRenderAndCheck(
-                TextCursors.charSequence(text),
-                expected
+            TextCursors.charSequence(text),
+            expected
         );
     }
 
@@ -73,9 +73,9 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
     default void parseTemplateAndRenderAndCheck(final TextCursor text,
                                                 final String expected) {
         this.parseTemplateAndRenderAndCheck(
-                this.createContext(),
-                text,
-                expected
+            this.createContext(),
+            text,
+            expected
         );
     }
 
@@ -84,32 +84,32 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
     @Test
     default void testParseTemplateAndRenderToStringWithNullTextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createContext()
-                        .parseTemplateAndRenderToString(
-                                null,
-                                LineEnding.NL
-                        )
+            NullPointerException.class,
+            () -> this.createContext()
+                .parseTemplateAndRenderToString(
+                    null,
+                    LineEnding.NL
+                )
         );
     }
 
     @Test
     default void testParseTemplateAndRenderToStringWithNullLineEndingFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createContext()
-                        .parseTemplateAndRenderToString(
-                                "",
-                                null
-                        )
+            NullPointerException.class,
+            () -> this.createContext()
+                .parseTemplateAndRenderToString(
+                    "",
+                    null
+                )
         );
     }
 
     default void parseTemplateAndRenderToStringAndCheck(final String text,
                                                         final String expected) {
         this.parseTemplateAndRenderAndCheck(
-                TextCursors.charSequence(text),
-                expected
+            TextCursors.charSequence(text),
+            expected
         );
     }
 
@@ -118,10 +118,10 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
                                                         final LineEnding lineEnding,
                                                         final String expected) {
         this.parseTemplateAndRenderToStringAndCheck(
-                this.createContext(),
-                text,
-                lineEnding,
-                expected
+            this.createContext(),
+            text,
+            lineEnding,
+            expected
         );
     }
 
@@ -130,26 +130,26 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
     @Test
     default void testParseTemplateWithNullTextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createContext()
-                        .parseTemplate(null)
+            NullPointerException.class,
+            () -> this.createContext()
+                .parseTemplate(null)
         );
     }
 
     default void parseTemplateAndCheck(final String text,
                                        final Template expected) {
         this.parseTemplateAndCheck(
-                TextCursors.charSequence(text),
-                expected
+            TextCursors.charSequence(text),
+            expected
         );
     }
 
     default void parseTemplateAndCheck(final TextCursor text,
                                        final Template expected) {
         this.parseTemplateAndCheck(
-                this.createContext(),
-                text,
-                expected
+            this.createContext(),
+            text,
+            expected
         );
     }
 
@@ -158,18 +158,18 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
     @Test
     default void testParseTemplateExpressionWithNullTextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createContext()
-                        .parseTemplateExpression(null)
+            NullPointerException.class,
+            () -> this.createContext()
+                .parseTemplateExpression(null)
         );
     }
 
     default void parseTemplateExpressionAndCheck(final TextCursor text,
                                                  final Template expected) {
         this.parseTemplateExpressionAndCheck(
-                this.createContext(),
-                text,
-                expected
+            this.createContext(),
+            text,
+            expected
         );
     }
 
@@ -178,18 +178,18 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
     @Test
     default void testEvaluateAsStringWithNullExpressionFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createContext()
-                        .evaluateAsString(null)
+            NullPointerException.class,
+            () -> this.createContext()
+                .evaluateAsString(null)
         );
     }
 
     default void evaluateAsStringAndCheck(final Expression expression,
                                           final String expected) {
         this.checkEquals(
-                expected,
-                this.createContext()
-                        .evaluateAsString(expression)
+            expected,
+            this.createContext()
+                .evaluateAsString(expression)
         );
     }
 
@@ -198,9 +198,9 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
     @Test
     default void testTemplateCollectionWithNullTemplatesFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createContext()
-                        .templateCollection(null)
+            NullPointerException.class,
+            () -> this.createContext()
+                .templateCollection(null)
         );
     }
 
@@ -209,18 +209,18 @@ public interface TemplateContextTesting2<C extends TemplateContext> extends Temp
     @Test
     default void testTemplateValueWithNullNameFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createContext()
-                        .templateValue(null)
+            NullPointerException.class,
+            () -> this.createContext()
+                .templateValue(null)
         );
     }
 
     default void templateValueAndCheck(final TemplateValueName name,
                                        final String expected) {
         this.templateValueAndCheck(
-                this.createContext(),
-                name,
-                expected
+            this.createContext(),
+            name,
+            expected
         );
     }
 }

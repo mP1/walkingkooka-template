@@ -28,16 +28,16 @@ import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.template.TemplateValueName;
 
 public final class TextToTemplateValueNameConverterTest implements ConverterTesting2<TextToTemplateValueNameConverter<FakeConverterContext>, FakeConverterContext>,
-        ToStringTesting<TextToTemplateValueNameConverter<FakeConverterContext>> {
+    ToStringTesting<TextToTemplateValueNameConverter<FakeConverterContext>> {
 
     @Test
     public void testConvertStringBuilderToTemplateValueName() {
         final TemplateValueName name = TemplateValueName.with("abc");
 
         this.convertAndCheck(
-                new StringBuilder(name.value()),
-                TemplateValueName.class,
-                name
+            new StringBuilder(name.value()),
+            TemplateValueName.class,
+            name
         );
     }
 
@@ -46,9 +46,9 @@ public final class TextToTemplateValueNameConverterTest implements ConverterTest
         final TemplateValueName name = TemplateValueName.with("abc");
 
         this.convertAndCheck(
-                name.value(),
-                TemplateValueName.class,
-                name
+            name.value(),
+            TemplateValueName.class,
+            name
         );
     }
 
@@ -65,9 +65,9 @@ public final class TextToTemplateValueNameConverterTest implements ConverterTest
             public boolean canConvert(final Object value,
                                       final Class<?> type) {
                 return converter.canConvert(
-                        value,
-                        type,
-                        this
+                    value,
+                    type,
+                    this
                 );
             }
 
@@ -75,9 +75,9 @@ public final class TextToTemplateValueNameConverterTest implements ConverterTest
             public <T> Either<T, String> convert(final Object value,
                                                  final Class<T> target) {
                 return this.converter.convert(
-                        value,
-                        target,
-                        this
+                    value,
+                    target,
+                    this
                 );
             }
 
@@ -90,8 +90,8 @@ public final class TextToTemplateValueNameConverterTest implements ConverterTest
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                TextToTemplateValueNameConverter.instance(),
-                "String to TemplateValueName"
+            TextToTemplateValueNameConverter.instance(),
+            "String to TemplateValueName"
         );
     }
 

@@ -43,7 +43,7 @@ final class TemplateValueNameTemplate implements Template {
         Objects.requireNonNull(context, "context");
 
         printer.print(
-                context.templateValue(this.name)
+            context.templateValue(this.name)
         );
     }
 
@@ -59,7 +59,7 @@ final class TemplateValueNameTemplate implements Template {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof TemplateValueNameTemplate && this.equals0((TemplateValueNameTemplate) other);
+            other instanceof TemplateValueNameTemplate && this.equals0((TemplateValueNameTemplate) other);
     }
 
     private boolean equals0(final TemplateValueNameTemplate other) {

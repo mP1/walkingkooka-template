@@ -37,10 +37,10 @@ final class BasicTemplateContext implements TemplateContext {
                                      final LineEnding lineEnding,
                                      final ExpressionEvaluationContext expressionEvaluationContext) {
         return new BasicTemplateContext(
-                Objects.requireNonNull(expressionParser, "expressionParser"),
-                Objects.requireNonNull(nameToTemplate, "nameToTemplate"),
-                Objects.requireNonNull(lineEnding, "lineEnding"),
-                Objects.requireNonNull(expressionEvaluationContext, "expressionEvaluationContext")
+            Objects.requireNonNull(expressionParser, "expressionParser"),
+            Objects.requireNonNull(nameToTemplate, "nameToTemplate"),
+            Objects.requireNonNull(lineEnding, "lineEnding"),
+            Objects.requireNonNull(expressionEvaluationContext, "expressionEvaluationContext")
         );
     }
 
@@ -57,7 +57,7 @@ final class BasicTemplateContext implements TemplateContext {
     @Override
     public Template parseTemplate(final TextCursor text) {
         return this.parseTemplateWithBackslashEscaping(
-                text
+            text
         );
     }
 
@@ -80,8 +80,8 @@ final class BasicTemplateContext implements TemplateContext {
                     break;
                 default:
                     throw text.lineInfo()
-                            .invalidCharacterException()
-                            .get();
+                        .invalidCharacterException()
+                        .get();
             }
         }
 
@@ -98,7 +98,7 @@ final class BasicTemplateContext implements TemplateContext {
     @Override
     public String evaluateAsString(final Expression expression) {
         return BasicTemplateContextCycleTemplateContext.with(this)
-                .evaluateAsString(expression);
+            .evaluateAsString(expression);
     }
 
     // see BasicTemplateContextCycleTemplateContext
@@ -107,7 +107,7 @@ final class BasicTemplateContext implements TemplateContext {
     @Override
     public String templateValue(final TemplateValueName name) {
         return BasicTemplateContextCycleTemplateContext.with(this)
-                .templateValue(name);
+            .templateValue(name);
     }
 
     // @see BasicTemplateContextCycleTemplateContext
