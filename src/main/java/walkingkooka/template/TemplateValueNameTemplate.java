@@ -47,6 +47,13 @@ final class TemplateValueNameTemplate implements Template {
         );
     }
 
+    // Value............................................................................................................
+
+    @Override
+    public TemplateValueName value() {
+        return this.name;
+    }
+
     private final TemplateValueName name;
 
     // Object...........................................................................................................

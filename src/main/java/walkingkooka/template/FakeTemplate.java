@@ -30,4 +30,9 @@ public class FakeTemplate implements Template {
                        final TemplateContext context) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public Object value() {
+        throw new UnsupportedOperationException();
+    }
 }

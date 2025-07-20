@@ -17,14 +17,28 @@
 
 package walkingkooka.template;
 
+import walkingkooka.Value;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
+import walkingkooka.tree.expression.Expression;
+
+import java.util.List;
 
 /**
  * A template handles rendering a template in {@link String} by printing to a {@link Printer}.
+ * The value may be one of several possible values such as
+ * <ul>
+ *     <li>{@link String} if the template holds and renders some text</li>
+ *     <li>{@link Expression} if the template holds an expression and evaluates it when rendered.</li>
+ *     <li>{@link TemplateValueName} if the template holds an {@link TemplateValueName} and renders the value for this name.</li>
+ *     <li>{@link List} if it is a collection of templates, each rendered in series</li>
+ *     <li>Other templates are free to return their own important value.</li>
+ * </ul>
+ *
+ * {@link String} with the template holds text, or the {@link}
  */
-public interface Template {
+public interface Template extends Value<Object> {
 
     /**
      * Render this template by printing text.
