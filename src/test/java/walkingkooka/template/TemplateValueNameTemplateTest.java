@@ -88,6 +88,19 @@ public final class TemplateValueNameTemplateTest implements TemplateTesting2<Tem
         );
     }
 
+    // TreePrintable....................................................................................................
+
+    @Test
+    public void testPrintTree() {
+        this.treePrintAndCheck(
+            TemplateValueNameTemplate.with(
+                TemplateValueName.with("Hello")
+            ),
+            "TemplateValueNameTemplate\n" +
+                "  Hello\n"
+        );
+    }
+
     // class............................................................................................................
 
     @Override

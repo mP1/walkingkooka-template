@@ -17,6 +17,7 @@
 
 package walkingkooka.template;
 
+import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.Printer;
 
 public class FakeTemplate implements Template {
@@ -33,6 +34,11 @@ public class FakeTemplate implements Template {
 
     @Override
     public Object value() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void printTree(final IndentingPrinter printer) {
         throw new UnsupportedOperationException();
     }
 }

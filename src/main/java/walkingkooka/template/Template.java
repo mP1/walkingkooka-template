@@ -21,6 +21,7 @@ import walkingkooka.Value;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
+import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.expression.Expression;
 
 import java.util.List;
@@ -38,7 +39,8 @@ import java.util.List;
  *
  * {@link String} with the template holds text, or the {@link}
  */
-public interface Template extends Value<Object> {
+public interface Template extends Value<Object>,
+    TreePrintable {
 
     /**
      * Render this template by printing text.

@@ -20,6 +20,7 @@ package walkingkooka.template;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.tree.expression.Expression;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -81,6 +82,35 @@ public final class TemplateCollectionTest implements TemplateTesting2<TemplateCo
     @Override
     public TemplateContext createContext() {
         return TemplateContexts.fake();
+    }
+
+    // TreePrintable....................................................................................................
+
+    @Test
+    public void testPrintTree() {
+        this.treePrintAndCheck(
+            TemplateCollection.with(
+                Lists.of(
+                    Templates.string("Hello1"),
+                    Templates.string("Hello2"),
+                    Templates.expression(
+                        Expression.add(
+                            Expression.value(1),
+                            Expression.value(22)
+                        )
+                    )
+                )
+            ),
+            "TemplateCollection\n" +
+                "  StringTemplate\n" +
+                "    \"Hello1\"\n" +
+                "  StringTemplate\n" +
+                "    \"Hello2\"\n" +
+                "  ExpressionTemplate\n" +
+                "    AddExpression\n" +
+                "      ValueExpression 1 (java.lang.Integer)\n" +
+                "      ValueExpression 22 (java.lang.Integer)\n"
+        );
     }
 
     // hashCode/equals..................................................................................................
