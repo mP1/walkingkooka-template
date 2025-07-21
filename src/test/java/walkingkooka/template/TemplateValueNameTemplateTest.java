@@ -97,7 +97,7 @@ public final class TemplateValueNameTemplateTest implements TemplateTesting2<Tem
                 TemplateValueName.with("Hello")
             ),
             "TemplateValueNameTemplate\n" +
-                "  Hello\n"
+                "  ${Hello}\n"
         );
     }
 

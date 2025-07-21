@@ -86,7 +86,7 @@ final class TemplateValueNameTemplate implements Template {
         printer.println(this.getClass().getSimpleName());
         printer.indent();
         {
-            printer.println(this.name.value());
+            printer.println(this.toString());
         }
         printer.outdent();
     }

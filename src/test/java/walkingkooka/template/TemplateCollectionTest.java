@@ -147,7 +147,9 @@ public final class TemplateCollectionTest implements TemplateTesting2<TemplateCo
             TemplateCollection.with(
                 Lists.of(
                     Templates.string("Hello1"),
-                    Templates.string("Hello2"),
+                    Templates.templateValueName(
+                        TemplateValueName.with("Hello2")
+                    ),
                     Templates.expression(
                         Expression.add(
                             Expression.value(1),
@@ -159,8 +161,8 @@ public final class TemplateCollectionTest implements TemplateTesting2<TemplateCo
             "TemplateCollection\n" +
                 "  StringTemplate\n" +
                 "    \"Hello1\"\n" +
-                "  StringTemplate\n" +
-                "    \"Hello2\"\n" +
+                "  TemplateValueNameTemplate\n" +
+                "    ${Hello2}\n" +
                 "  ExpressionTemplate\n" +
                 "    AddExpression\n" +
                 "      ValueExpression 1 (java.lang.Integer)\n" +
