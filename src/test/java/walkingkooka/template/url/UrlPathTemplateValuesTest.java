@@ -28,6 +28,8 @@ import walkingkooka.text.printer.TreePrintableTesting;
 import java.util.Optional;
 import java.util.function.Function;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class UrlPathTemplateValuesTest implements TreePrintableTesting,
     ToStringTesting<UrlPathTemplateValues>,
     ClassTesting<UrlPathTemplateValues> {
@@ -57,6 +59,16 @@ public final class UrlPathTemplateValuesTest implements TreePrintableTesting,
             "/111",
             "value1",
             111
+        );
+    }
+
+    @Test
+    public void testGetSlashValueParserFails() {
+        this.getFails(
+            "/${value1}/path2",
+            "/BadInteger/path2",
+            "value1",
+            "Extract ${value1}=BadInteger in /BadInteger/path2, For input string: \"BadInteger\""
         );
     }
 
@@ -157,15 +169,28 @@ public final class UrlPathTemplateValuesTest implements TreePrintableTesting,
                              final String path,
                              final String name,
                              final Optional<Integer> expected) {
-        this.getAndCheck(
-            UrlPathTemplate.parse(template)
-                .tryPrepareValues(
-                    UrlPath.parse(path)
-                ).orElseThrow(() -> new IllegalArgumentException("template=" + template + " does not match, Path " + path)),
-            TemplateValueName.with(name),
-            Integer::parseInt,
+        this.checkEquals(
+            this.get(
+                template,
+                path,
+                name
+            ),
             expected
         );
+    }
+
+    private Optional<Integer> get(final String template,
+                                  final String path,
+                                  final String name) {
+        return UrlPathTemplate.parse(template)
+            .tryPrepareValues(
+                UrlPath.parse(path)
+            ).orElseThrow(
+                () -> new IllegalArgumentException("template=" + template + " does not match, Path " + path)
+            ).get(
+                TemplateValueName.with(name),
+                Integer::parseInt
+            );
     }
 
     private <T> void getAndCheck(final UrlPathTemplateValues values,
@@ -179,6 +204,25 @@ public final class UrlPathTemplateValuesTest implements TreePrintableTesting,
                 parser
             ),
             () -> "values " + name + " " + parser
+        );
+    }
+
+    private void getFails(final String template,
+                          final String path,
+                          final String name,
+                          final String expected) {
+        final IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> this.get(
+                template,
+                path,
+                name
+            )
+        );
+        this.checkEquals(
+            expected,
+            thrown.getMessage(),
+            "message"
         );
     }
 
@@ -214,7 +258,7 @@ public final class UrlPathTemplateValuesTest implements TreePrintableTesting,
                 "    \"/\"\n" +
                 "    \"path3\"\n" +
                 "  path\n" +
-                "    [, path1, path2, path3]\n"
+                "    /path1/path2/path3\n"
         );
     }
 
@@ -227,7 +271,7 @@ public final class UrlPathTemplateValuesTest implements TreePrintableTesting,
                 .tryPrepareValues(
                     UrlPath.parse("/path1/path2/path3")
                 ).get(),
-            "template=/path1/${value2}/path3 path=[, path1, path2, path3]"
+            "template=/path1/${value2}/path3 path=/path1/path2/path3"
         );
     }
 
