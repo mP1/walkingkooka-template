@@ -29,6 +29,7 @@ import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.Printer;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -59,6 +60,24 @@ public final class UrlPathTemplate implements Template {
     // @VisibleForTesting
     UrlPathTemplate(final Template template) {
         this.template = template;
+    }
+
+    /**
+     * Accepts a Map which maps {@link TemplateValueName} to values. If the name is missing a
+     * {@link IllegalArgumentException} will be thrown.
+     */
+    public UrlPath renderPathWithMap(final Map<TemplateValueName, String> nameToValue) {
+        Objects.requireNonNull(nameToValue, "nameToValue");
+
+        return this.renderPath(
+            (n) -> {
+                final String value = nameToValue.get(n);
+                if (null == value) {
+                    throw new IllegalArgumentException("Missing value for " + n);
+                }
+                return value;
+            }
+        );
     }
 
     /**

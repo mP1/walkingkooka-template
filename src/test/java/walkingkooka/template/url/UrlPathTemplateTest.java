@@ -20,6 +20,7 @@ package walkingkooka.template.url;
 import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.net.UrlPath;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.template.FakeTemplateContext;
@@ -31,8 +32,11 @@ import walkingkooka.template.TemplateValueName;
 import walkingkooka.template.Templates;
 import walkingkooka.test.ParseStringTesting;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlPathTemplateTest implements TemplateTesting2<UrlPathTemplate>,
     ParseStringTesting<UrlPathTemplate>,
@@ -347,6 +351,72 @@ public final class UrlPathTemplateTest implements TemplateTesting2<UrlPathTempla
         );
     }
 
+    // renderPathWithMap................................................................................................
+
+    @Test
+    public void testRenderPathWithMapWithPathMissingValueFails() {
+        final IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> UrlPathTemplate.parse("/path1/${value999}/path3")
+                .renderPathWithMap(
+                    Maps.empty()
+                )
+        );
+
+        this.checkEquals(
+            "Missing value for value999",
+            thrown.getMessage()
+        );
+    }
+
+    @Test
+    public void testRenderPathWithMapWithPathStartsWithSlash() {
+        this.renderPathWithMapAndCheck(
+            "/path1/${value2}/path3/${value4}/path5",
+            Maps.of(
+                VALUE2,
+                "VALUE2VALUE2",
+                VALUE4,
+                "VALUE4VALUE4"
+            ),
+            "/path1/VALUE2VALUE2/path3/VALUE4VALUE4/path5"
+        );
+    }
+
+    @Test
+    public void testRenderPathWithMapWithPathMissingSlash() {
+        this.renderPathWithMapAndCheck(
+            "path1/${value2}/path3/${value4}/path5",
+            Maps.of(
+                VALUE2,
+                "VALUE2VALUE2",
+                VALUE4,
+                "VALUE4VALUE4"
+            ),
+            "path1/VALUE2VALUE2/path3/VALUE4VALUE4/path5"
+        );
+    }
+
+    private void renderPathWithMapAndCheck(final String template,
+                                           final Map<TemplateValueName, String> nameToValue,
+                                           final String expected) {
+        this.renderPathWithMapAndCheck(
+            this.parseString(template),
+            nameToValue,
+            UrlPath.parse(expected)
+        );
+    }
+
+    private void renderPathWithMapAndCheck(final UrlPathTemplate template,
+                                           final Map<TemplateValueName, String> nameToValue,
+                                           final UrlPath expected) {
+        this.checkEquals(
+            expected,
+            template.renderPathWithMap(nameToValue),
+            template::toString
+        );
+    }
+
     // tryPrepareValues.................................................................................................
 
     private final static String PATH_SEPARATOR = UrlPath.SEPARATOR.string();
@@ -356,6 +426,8 @@ public final class UrlPathTemplateTest implements TemplateTesting2<UrlPathTempla
     private final static TemplateValueName VALUE2 = TemplateValueName.with("value2");
 
     private final static TemplateValueName VALUE3 = TemplateValueName.with("value3");
+
+    private final static TemplateValueName VALUE4 = TemplateValueName.with("value4");
 
     @Test
     public void testTryPrepareValuesWithEmptyTemplateAndEmptyPath() {
