@@ -541,11 +541,6 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     // class............................................................................................................
 
     @Override
-    public String typeNameSuffix() {
-        return TemplateContext.class.getSimpleName();
-    }
-
-    @Override
     public Class<BasicTemplateContext> type() {
         return BasicTemplateContext.class;
     }
