@@ -25,7 +25,6 @@ import walkingkooka.template.TemplateContext;
 import walkingkooka.template.TemplateValueName;
 import walkingkooka.template.Templates;
 import walkingkooka.text.cursor.TextCursor;
-import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.tree.expression.Expression;
 
 import java.util.List;
@@ -53,8 +52,6 @@ final class UrlPathTemplateTemplateContext implements TemplateContext {
     @Override
     public Template parseTemplate(final TextCursor text) {
         Objects.requireNonNull(text, "text");
-
-        final TextCursorSavePoint save = text.save();
 
         final char separator = UrlPath.SEPARATOR.character();
         final List<Template> templates = Lists.array();
@@ -88,8 +85,7 @@ final class UrlPathTemplateTemplateContext implements TemplateContext {
                     if (c != separator) {
                         text.end();
                         throw new InvalidCharacterException(
-                            save.textBetween()
-                                .toString(),
+                            text.text(),
                             position
                         );
                     }
@@ -121,8 +117,7 @@ final class UrlPathTemplateTemplateContext implements TemplateContext {
 
                     text.end();
                     throw new InvalidCharacterException(
-                        save.textBetween()
-                            .toString(),
+                        text.text(),
                         position
                     );
                 case MODE_VALUE_NAME:
