@@ -30,13 +30,19 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-// /api/spreadsheet/${SpreadsheetId}/cell/${SpreadsheetExpressionReference}/formatter-edit/${SpreadsheetFormatterSelector}
-//
-// /api/spreadsheet/1/cell/A1/formatter-edit/abc/def
-//
-// SpreadsheetId=1
-// SpreadsheetExpressionReference=A1
-// SpreadsheetFormatterSelector=/abc/def
+/**
+ * A template that may be used to construct an uri path replacing placeholders with actual values and also extract
+ * components using those same placeholders.
+ * <pre>
+ * /api/spreadsheet/${SpreadsheetId}/cell/${SpreadsheetExpressionReference}/formatter-edit/${SpreadsheetFormatterSelector}
+ *
+ * /api/spreadsheet/1/cell/A1/formatter-edit/abc/def
+ *
+ * SpreadsheetId=1
+ * SpreadsheetExpressionReference=A1
+ * SpreadsheetFormatterSelector=/abc/def
+ * </pre>
+ */
 public final class UrlPathTemplate implements Template {
 
     public static UrlPathTemplate parse(final String template) {
