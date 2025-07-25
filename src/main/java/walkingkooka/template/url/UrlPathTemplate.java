@@ -156,6 +156,7 @@ public final class UrlPathTemplate implements Template {
                 UrlPathTemplateValues.with(
                     template,
                     templateComponents,
+                    path,
                     names
                 ) :
                 null

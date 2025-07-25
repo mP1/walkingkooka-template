@@ -558,6 +558,7 @@ public final class UrlPathTemplateTest implements TemplateTesting2<UrlPathTempla
             UrlPathTemplateValues.with(
                 template.template,
                 Lists.of(expected),
+                path,
                 path.namesList()
             )
         );

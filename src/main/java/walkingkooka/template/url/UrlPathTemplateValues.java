@@ -17,8 +17,10 @@
 
 package walkingkooka.template.url;
 
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.template.Template;
+import walkingkooka.template.TemplateContext;
 import walkingkooka.template.TemplateValueName;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
@@ -32,20 +34,24 @@ public final class UrlPathTemplateValues implements TreePrintable {
 
     static UrlPathTemplateValues with(final Template template,
                                       final List<Object> templateComponents,
-                                      final List<UrlPathName> path) {
+                                      final UrlPath path,
+                                      final List<UrlPathName> pathComponents) {
         return new UrlPathTemplateValues(
             template,
             templateComponents,
-            path
+            path,
+            pathComponents
         );
     }
 
     private UrlPathTemplateValues(final Template template,
                                   final List<Object> templateComponents,
-                                  final List<UrlPathName> path) {
+                                  final UrlPath path,
+                                  final List<UrlPathName> pathComponents) {
         this.template = template;
         this.templateComponents = templateComponents;
         this.path = path;
+        this.pathComponents = pathComponents;
     }
 
     public <T> Optional<T> get(final TemplateValueName name,
@@ -57,14 +63,31 @@ public final class UrlPathTemplateValues implements TreePrintable {
 
         int pathComponentIndex = 0;
         for (final Object component : this.templateComponents) {
-            if (pathComponentIndex >= this.path.size()) {
+            if (pathComponentIndex >= this.pathComponents.size()) {
                 continue;
             }
 
             if (component instanceof TemplateValueName) {
-                final UrlPathName pathComponent = this.path.get(pathComponentIndex);
+                final UrlPathName pathComponent = this.pathComponents.get(pathComponentIndex);
                 if (null != pathComponent) {
-                    value = parser.apply(pathComponent.value());
+                    final String stringValue = pathComponent.value();
+                    try {
+                        value = parser.apply(stringValue);
+                    } catch (final RuntimeException cause) {
+                        // "Extract ${value1}=BadInteger in /BadInteger/path2, For input string: \"BadInteger\""
+                        throw new IllegalArgumentException(
+                            "Extract " +
+                                TemplateContext.EXPRESSION_OPEN +
+                                component +
+                                TemplateContext.EXPRESSION_CLOSE +
+                                "=" + stringValue +
+                                " in " +
+                                this.path +
+                                ", " +
+                                cause.getMessage(),
+                            cause
+                        );
+                    }
                 }
             } else {
                 if (component instanceof String) {
@@ -87,7 +110,7 @@ public final class UrlPathTemplateValues implements TreePrintable {
     /**
      * The individual {@link UrlPathName}.
      */
-    private final List<UrlPathName> path;
+    private final List<UrlPathName> pathComponents;
 
     // Object...........................................................................................................
 
@@ -97,6 +120,8 @@ public final class UrlPathTemplateValues implements TreePrintable {
     }
 
     private final Template template;
+
+    private final UrlPath path;
 
     // TreePrintable....................................................................................................
 
@@ -128,11 +153,9 @@ public final class UrlPathTemplateValues implements TreePrintable {
             printer.println("path");
             printer.indent();
             {
-                TreePrintable.printTreeOrToString(
-                    this.path,
-                    printer
+                printer.println(
+                    this.path.value()
                 );
-                printer.lineStart();
             }
             printer.outdent();
         }
