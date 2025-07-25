@@ -148,7 +148,7 @@ final class UrlPathTemplateTemplateContext implements TemplateContext {
                         mode = MODE_SEPARATOR;
                         break;
                     }
-                    if (Character.isISOControl(c) || Character.isWhitespace(c)) {
+                    if (c < ' ' || Character.isWhitespace(c)) {
                         throw new InvalidCharacterException(
                             text.text(),
                             position
