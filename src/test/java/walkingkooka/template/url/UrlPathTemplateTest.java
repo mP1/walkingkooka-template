@@ -32,6 +32,7 @@ import walkingkooka.template.Templates;
 import walkingkooka.test.ParseStringTesting;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 public final class UrlPathTemplateTest implements TemplateTesting2<UrlPathTemplate>,
     ParseStringTesting<UrlPathTemplate>,
@@ -231,7 +232,7 @@ public final class UrlPathTemplateTest implements TemplateTesting2<UrlPathTempla
     // render...........................................................................................................
 
     @Test
-    public void testRenderPathStartsWithSlash() {
+    public void testRenderWithPathStartsWithSlash() {
         this.renderAndCheck(
             this.parseString("/path1/${value2}/path3/${value4}/path5"),
             new FakeTemplateContext() {
@@ -245,7 +246,7 @@ public final class UrlPathTemplateTest implements TemplateTesting2<UrlPathTempla
     }
 
     @Test
-    public void testRenderPathMissingSlash() {
+    public void testRenderWithPathMissingSlash() {
         this.renderAndCheck(
             this.parseString("path1/${value2}/path3/${value4}/path5"),
             new FakeTemplateContext() {
@@ -255,6 +256,46 @@ public final class UrlPathTemplateTest implements TemplateTesting2<UrlPathTempla
                 }
             },
             "path1/VALUE2VALUE2/path3/VALUE4VALUE4/path5"
+        );
+    }
+
+    // renderPath.......................................................................................................
+
+    @Test
+    public void testRenderPathWithPathStartsWithSlash() {
+        this.renderPathAndCheck(
+            "/path1/${value2}/path3/${value4}/path5",
+            (name) -> name.value().toUpperCase() + name.value().toUpperCase(),
+            "/path1/VALUE2VALUE2/path3/VALUE4VALUE4/path5"
+        );
+    }
+
+    @Test
+    public void testRenderPathWithPathMissingSlash() {
+        this.renderPathAndCheck(
+            "path1/${value2}/path3/${value4}/path5",
+            (name) -> name.value().toUpperCase() + name.value().toUpperCase(),
+            "path1/VALUE2VALUE2/path3/VALUE4VALUE4/path5"
+        );
+    }
+
+    private void renderPathAndCheck(final String template,
+                                    final Function<TemplateValueName, String> nameToValue,
+                                    final String expected) {
+        this.renderPathAndCheck(
+            this.parseString(template),
+            nameToValue,
+            UrlPath.parse(expected)
+        );
+    }
+
+    private void renderPathAndCheck(final UrlPathTemplate template,
+                                    final Function<TemplateValueName, String> nameToValue,
+                                    final UrlPath expected) {
+        this.checkEquals(
+            expected,
+            template.renderPath(nameToValue),
+            template::toString
         );
     }
 

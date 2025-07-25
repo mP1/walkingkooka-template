@@ -22,13 +22,16 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.template.Template;
 import walkingkooka.template.TemplateContext;
+import walkingkooka.template.TemplateContexts;
 import walkingkooka.template.TemplateValueName;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.Printer;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * A template that may be used to construct an uri path replacing placeholders with actual values and also extract
@@ -56,6 +59,18 @@ public final class UrlPathTemplate implements Template {
     // @VisibleForTesting
     UrlPathTemplate(final Template template) {
         this.template = template;
+    }
+
+    /**
+     * Renders this template with the given names to value returning the result as a {@link UrlPath}.
+     */
+    public UrlPath renderPath(final Function<TemplateValueName, String> nameToValue) {
+        return UrlPath.parse(
+            this.renderToString(
+                LineEnding.NONE,
+                TemplateContexts.renderOnly(nameToValue)
+            )
+        );
     }
 
     @Override
