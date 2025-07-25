@@ -52,6 +52,13 @@ public final class TemplateContexts implements PublicStaticHelper {
     }
 
     /**
+     * {@see RenderOnlyTemplateContext}
+     */
+    public static TemplateContext renderOnly(final Function<TemplateValueName, String> templateValues) {
+        return RenderOnlyTemplateContext.with(templateValues);
+    }
+
+    /**
      * Stop creation
      */
     private TemplateContexts() {
