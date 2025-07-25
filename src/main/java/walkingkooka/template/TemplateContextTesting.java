@@ -158,4 +158,11 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
             context.templateValue(name)
         );
     }
+
+    // Context..........................................................................................................
+
+    @Override
+    default String typeNameSuffix() {
+        return TemplateContext.class.getSimpleName();
+    }
 }

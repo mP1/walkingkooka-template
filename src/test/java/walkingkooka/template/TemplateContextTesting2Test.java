@@ -366,18 +366,8 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
     // TemplateContext..................................................................................................
 
     @Override
-    public void testTypeNaming() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public TestTemplateContext createContext() {
         return new TestTemplateContext();
-    }
-
-    @Override
-    public String typeNameSuffix() {
-        return "";
     }
 
     @Override
