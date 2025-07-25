@@ -73,6 +73,7 @@ public final class UrlPathTemplateValues implements TreePrintable {
                     final String stringValue = pathComponent.value();
                     try {
                         value = parser.apply(stringValue);
+                        break;
                     } catch (final RuntimeException cause) {
                         // "Extract ${value1}=BadInteger in /BadInteger/path2, For input string: \"BadInteger\""
                         throw new IllegalArgumentException(
