@@ -106,10 +106,6 @@ final class UrlPathTemplateTemplateContext implements TemplateContext {
                         text.next();
                     } else {
                         token = new StringBuilder();
-                        token.append(c);
-                        text.next();
-                        position++;
-
                         mode = MODE_TEXT;
                     }
                     break;
@@ -156,6 +152,12 @@ final class UrlPathTemplateTemplateContext implements TemplateContext {
                         token = null;
                         mode = MODE_SEPARATOR;
                         break;
+                    }
+                    if (Character.isISOControl(c) || Character.isWhitespace(c)) {
+                        throw new InvalidCharacterException(
+                            text.text(),
+                            position
+                        );
                     }
                     token.append(c);
                     text.next();

@@ -46,6 +46,54 @@ public final class UrlPathTemplateTest implements TemplateTesting2<UrlPathTempla
     }
 
     @Test
+    public void testParseWithControlCharacterFails() {
+        this.parseStringInvalidCharacterFails(
+            "/path1/\0/path3",
+            '\0'
+        );
+    }
+
+    @Test
+    public void testParseWithControlCharacterFails2() {
+        this.parseStringInvalidCharacterFails(
+            "/path1/path2\0/path3",
+            '\0'
+        );
+    }
+
+    @Test
+    public void testParseWithCarriageReturnFails() {
+        this.parseStringInvalidCharacterFails(
+            "/path1/\r/path3",
+            '\r'
+        );
+    }
+
+    @Test
+    public void testParseWithCarriageReturnFails2() {
+        this.parseStringInvalidCharacterFails(
+            "/path1/path2\r/path3",
+            '\r'
+        );
+    }
+
+    @Test
+    public void testParseWithNewLineFails() {
+        this.parseStringInvalidCharacterFails(
+            "/path1/\n/path3",
+            '\n'
+        );
+    }
+
+    @Test
+    public void testParseWithNewLineFails2() {
+        this.parseStringInvalidCharacterFails(
+            "/path1/path2\n/path3",
+            '\n'
+        );
+    }
+
+    @Test
     public void testParseWithDollarFails() {
         this.parseStringFails(
             "$",
