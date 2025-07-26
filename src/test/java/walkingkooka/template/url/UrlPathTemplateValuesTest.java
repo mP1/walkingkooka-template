@@ -142,6 +142,26 @@ public final class UrlPathTemplateValuesTest implements TreePrintableTesting,
         );
     }
 
+    @Test
+    public void testGetValueMultiple() {
+        this.getAndCheck(
+            "${value1}/${value2}",
+            "1111/2222",
+            "value1",
+            1111
+        );
+    }
+
+    @Test
+    public void testGetValueMultiple2() {
+        this.getAndCheck(
+            "${value1}/${value2}",
+            "1111/2222",
+            "value2",
+            2222
+        );
+    }
+
     private void getAndCheck(final String template,
                              final String path,
                              final String name) {

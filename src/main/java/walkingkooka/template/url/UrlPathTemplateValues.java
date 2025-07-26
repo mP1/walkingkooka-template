@@ -70,7 +70,7 @@ public final class UrlPathTemplateValues implements Value<List<Object>>,
                 continue;
             }
 
-            if (component instanceof TemplateValueName) {
+            if (name.equals(component)) {
                 final UrlPathName pathComponent = this.pathComponents.get(pathComponentIndex);
                 if (null != pathComponent) {
                     final String stringValue = pathComponent.value();
@@ -98,8 +98,6 @@ public final class UrlPathTemplateValues implements Value<List<Object>>,
                     if (pathComponentIndex > 0 && UrlPathTemplate.PATH_SEPARATOR_STRING.equals(component)) {
                         pathComponentIndex--;
                     }
-                } else {
-                    throw new IllegalStateException("Unknown template component " + component);
                 }
             }
 
