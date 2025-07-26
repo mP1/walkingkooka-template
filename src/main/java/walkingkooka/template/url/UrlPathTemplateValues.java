@@ -17,6 +17,8 @@
 
 package walkingkooka.template.url;
 
+import walkingkooka.Value;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.template.Template;
@@ -30,7 +32,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
-public final class UrlPathTemplateValues implements TreePrintable {
+public final class UrlPathTemplateValues implements Value<List<Object>>,
+    TreePrintable {
 
     static UrlPathTemplateValues with(final Template template,
                                       final List<Object> templateComponents,
@@ -49,7 +52,7 @@ public final class UrlPathTemplateValues implements TreePrintable {
                                   final UrlPath path,
                                   final List<UrlPathName> pathComponents) {
         this.template = template;
-        this.templateComponents = templateComponents;
+        this.templateComponents = Lists.immutable(templateComponents);
         this.path = path;
         this.pathComponents = pathComponents;
     }
@@ -106,12 +109,22 @@ public final class UrlPathTemplateValues implements TreePrintable {
         return Optional.ofNullable(value);
     }
 
-    private final List<Object> templateComponents;
-
     /**
      * The individual {@link UrlPathName}.
      */
     private final List<UrlPathName> pathComponents;
+
+    // Value............................................................................................................
+
+    /**
+     * Returns the components of the template. This will be useful to deconstruct the template into components and discover named values.
+     */
+    @Override
+    public List<Object> value() {
+        return this.templateComponents;
+    }
+
+    private final List<Object> templateComponents;
 
     // Object...........................................................................................................
 
