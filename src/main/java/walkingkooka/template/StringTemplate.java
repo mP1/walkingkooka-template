@@ -17,11 +17,13 @@
 
 package walkingkooka.template;
 
+import walkingkooka.collect.set.Sets;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.Printer;
 
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A {@link Template} that renders the text given to its factory.
@@ -53,6 +55,11 @@ final class StringTemplate implements Template {
         Objects.requireNonNull(context, "context");
 
         printer.print(this.text);
+    }
+
+    @Override
+    public Set<TemplateValueName> templateValueNames() {
+        return Sets.empty();
     }
 
     // Value............................................................................................................

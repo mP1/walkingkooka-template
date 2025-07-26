@@ -25,6 +25,7 @@ import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.expression.Expression;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * A template handles rendering a template in {@link String} by printing to a {@link Printer}.
@@ -62,4 +63,9 @@ public interface Template extends Value<Object>,
 
         return builder.toString();
     }
+
+    /**
+     * Returns all the {@link TemplateValueName} in this template.
+     */
+    Set<TemplateValueName> templateValueNames();
 }

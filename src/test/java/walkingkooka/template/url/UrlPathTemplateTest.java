@@ -417,6 +417,17 @@ public final class UrlPathTemplateTest implements TemplateTesting2<UrlPathTempla
         );
     }
 
+    // templateValueNames...............................................................................................
+
+    @Test
+    public void testTemplateValueNames() {
+        this.templateValueNamesAndCheck(
+            UrlPathTemplate.parse("/path1/${value2}/path3/${value4}"),
+            VALUE2,
+            VALUE4
+        );
+    }
+
     // tryPrepareValues.................................................................................................
 
     private final static String PATH_SEPARATOR = UrlPath.SEPARATOR.string();

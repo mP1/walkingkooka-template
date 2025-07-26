@@ -22,6 +22,8 @@ import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 import walkingkooka.text.printer.TreePrintableTesting;
 
+import java.util.Set;
+
 public interface TemplateTesting extends TreePrintableTesting {
 
     default void renderAndCheck(final Template template,
@@ -38,6 +40,25 @@ public interface TemplateTesting extends TreePrintableTesting {
         this.checkEquals(
                 expected,
                 printed.toString()
+        );
+    }
+
+    // templateValueNames...............................................................................................
+
+    default void templateValueNamesAndCheck(final Template template,
+                                            final TemplateValueName... names) {
+        this.templateValueNamesAndCheck(
+            template,
+            Set.of(names)
+        );
+    }
+
+    default void templateValueNamesAndCheck(final Template template,
+                                            final Set<TemplateValueName> names) {
+        this.checkEquals(
+            names,
+            template.templateValueNames(),
+            template::toString
         );
     }
 }

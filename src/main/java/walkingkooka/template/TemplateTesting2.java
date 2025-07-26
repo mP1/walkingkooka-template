@@ -23,6 +23,8 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.text.printer.Printers;
 
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface TemplateTesting2<T extends Template> extends TemplateTesting,
@@ -51,6 +53,22 @@ public interface TemplateTesting2<T extends Template> extends TemplateTesting,
                                 Printers.fake(),
                                 null
                         )
+        );
+    }
+
+    // templateValueNames...............................................................................................
+
+    default void templateValueNamesAndCheck(final TemplateValueName... names) {
+        this.templateValueNamesAndCheck(
+            this.createTemplate(),
+            names
+        );
+    }
+
+    default void templateValueNamesAndCheck(final Set<TemplateValueName> names) {
+        this.templateValueNamesAndCheck(
+            this.createTemplate(),
+            names
         );
     }
 

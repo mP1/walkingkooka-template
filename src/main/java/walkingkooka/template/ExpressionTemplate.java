@@ -17,12 +17,14 @@
 
 package walkingkooka.template;
 
+import walkingkooka.collect.set.Sets;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.expression.Expression;
 
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A {@link Template} that renders or inserts {@link String string value} for a given {@link Expression}.
@@ -48,6 +50,11 @@ final class ExpressionTemplate implements Template {
         printer.print(
                 context.evaluateAsString(this.expression)
         );
+    }
+
+    @Override
+    public Set<TemplateValueName> templateValueNames() {
+        return Sets.empty();
     }
 
     // Value............................................................................................................
