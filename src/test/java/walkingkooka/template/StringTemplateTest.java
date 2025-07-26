@@ -56,6 +56,13 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
         );
     }
 
+    // templateValueNames...............................................................................................
+
+    @Test
+    public void testTemplateValueNames() {
+        this.templateValueNamesAndCheck();
+    }
+
     @Override
     public StringTemplate createTemplate() {
         return StringTemplate.EMPTY;

@@ -18,11 +18,14 @@
 package walkingkooka.template;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
+import walkingkooka.collect.set.SortedSets;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.Printer;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -82,6 +85,24 @@ final class TemplateCollection implements Template {
             );
         }
     }
+
+    @Override
+    public Set<TemplateValueName> templateValueNames() {
+        if (null == this.templateValueNames) {
+            final Set<TemplateValueName> templateValueNames = SortedSets.tree();
+
+            for (final Template template : this.templates) {
+                templateValueNames.addAll(
+                    template.templateValueNames()
+                );
+            }
+
+            this.templateValueNames = Sets.immutable(templateValueNames);
+        }
+        return this.templateValueNames;
+    }
+
+    private Set<TemplateValueName> templateValueNames;
 
     // Value............................................................................................................
 

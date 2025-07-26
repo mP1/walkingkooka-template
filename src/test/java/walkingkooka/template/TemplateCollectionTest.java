@@ -123,6 +123,27 @@ public final class TemplateCollectionTest implements TemplateTesting2<TemplateCo
         );
     }
 
+    // templateValueNames...............................................................................................
+
+    @Test
+    public void testTemplateValueNames() {
+        final TemplateValueName value1 = TemplateValueName.with("value1");
+        final TemplateValueName value2 = TemplateValueName.with("value2");
+
+        this.templateValueNamesAndCheck(
+            TemplateCollection.with(
+                Lists.of(
+                    Templates.string("string1"),
+                    Templates.templateValueName(value1),
+                    Templates.string("string2"),
+                    Templates.templateValueName(value2)
+                )
+            ),
+            value1,
+            value2
+        );
+    }
+
     @Override
     public TemplateCollection createTemplate() {
         return (TemplateCollection)

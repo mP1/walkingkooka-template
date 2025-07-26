@@ -20,6 +20,8 @@ package walkingkooka.template;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.Printer;
 
+import java.util.Set;
+
 public class FakeTemplate implements Template {
 
     public FakeTemplate() {
@@ -29,6 +31,11 @@ public class FakeTemplate implements Template {
     @Override
     public void render(final Printer printer,
                        final TemplateContext context) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<TemplateValueName> templateValueNames() {
         throw new UnsupportedOperationException();
     }
 

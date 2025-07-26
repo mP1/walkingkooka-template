@@ -17,10 +17,12 @@
 
 package walkingkooka.template;
 
+import walkingkooka.collect.set.Sets;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.Printer;
 
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A {@link Template} that renders or inserts the value for a given {@link TemplateValueName}.
@@ -46,6 +48,11 @@ final class TemplateValueNameTemplate implements Template {
         printer.print(
             context.templateValue(this.name)
         );
+    }
+
+    @Override
+    public Set<TemplateValueName> templateValueNames() {
+        return Sets.of(this.name);
     }
 
     // Value............................................................................................................

@@ -55,6 +55,15 @@ public final class TemplateValueNameTemplateTest implements TemplateTesting2<Tem
         );
     }
 
+    // templateValueNames...............................................................................................
+
+    @Test
+    public void testTemplateValueNames() {
+        this.templateValueNamesAndCheck(
+            TemplateValueName.with("Hello")
+        );
+    }
+
     @Override
     public TemplateValueNameTemplate createTemplate() {
         return TemplateValueNameTemplate.with(
