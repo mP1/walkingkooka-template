@@ -57,6 +57,10 @@ public final class UrlPathTemplateValues implements Value<List<Object>>,
         this.pathComponents = pathComponents;
     }
 
+    /**
+     * Note the {@link String} given to the parser will most likely include a starting slash, except if the path is
+     * missing a leading slash.
+     */
     public <T> Optional<T> get(final TemplateValueName name,
                                final Function<String, T> parser) {
         Objects.requireNonNull(name, "name");
@@ -64,7 +68,13 @@ public final class UrlPathTemplateValues implements Value<List<Object>>,
 
         T value = null;
 
+        final UrlPath path = this.path;
+
+        int templateIndex = 0;
+        final int last = this.templateComponents.size() - 1;
+
         int pathComponentIndex = 0;
+
         for (final Object component : this.templateComponents) {
             if (pathComponentIndex >= this.pathComponents.size()) {
                 continue;
@@ -73,7 +83,21 @@ public final class UrlPathTemplateValues implements Value<List<Object>>,
             if (name.equals(component)) {
                 final UrlPathName pathComponent = this.pathComponents.get(pathComponentIndex);
                 if (null != pathComponent) {
-                    final String stringValue = pathComponent.value();
+                    String stringValue;
+
+                    if (last == templateIndex) {
+                        stringValue = path.pathAfter(
+                            Math.max(
+                                0,
+                                path.isStartsWithSeparator() ?
+                                    pathComponentIndex - 1 :
+                                    pathComponentIndex
+                            )
+                        ).value();
+                    } else {
+                        stringValue = pathComponent.value();
+                    }
+
                     try {
                         value = parser.apply(stringValue);
                         break;
@@ -86,7 +110,7 @@ public final class UrlPathTemplateValues implements Value<List<Object>>,
                                 TemplateContext.EXPRESSION_CLOSE +
                                 "=" + stringValue +
                                 " in " +
-                                this.path +
+                                path +
                                 ", " +
                                 cause.getMessage(),
                             cause
@@ -102,6 +126,7 @@ public final class UrlPathTemplateValues implements Value<List<Object>>,
             }
 
             pathComponentIndex++;
+            templateIndex++;
         }
 
         return Optional.ofNullable(value);

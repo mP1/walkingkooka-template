@@ -162,6 +162,72 @@ public final class UrlPathTemplateValuesTest implements TreePrintableTesting,
         );
     }
 
+    @Test
+    public void testGetLastValue() {
+        this.getAndCheck(
+            "${last}",
+            "1111/2222",
+            "last",
+            (s) -> s,
+            "1111/2222"
+        );
+    }
+
+    @Test
+    public void testGetLastValue2() {
+        this.getAndCheck(
+            "path1/${last}",
+            "path1/2222/3333",
+            "last",
+            (s) -> s,
+            "/2222/3333"
+        );
+    }
+
+    @Test
+    public void testGetLastValue3() {
+        this.getAndCheck(
+            "path1/${last}",
+            "path1/2222/3333/4444",
+            "last",
+            (s) -> s,
+            "/2222/3333/4444"
+        );
+    }
+
+    @Test
+    public void testGetSlashLastValue() {
+        this.getAndCheck(
+            "/${last}",
+            "/1111/2222",
+            "last",
+            (s) -> s,
+            "/1111/2222"
+        );
+    }
+
+    @Test
+    public void testGetSlashLastValue2() {
+        this.getAndCheck(
+            "/path1/${last}",
+            "/path1/2222/3333",
+            "last",
+            (s) -> s,
+            "/2222/3333"
+        );
+    }
+
+    @Test
+    public void testGetSlashLastValue3() {
+        this.getAndCheck(
+            "/path1/${last}",
+            "/path1/2222/3333/4444",
+            "last",
+            (s) -> s,
+            "/2222/3333/4444"
+        );
+    }
+
     private void getAndCheck(final String template,
                              final String path,
                              final String name) {
@@ -209,8 +275,41 @@ public final class UrlPathTemplateValuesTest implements TreePrintableTesting,
                 () -> new IllegalArgumentException("template=" + template + " does not match, Path " + path)
             ).get(
                 TemplateValueName.with(name),
-                Integer::parseInt
+                (s) -> Integer.parseInt(
+                    s.startsWith("/") ?
+                        s.substring(1) :
+                        s
+                )
             );
+    }
+
+    private <T> void getAndCheck(final String template,
+                                 final String path,
+                                 final String name,
+                                 final Function<String, T> parser,
+                                 final T expected) {
+        this.getAndCheck(
+            template,
+            path,
+            name,
+            parser,
+            Optional.of(expected)
+        );
+    }
+
+    private <T> void getAndCheck(final String template,
+                                 final String path,
+                                 final String name,
+                                 final Function<String, T> parser,
+                                 final Optional<T> expected) {
+        this.getAndCheck(
+            UrlPathTemplate.parse(template)
+                .tryPrepareValues(UrlPath.parse(path))
+                .orElseThrow(() -> new IllegalArgumentException("Path does not match")),
+            TemplateValueName.with(name),
+            parser,
+            expected
+        );
     }
 
     private <T> void getAndCheck(final UrlPathTemplateValues values,
