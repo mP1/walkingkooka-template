@@ -196,6 +196,39 @@ public final class UrlPathTemplateValuesTest implements TreePrintableTesting,
     }
 
     @Test
+    public void testGetLastValueEmpty() {
+        this.getAndCheck(
+            "path1/${last}",
+            "path1/",
+            "last",
+            (s) -> s,
+            "/"
+        );
+    }
+
+    @Test
+    public void testGetLastValueMissingSlash() {
+        this.getAndCheck(
+            "path1/${last}",
+            "path1",
+            "last",
+            (s) -> s,
+            ""
+        );
+    }
+
+    @Test
+    public void testGetLastValueMissingSlash2() {
+        this.getAndCheck(
+            "path1/path2/${last}",
+            "path1/path2",
+            "last",
+            (s) -> s,
+            ""
+        );
+    }
+
+    @Test
     public void testGetSlashLastValue() {
         this.getAndCheck(
             "/${last}",
@@ -225,6 +258,39 @@ public final class UrlPathTemplateValuesTest implements TreePrintableTesting,
             "last",
             (s) -> s,
             "/2222/3333/4444"
+        );
+    }
+
+    @Test
+    public void testGetSlashLastValueEmpty() {
+        this.getAndCheck(
+            "/path1/${last}",
+            "/path1/",
+            "last",
+            (s) -> s,
+            "/"
+        );
+    }
+
+    @Test
+    public void testGetSlashLastValueMissingSlash() {
+        this.getAndCheck(
+            "/path1/${last}",
+            "/path1",
+            "last",
+            (s) -> s,
+            ""
+        );
+    }
+
+    @Test
+    public void testGetSlashLastValueMissingSlash2() {
+        this.getAndCheck(
+            "/path1/path2/${last}",
+            "/path1/path2",
+            "last",
+            (s) -> s,
+            ""
         );
     }
 
