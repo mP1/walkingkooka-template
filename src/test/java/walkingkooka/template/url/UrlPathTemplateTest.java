@@ -655,6 +655,22 @@ public final class UrlPathTemplateTest implements TemplateTesting2<UrlPathTempla
     }
 
     @Test
+    public void testTryPrepareValuesWithPathComponentValueComponentMissingLast() {
+        this.tryPrepareValuesAndCheck(
+            "path1/${value2}/path3",
+            "path1/path2/"
+        );
+    }
+
+    @Test
+    public void testTryPrepareValuesWithPathComponentValueComponentMissingLast2() {
+        this.tryPrepareValuesAndCheck(
+            "path1/${value2}/path3",
+            "path1/path2"
+        );
+    }
+
+    @Test
     public void testTryPrepareValuesWithPathComponentValueComponentExtraComponent() {
         this.tryPrepareValuesAndCheck(
             "path1/${value2}",
@@ -668,7 +684,7 @@ public final class UrlPathTemplateTest implements TemplateTesting2<UrlPathTempla
     @Test
     public void testTryPrepareValuesWithPathComponentValueComponentSlash() {
         this.tryPrepareValuesAndCheck(
-            "/path1/${value2}/${value3}/",
+            "/path1/${value2}/${value3}/", // slash required
             "/path1/path2/path3"
         );
     }
@@ -685,6 +701,18 @@ public final class UrlPathTemplateTest implements TemplateTesting2<UrlPathTempla
             VALUE3
         );
     }
+
+    @Test
+    public void testTryPrepareValuesWithPathComponentPathMissingLastSlash() {
+        this.tryPrepareValuesAndCheck(
+            "path1/${value2}",
+            "path1", // path
+            "path1", // template components
+            PATH_SEPARATOR,
+            VALUE2
+        );
+    }
+
     private void tryPrepareValuesAndCheck(final String template,
                                           final String path) {
         this.tryPrepareValuesAndCheck(

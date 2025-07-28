@@ -149,37 +149,41 @@ public final class UrlPathTemplate implements Template {
 
         final List<UrlPathName> names = path.namesList();
         final int nameCount = names.size();
-        int p = 0;
+        int pathNameIndex = 0;
         boolean requirePathSeparator = path.isStartsWithSeparator();
         boolean matched = true;
+        int templateComponentIndex = 0;
 
         for (final Object templateComponent : templateComponents) {
-            if (false == matched) {
-                break;
-            }
-            if (p >= templateComponentsCount) {
-                matched = true;
-                break;
-            }
-            if (p >= nameCount) {
-                matched = false;
+
+            if (pathNameIndex >= nameCount) {
+                if (pathNameIndex == nameCount) {
+                    matched = true;
+                } else {
+                    matched = false;
+                }
                 break;
             }
 
             if (requirePathSeparator) {
                 matched = PATH_SEPARATOR_STRING.equals(templateComponent);
                 requirePathSeparator = false;
-                if (0 == p) {
-                    p++;
+                if (0 == pathNameIndex) {
+                    pathNameIndex++;
                 }
+                templateComponentIndex++;
                 continue;
             }
 
             if (templateComponent instanceof String) {
                 matched = templateComponent.equals(
-                    names.get(p)
+                    names.get(pathNameIndex)
                         .value()
                 );
+
+                if (false == matched) {
+                    break;
+                }
             } else {
                 if (false == templateComponent instanceof TemplateValueName) {
                     throw new IllegalArgumentException("Invalid template component: " + templateComponent.getClass().getSimpleName() + "=" + templateComponent);
@@ -187,8 +191,19 @@ public final class UrlPathTemplate implements Template {
                 // TemplateValueName ignore goto next
                 matched = true;
             }
-            p++;
+            pathNameIndex++;
+            templateComponentIndex++;
             requirePathSeparator = true;
+        }
+
+        if (templateComponentIndex < templateComponentsCount) {
+            if (matched && templateComponentIndex + 2 == templateComponentsCount) {
+                // slash and TemplateValueName is optional
+                matched = templateComponents.get(templateComponentIndex + 1) instanceof TemplateValueName &&
+                    templateComponents.get(templateComponentIndex).equals(PATH_SEPARATOR_STRING);
+            } else {
+                matched = false;
+            }
         }
 
         return Optional.ofNullable(

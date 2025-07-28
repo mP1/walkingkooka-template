@@ -68,24 +68,29 @@ public final class UrlPathTemplateValues implements Value<List<Object>>,
 
         T value = null;
 
-        final UrlPath path = this.path;
-
         int templateIndex = 0;
-        final int last = this.templateComponents.size() - 1;
+        final int lastTemplateComponentIndex = this.templateComponents.size() - 1;
 
         int pathComponentIndex = 0;
 
-        for (final Object component : this.templateComponents) {
+        for (final Object templateComponent : this.templateComponents) {
             if (pathComponentIndex >= this.pathComponents.size()) {
-                continue;
+                value = this.parse(
+                    parser,
+                    "",
+                    templateComponent
+                );
+                break;
             }
 
-            if (name.equals(component)) {
+            if (name.equals(templateComponent)) {
                 final UrlPathName pathComponent = this.pathComponents.get(pathComponentIndex);
                 if (null != pathComponent) {
                     String stringValue;
 
-                    if (last == templateIndex) {
+                    if (lastTemplateComponentIndex == templateIndex) {
+                        final UrlPath path = this.path;
+
                         stringValue = path.pathAfter(
                             Math.max(
                                 0,
@@ -98,28 +103,16 @@ public final class UrlPathTemplateValues implements Value<List<Object>>,
                         stringValue = pathComponent.value();
                     }
 
-                    try {
-                        value = parser.apply(stringValue);
-                        break;
-                    } catch (final RuntimeException cause) {
-                        // "Extract ${value1}=BadInteger in /BadInteger/path2, For input string: \"BadInteger\""
-                        throw new IllegalArgumentException(
-                            "Extract " +
-                                TemplateContext.EXPRESSION_OPEN +
-                                component +
-                                TemplateContext.EXPRESSION_CLOSE +
-                                "=" + stringValue +
-                                " in " +
-                                path +
-                                ", " +
-                                cause.getMessage(),
-                            cause
-                        );
-                    }
+                    value = this.parse(
+                        parser,
+                        stringValue,
+                        templateComponent
+                    );
+                    break;
                 }
             } else {
-                if (component instanceof String) {
-                    if (pathComponentIndex > 0 && UrlPathTemplate.PATH_SEPARATOR_STRING.equals(component)) {
+                if (templateComponent instanceof String) {
+                    if (pathComponentIndex > 0 && UrlPathTemplate.PATH_SEPARATOR_STRING.equals(templateComponent)) {
                         pathComponentIndex--;
                     }
                 }
@@ -130,6 +123,28 @@ public final class UrlPathTemplateValues implements Value<List<Object>>,
         }
 
         return Optional.ofNullable(value);
+    }
+
+    private <T> T parse(final Function<String, T> parser,
+                        final String stringValue,
+                        final Object templateComponent) {
+        try {
+            return parser.apply(stringValue);
+        } catch (final RuntimeException cause) {
+            // "Extract ${value1}=BadInteger in /BadInteger/path2, For input string: \"BadInteger\""
+            throw new IllegalArgumentException(
+                "Extract " +
+                    TemplateContext.EXPRESSION_OPEN +
+                    templateComponent +
+                    TemplateContext.EXPRESSION_CLOSE +
+                    "=" + stringValue +
+                    " in " +
+                    this.path +
+                    ", " +
+                    cause.getMessage(),
+                cause
+            );
+        }
     }
 
     /**
