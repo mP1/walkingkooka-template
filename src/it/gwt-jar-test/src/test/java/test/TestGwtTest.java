@@ -95,6 +95,7 @@ public class TestGwtTest extends GWTTestCase {
                         )
                     ).cast(ExpressionNumberConverterContext.class),
                     ConverterContexts.basic(
+                        false, // canNumbersHaveGroupSeparator
                         -1,
                         Converters.fake(),
                         DateTimeContexts.fake(),

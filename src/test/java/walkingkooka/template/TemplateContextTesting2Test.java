@@ -159,6 +159,7 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                                     )
                                 ).cast(ExpressionNumberConverterContext.class),
                                 ConverterContexts.basic(
+                                    false, // canNumbersHaveGroupSeparator
                                     -1,
                                     Converters.fake(),
                                     DateTimeContexts.fake(),
