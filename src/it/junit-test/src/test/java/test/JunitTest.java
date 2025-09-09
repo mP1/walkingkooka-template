@@ -93,6 +93,7 @@ public class JunitTest {
                         )
                     ).cast(ExpressionNumberConverterContext.class),
                     ConverterContexts.basic(
+                        false, // canNumbersHaveGroupSeparator
                         -1,
                         Converters.fake(),
                         DateTimeContexts.fake(),

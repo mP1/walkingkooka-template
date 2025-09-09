@@ -86,6 +86,7 @@ public class Sample {
                                         )
                                 ).cast(ExpressionNumberConverterContext.class),
                                 ConverterContexts.basic(
+                                    false, // canNumbersHaveGroupSeparator
                                         -1,
                                         Converters.fake(),
                                         DateTimeContexts.fake(),
