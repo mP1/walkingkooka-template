@@ -84,6 +84,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
                             -1,
+                        ',', // valueSeparator
                             Converters.fake(),
                             DateTimeContexts.fake(),
                             DecimalNumberContexts.american(MathContext.DECIMAL32)
