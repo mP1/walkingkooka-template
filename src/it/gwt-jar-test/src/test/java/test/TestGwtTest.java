@@ -24,6 +24,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.template.TemplateContext;
@@ -59,6 +60,7 @@ public class TestGwtTest extends GWTTestCase {
         );
     }
 
+    @Test
     public void testParseAndRender() {
         final ExpressionNumberKind expressionNumberKind = ExpressionNumberKind.BIG_DECIMAL;
 
@@ -104,6 +106,7 @@ public class TestGwtTest extends GWTTestCase {
                     ),
                     expressionNumberKind
                 ),
+                EnvironmentContexts.fake(),
                 LocaleContexts.fake()
             )
         );

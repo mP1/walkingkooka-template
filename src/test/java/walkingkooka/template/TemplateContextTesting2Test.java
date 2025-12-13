@@ -22,6 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.predicate.character.CharPredicates;
@@ -168,6 +169,7 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                                 ),
                                 expressionNumberKind
                             ),
+                            EnvironmentContexts.fake(),
                             LocaleContexts.fake()
                         ).evaluateExpression(expression)
                         .toString();
