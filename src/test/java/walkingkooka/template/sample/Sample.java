@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.template.TemplateContext;
@@ -54,49 +55,50 @@ public class Sample {
         final ExpressionNumberKind expressionNumberKind = ExpressionNumberKind.BIG_DECIMAL;
 
         final TemplateContext context = TemplateContexts.basic(
-                (final TextCursor t) -> Templates.templateValueName(
-                        TemplateValueName.parse(t)
-                                .orElseThrow(() -> new EmptyTextException("template value name"))
+            (final TextCursor t) -> Templates.templateValueName(
+                TemplateValueName.parse(t)
+                    .orElseThrow(() -> new EmptyTextException("template value name"))
+            ),
+            (n) -> Templates.string("<<" + n.text().toUpperCase() + ">>"),
+            LineEnding.NL,
+            ExpressionEvaluationContexts.basic(
+                expressionNumberKind,
+                (n) -> {
+                    throw new UnsupportedOperationException();
+                },
+                (e) -> {
+                    e.printStackTrace();
+                    throw new UnsupportedOperationException();
+                },
+                (r) -> {
+                    throw new UnsupportedOperationException();
+                },
+                (r) -> {
+                    throw new UnsupportedOperationException();
+                },
+                CaseSensitivity.SENSITIVE,
+                ExpressionNumberConverterContexts.basic(
+                    Converters.collection(
+                        Lists.of(
+                            ExpressionNumberConverters.toNumberOrExpressionNumber(
+                                Converters.numberToNumber()
+                            ),
+                            Converters.objectToString()
+                        )
+                    ).cast(ExpressionNumberConverterContext.class),
+                    ConverterContexts.basic(
+                        false, // canNumbersHaveGroupSeparator
+                        -1,
+                        ',', // valueSeparator
+                        Converters.fake(),
+                        DateTimeContexts.fake(),
+                        DecimalNumberContexts.american(MathContext.DECIMAL32)
+                    ),
+                    expressionNumberKind
                 ),
-                (n) -> Templates.string("<<" + n.text().toUpperCase() + ">>"),
-                LineEnding.NL,
-                ExpressionEvaluationContexts.basic(
-                        expressionNumberKind,
-                        (n) -> {
-                            throw new UnsupportedOperationException();
-                        },
-                        (e) -> {
-                            e.printStackTrace();
-                            throw new UnsupportedOperationException();
-                        },
-                        (r) -> {
-                            throw new UnsupportedOperationException();
-                        },
-                        (r) -> {
-                            throw new UnsupportedOperationException();
-                        },
-                        CaseSensitivity.SENSITIVE,
-                        ExpressionNumberConverterContexts.basic(
-                                Converters.collection(
-                                        Lists.of(
-                                                ExpressionNumberConverters.toNumberOrExpressionNumber(
-                                                        Converters.numberToNumber()
-                                                ),
-                                                Converters.objectToString()
-                                        )
-                                ).cast(ExpressionNumberConverterContext.class),
-                                ConverterContexts.basic(
-                                    false, // canNumbersHaveGroupSeparator
-                                        -1,
-                                    ',', // valueSeparator
-                                        Converters.fake(),
-                                        DateTimeContexts.fake(),
-                                        DecimalNumberContexts.american(MathContext.DECIMAL32)
-                                ),
-                                expressionNumberKind
-                        ),
-                        LocaleContexts.fake()
-                )
+                EnvironmentContexts.fake(),
+                LocaleContexts.fake()
+            )
         );
 
         final StringBuilder b = new StringBuilder();
