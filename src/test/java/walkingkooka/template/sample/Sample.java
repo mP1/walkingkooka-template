@@ -42,6 +42,7 @@ import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
 
 import java.math.MathContext;
+import java.util.Objects;
 
 public class Sample {
 
@@ -63,6 +64,10 @@ public class Sample {
             LineEnding.NL,
             ExpressionEvaluationContexts.basic(
                 expressionNumberKind,
+                (e, c) -> {
+                    Objects.requireNonNull(e, "expression");
+                    throw new UnsupportedOperationException();
+                },
                 (n) -> {
                     throw new UnsupportedOperationException();
                 },
