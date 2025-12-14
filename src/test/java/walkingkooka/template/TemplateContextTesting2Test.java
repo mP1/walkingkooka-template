@@ -137,6 +137,10 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                 public String evaluateAsString(final Expression expression) {
                     return ExpressionEvaluationContexts.basic(
                             expressionNumberKind,
+                            (e, c) -> {
+                                Objects.requireNonNull(e, "expression");
+                                throw new UnsupportedOperationException();
+                            },
                             (n) -> {
                                 throw new UnsupportedOperationException();
                             },

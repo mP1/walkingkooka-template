@@ -73,6 +73,10 @@ public class TestGwtTest extends GWTTestCase {
             LineEnding.NL,
             ExpressionEvaluationContexts.basic(
                 expressionNumberKind,
+                (e, c) -> {
+                    Objects.requireNonNull(e, "expression");
+                    throw new UnsupportedOperationException();
+                },
                 (n) -> {
                     throw new UnsupportedOperationException();
                 },
