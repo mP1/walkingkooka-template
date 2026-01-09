@@ -103,6 +103,7 @@ public class TestGwtTest extends GWTTestCase {
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
                         -1,
+                        LineEnding.NL,
                         ',', // valueSeparator
                         Converters.fake(),
                         DateTimeContexts.fake(),

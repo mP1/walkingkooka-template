@@ -90,6 +90,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
                 -1,
+                LineEnding.NL,
                 ',', // valueSeparator
                 Converters.fake(),
                 DateTimeContexts.fake(),
