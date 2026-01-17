@@ -17,8 +17,8 @@
 
 package walkingkooka.template;
 
-import walkingkooka.net.NetStartup;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.tree.json.TreeJsonStartup;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 
 /**
@@ -27,7 +27,7 @@ import walkingkooka.tree.json.marshall.JsonNodeContext;
 public final class TemplateStartup implements PublicStaticHelper {
 
     static {
-        NetStartup.init();
+        TreeJsonStartup.init();
 
         // register json marshallers/unmarshallers.
         TemplateValueName.with("Hello");
