@@ -27,6 +27,7 @@ import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
@@ -90,6 +91,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
                 -1,
+                Indentation.SPACES2,
                 LineEnding.NL,
                 ',', // valueSeparator
                 Converters.fake(),

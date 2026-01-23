@@ -31,6 +31,7 @@ import walkingkooka.template.TemplateContexts;
 import walkingkooka.template.TemplateValueName;
 import walkingkooka.template.Templates;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
@@ -94,6 +95,7 @@ public class Sample {
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
                         -1,
+                        Indentation.SPACES2,
                         LineEnding.NL,
                         ',', // valueSeparator
                         Converters.fake(),
