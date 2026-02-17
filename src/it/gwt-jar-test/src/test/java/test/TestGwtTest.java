@@ -93,6 +93,12 @@ public class TestGwtTest extends GWTTestCase {
                 },
                 CaseSensitivity.SENSITIVE,
                 ExpressionNumberConverterContexts.basic(
+                    (l) -> {
+                        throw new UnsupportedOperationException();
+                    }, // canDateTimeSymbolsForLocale
+                    (l) -> {
+                        throw new UnsupportedOperationException();
+                    }, // canDecimalNumberSymbolsForLocale
                     Converters.collection(
                         Lists.of(
                             ExpressionNumberConverters.toNumberOrExpressionNumber(

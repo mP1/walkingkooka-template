@@ -89,6 +89,12 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
                 )
             ).cast(ExpressionNumberConverterContext.class),
             ConverterContexts.basic(
+                (l) -> {
+                    throw new UnsupportedOperationException();
+                }, // canDateTimeSymbolsForLocale
+                (l) -> {
+                    throw new UnsupportedOperationException();
+                }, // canDecimalNumberSymbolsForLocale
                 false, // canNumbersHaveGroupSeparator
                 -1,
                 Indentation.SPACES2,
