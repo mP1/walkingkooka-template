@@ -95,6 +95,9 @@ public class TestGwtTest extends GWTTestCase {
                 ExpressionNumberConverterContexts.basic(
                     (l) -> {
                         throw new UnsupportedOperationException();
+                    }, // canCurrencyForLocale
+                    (l) -> {
+                        throw new UnsupportedOperationException();
                     }, // canDateTimeSymbolsForLocale
                     (l) -> {
                         throw new UnsupportedOperationException();
