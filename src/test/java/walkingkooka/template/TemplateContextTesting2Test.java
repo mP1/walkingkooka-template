@@ -167,6 +167,9 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                                 ConverterContexts.basic(
                                     (l) -> {
                                         throw new UnsupportedOperationException();
+                                    }, // canCurrencyForLocale
+                                    (l) -> {
+                                        throw new UnsupportedOperationException();
                                     }, // canDateTimeSymbolsForLocale
                                     (l) -> {
                                         throw new UnsupportedOperationException();
