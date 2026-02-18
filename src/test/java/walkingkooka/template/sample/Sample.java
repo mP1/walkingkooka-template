@@ -96,15 +96,6 @@ public class Sample {
                         (l) -> {
                             throw new UnsupportedOperationException();
                         }, // canCurrencyForLocale
-                        (l) -> {
-                            throw new UnsupportedOperationException();
-                        }, // canDateTimeSymbolsForLocale
-                        (l) -> {
-                            throw new UnsupportedOperationException();
-                        }, // canDecimalNumberSymbolsForLocale
-                        (lt) -> {
-                            throw new UnsupportedOperationException();
-                        }, // canLocaleForLanguageTag
                         false, // canNumbersHaveGroupSeparator
                         -1,
                         Indentation.SPACES2,
@@ -112,7 +103,8 @@ public class Sample {
                         ',', // valueSeparator
                         Converters.fake(),
                         DateTimeContexts.fake(),
-                        DecimalNumberContexts.american(MathContext.DECIMAL32)
+                        DecimalNumberContexts.american(MathContext.DECIMAL32),
+                        LocaleContexts.fake()
                     ),
                     expressionNumberKind
                 ),
