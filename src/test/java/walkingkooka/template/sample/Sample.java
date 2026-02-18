@@ -102,6 +102,9 @@ public class Sample {
                         (l) -> {
                             throw new UnsupportedOperationException();
                         }, // canDecimalNumberSymbolsForLocale
+                        (lt) -> {
+                            throw new UnsupportedOperationException();
+                        }, // canLocaleForLanguageTag
                         false, // canNumbersHaveGroupSeparator
                         -1,
                         Indentation.SPACES2,

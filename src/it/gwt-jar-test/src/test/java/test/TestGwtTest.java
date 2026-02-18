@@ -93,15 +93,6 @@ public class TestGwtTest extends GWTTestCase {
                 },
                 CaseSensitivity.SENSITIVE,
                 ExpressionNumberConverterContexts.basic(
-                    (l) -> {
-                        throw new UnsupportedOperationException();
-                    }, // canCurrencyForLocale
-                    (l) -> {
-                        throw new UnsupportedOperationException();
-                    }, // canDateTimeSymbolsForLocale
-                    (l) -> {
-                        throw new UnsupportedOperationException();
-                    }, // canDecimalNumberSymbolsForLocale
                     Converters.collection(
                         Lists.of(
                             ExpressionNumberConverters.toNumberOrExpressionNumber(
@@ -120,6 +111,9 @@ public class TestGwtTest extends GWTTestCase {
                         (l) -> {
                             throw new UnsupportedOperationException();
                         }, // canDecimalNumberSymbolsForLocale
+                        (lt) -> {
+                            throw new UnsupportedOperationException();
+                        }, // canLocaleForLanguageTag
                         false, // canNumbersHaveGroupSeparator
                         -1,
                         Indentation.SPACES2,
