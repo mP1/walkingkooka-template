@@ -174,6 +174,9 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                                     (l) -> {
                                         throw new UnsupportedOperationException();
                                     }, // canDecimalNumberSymbolsForLocale
+                                    (lt) -> {
+                                        throw new UnsupportedOperationException();
+                                    }, // canLocaleForLanguageTag
                                     false, // canNumbersHaveGroupSeparator
                                     -1,
                                     Indentation.SPACES2,

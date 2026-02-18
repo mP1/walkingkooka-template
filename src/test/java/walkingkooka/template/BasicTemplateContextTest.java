@@ -98,6 +98,9 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
                 (l) -> {
                     throw new UnsupportedOperationException();
                 }, // canDecimalNumberSymbolsForLocale
+                (lt) -> {
+                    throw new UnsupportedOperationException();
+                }, // canLocaleForLanguageTag
                 false, // canNumbersHaveGroupSeparator
                 -1,
                 Indentation.SPACES2,
