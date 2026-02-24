@@ -22,6 +22,7 @@ import walkingkooka.EmptyTextException;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
@@ -93,18 +94,15 @@ public class Sample {
                         )
                     ).cast(ExpressionNumberConverterContext.class),
                     ConverterContexts.basic(
-                        (l) -> {
-                            throw new UnsupportedOperationException();
-                        }, // canCurrencyForLocale
                         false, // canNumbersHaveGroupSeparator
                         -1,
                         Indentation.SPACES2,
                         LineEnding.NL,
                         ',', // valueSeparator
                         Converters.fake(),
+                        CurrencyLocaleContexts.fake(),
                         DateTimeContexts.fake(),
-                        DecimalNumberContexts.american(MathContext.DECIMAL32),
-                        LocaleContexts.fake()
+                        DecimalNumberContexts.american(MathContext.DECIMAL32)
                     ),
                     expressionNumberKind
                 ),
