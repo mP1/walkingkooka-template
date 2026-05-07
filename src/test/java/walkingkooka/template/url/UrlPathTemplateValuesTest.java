@@ -22,6 +22,7 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.net.UrlPath;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.template.TemplateValueName;
 import walkingkooka.text.printer.TreePrintableTesting;
 
@@ -32,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlPathTemplateValuesTest implements TreePrintableTesting,
     ToStringTesting<UrlPathTemplateValues>,
+    ThrowableTesting,
     ClassTesting<UrlPathTemplateValues> {
 
     @Test
@@ -404,10 +406,9 @@ public final class UrlPathTemplateValuesTest implements TreePrintableTesting,
                 name
             )
         );
-        this.checkEquals(
-            expected,
-            thrown.getMessage(),
-            "message"
+        this.getMessageAndCheck(
+            thrown,
+            expected
         );
     }
 
