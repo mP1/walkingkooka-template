@@ -17,7 +17,7 @@
 
 package walkingkooka.template;
 
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
@@ -40,7 +40,7 @@ import java.util.Set;
  *
  * {@link String} with the template holds text, or the {@link}
  */
-public interface Template extends Value<Object>,
+public interface Template extends HasValue<Object>,
     TreePrintable {
 
     /**
