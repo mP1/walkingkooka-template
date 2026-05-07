@@ -17,7 +17,7 @@
 
 package walkingkooka.template.url;
 
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
@@ -32,7 +32,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
-public final class UrlPathTemplateValues implements Value<List<Object>>,
+public final class UrlPathTemplateValues implements HasValue<List<Object>>,
     TreePrintable {
 
     static UrlPathTemplateValues with(final Template template,
