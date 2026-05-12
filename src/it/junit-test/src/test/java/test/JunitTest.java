@@ -25,7 +25,6 @@ import walkingkooka.EmptyTextException;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
-import walkingkooka.currency.CurrencyExchangeRaters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.environment.EnvironmentContexts;
@@ -111,7 +110,6 @@ public class JunitTest {
                         LineEnding.NL,
                         ',', // valueSeparator
                         Converters.fake(),
-                        CurrencyExchangeRaters.fake(),
                         DateTimeContexts.fake(),
                         DecimalNumberContexts.american(MathContext.DECIMAL32),
                         LocaleContexts.fake()
