@@ -23,6 +23,7 @@ import org.junit.Test;
 
 import walkingkooka.EmptyTextException;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
@@ -100,6 +101,7 @@ public class JunitTest {
                             Converters.objectToString()
                         )
                     ).cast(ExpressionNumberConverterContext.class),
+                    BinaryNumberConverterFunctions.fake(), // multiplier
                     ConverterContexts.basic(
                         (l) -> {
                             throw new UnsupportedOperationException();
@@ -110,6 +112,7 @@ public class JunitTest {
                         LineEnding.NL,
                         ',', // valueSeparator
                         Converters.fake(),
+                        BinaryNumberConverterFunctions.fake(), // multiplier
                         DateTimeContexts.fake(),
                         DecimalNumberContexts.american(MathContext.DECIMAL32),
                         LocaleContexts.fake()
