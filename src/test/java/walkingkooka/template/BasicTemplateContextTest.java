@@ -20,6 +20,7 @@ package walkingkooka.template;
 import org.junit.jupiter.api.Test;
 import walkingkooka.EmptyTextException;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
@@ -89,6 +90,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
                     Converters.objectToString() // formats BigDecimal -> String
                 )
             ).cast(ExpressionNumberConverterContext.class),
+            BinaryNumberConverterFunctions.fake(), // multiplier
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
                 -1,
@@ -96,6 +98,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
                 LineEnding.NL,
                 ',', // valueSeparator
                 Converters.fake(),
+                BinaryNumberConverterFunctions.fake(), // multiplier
                 CurrencyLocaleContexts.fake(),
                 DateTimeContexts.fake(),
                 DecimalNumberContexts.american(MathContext.DECIMAL32)

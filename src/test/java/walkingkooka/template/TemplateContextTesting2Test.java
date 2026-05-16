@@ -19,6 +19,7 @@ package walkingkooka.template;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
@@ -165,6 +166,7 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                                         )
                                     )
                                 ).cast(ExpressionNumberConverterContext.class),
+                                BinaryNumberConverterFunctions.fake(), // multiplier
                                 ConverterContexts.basic(
                                     false, // canNumbersHaveGroupSeparator
                                     -1,
@@ -172,6 +174,7 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                                     LineEnding.NL,
                                     ',', // valueSeparator
                                     Converters.fake(),
+                                    BinaryNumberConverterFunctions.fake(), // multiplier
                                     CurrencyLocaleContexts.fake(),
                                     DateTimeContexts.fake(),
                                     DecimalNumberContexts.american(MathContext.DECIMAL32)

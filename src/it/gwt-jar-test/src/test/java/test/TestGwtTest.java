@@ -21,6 +21,7 @@ import com.google.gwt.junit.client.GWTTestCase;
 
 import walkingkooka.EmptyTextException;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
@@ -102,6 +103,7 @@ public class TestGwtTest extends GWTTestCase {
                             Converters.objectToString()
                         )
                     ).cast(ExpressionNumberConverterContext.class),
+                    BinaryNumberConverterFunctions.fake(), // multiplier
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
                         -1,
@@ -109,6 +111,7 @@ public class TestGwtTest extends GWTTestCase {
                         LineEnding.NL,
                         ',', // valueSeparator
                         Converters.fake(),
+                        BinaryNumberConverterFunctions.fake(), // multiplier
                         CurrencyLocaleContexts.fake(),
                         DateTimeContexts.fake(),
                         DecimalNumberContexts.american(MathContext.DECIMAL32)
