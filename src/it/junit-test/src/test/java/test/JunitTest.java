@@ -48,6 +48,7 @@ import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
 
 import java.math.MathContext;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 @J2clTestInput(JunitTest.class)
@@ -107,6 +108,7 @@ public class JunitTest {
                             throw new UnsupportedOperationException();
                         }, // canCurrencyForLocale
                         false, // canNumbersHaveGroupSeparator
+                        StandardCharsets.UTF_8,
                         -1,
                         Indentation.SPACES2,
                         LineEnding.NL,
