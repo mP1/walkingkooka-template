@@ -45,6 +45,7 @@ import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
 
 import java.math.MathContext;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 public class Sample {
@@ -97,6 +98,7 @@ public class Sample {
                     BinaryNumberConverterFunctions.fake(), // multiplier
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
+                        StandardCharsets.UTF_8,
                         -1,
                         Indentation.SPACES2,
                         LineEnding.NL,

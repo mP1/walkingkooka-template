@@ -46,6 +46,7 @@ import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
 
 import java.math.MathContext;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 @walkingkooka.j2cl.locale.LocaleAware
@@ -106,6 +107,7 @@ public class TestGwtTest extends GWTTestCase {
                     BinaryNumberConverterFunctions.fake(), // multiplier
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
+                        StandardCharsets.UTF_8,
                         -1,
                         Indentation.SPACES2,
                         LineEnding.NL,
