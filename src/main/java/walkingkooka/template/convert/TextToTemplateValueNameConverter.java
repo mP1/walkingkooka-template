@@ -57,8 +57,10 @@ final class TextToTemplateValueNameConverter<C extends ConverterContext> impleme
         return TemplateValueName.with(text);
     }
 
+    // Object...........................................................................................................
+
     @Override
     public String toString() {
-        return "String to " + TemplateValueName.class.getSimpleName();
+        return TEXT + " to " + TemplateValueName.class.getSimpleName();
     }
 }
