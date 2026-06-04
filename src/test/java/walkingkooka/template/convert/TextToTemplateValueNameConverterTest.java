@@ -91,7 +91,7 @@ public final class TextToTemplateValueNameConverterTest implements ConverterTest
     public void testToString() {
         this.toStringAndCheck(
             TextToTemplateValueNameConverter.instance(),
-            "String to TemplateValueName"
+            "TEXT to TemplateValueName"
         );
     }
 
