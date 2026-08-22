@@ -28,7 +28,7 @@ import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallerTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.Optional;
@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class TemplateValueNameTest implements NameTesting2<TemplateValueName, TemplateValueName>,
         ComparableTesting2<TemplateValueName>,
-        JsonNodeMarshallingTesting<TemplateValueName>,
+    JsonNodeMarshallerTesting<TemplateValueName>,
         TreePrintableTesting {
 
     // parseTemplate............................................................................................................
