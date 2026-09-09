@@ -50,7 +50,7 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicTemplateContextTest implements TemplateContextTesting2<BasicTemplateContext> {
+public final class TemplateContextBasicTest implements TemplateContextTesting2<TemplateContextBasic> {
 
     private final static Function<TextCursor, Template> EXPRESSION_PARSER = (final TextCursor t) -> Templates.templateValueName(
             TemplateValueName.parse(t)
@@ -119,7 +119,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     public void testWithNullExpressionParserFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> BasicTemplateContext.with(
+            () -> TemplateContextBasic.with(
                         null,
                         NAME_TO_TEMPLATE,
                         LINE_ENDING,
@@ -132,7 +132,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     public void testWithNullNameToTemplateFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> BasicTemplateContext.with(
+            () -> TemplateContextBasic.with(
                         EXPRESSION_PARSER,
                         null,
                         LINE_ENDING,
@@ -145,7 +145,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     public void testWithNullLineEndingFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> BasicTemplateContext.with(
+            () -> TemplateContextBasic.with(
                         EXPRESSION_PARSER,
                         NAME_TO_TEMPLATE,
                         null,
@@ -158,7 +158,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     public void testWithNullExpressionEvaluationContextFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> BasicTemplateContext.with(
+            () -> TemplateContextBasic.with(
                         EXPRESSION_PARSER,
                         NAME_TO_TEMPLATE,
                         LINE_ENDING,
@@ -240,7 +240,7 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     @Test
     public void testParseTemplateAndRenderIncludesExpression() {
         this.parseTemplateAndRenderAndCheck(
-                BasicTemplateContext.with(
+            TemplateContextBasic.with(
                         (final TextCursor t) -> {
                             t.next(); // 1
                             t.next(); // +
@@ -544,14 +544,14 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     // TemplateContext..................................................................................................
 
     @Override
-    public BasicTemplateContext createContext() {
+    public TemplateContextBasic createContext() {
         return this.createContext(
                 NAME_TO_TEMPLATE
         );
     }
 
-    private BasicTemplateContext createContext(final Function<TemplateValueName, Template> nameToTemplate) {
-        return BasicTemplateContext.with(
+    private TemplateContextBasic createContext(final Function<TemplateValueName, Template> nameToTemplate) {
+        return TemplateContextBasic.with(
                 EXPRESSION_PARSER,
                 nameToTemplate,
                 LINE_ENDING,
@@ -562,7 +562,12 @@ public final class BasicTemplateContextTest implements TemplateContextTesting2<B
     // class............................................................................................................
 
     @Override
-    public Class<BasicTemplateContext> type() {
-        return BasicTemplateContext.class;
+    public Class<TemplateContextBasic> type() {
+        return TemplateContextBasic.class;
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }

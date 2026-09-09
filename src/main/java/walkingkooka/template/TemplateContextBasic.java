@@ -30,13 +30,13 @@ import java.util.function.Function;
  * A {@link TemplateContext} that uses numerous helpers to support parsing expressions, name lookups, and evaluating
  * any {@link Expression}.
  */
-final class BasicTemplateContext implements TemplateContext {
+final class TemplateContextBasic implements TemplateContext {
 
-    static BasicTemplateContext with(final Function<TextCursor, Template> expressionParser,
+    static TemplateContextBasic with(final Function<TextCursor, Template> expressionParser,
                                      final Function<TemplateValueName, Template> nameToTemplate,
                                      final LineEnding lineEnding,
                                      final ExpressionEvaluationContext expressionEvaluationContext) {
-        return new BasicTemplateContext(
+        return new TemplateContextBasic(
             Objects.requireNonNull(expressionParser, "expressionParser"),
             Objects.requireNonNull(nameToTemplate, "nameToTemplate"),
             Objects.requireNonNull(lineEnding, "lineEnding"),
@@ -44,7 +44,7 @@ final class BasicTemplateContext implements TemplateContext {
         );
     }
 
-    private BasicTemplateContext(final Function<TextCursor, Template> expressionParser,
+    private TemplateContextBasic(final Function<TextCursor, Template> expressionParser,
                                  final Function<TemplateValueName, Template> nameToTemplate,
                                  final LineEnding lineEnding,
                                  final ExpressionEvaluationContext expressionEvaluationContext) {
@@ -102,20 +102,20 @@ final class BasicTemplateContext implements TemplateContext {
 
     @Override
     public String evaluateAsString(final Expression expression) {
-        return BasicTemplateContextCycleTemplateContext.with(this)
+        return TemplateContextBasicCycleTemplateContext.with(this)
             .evaluateAsString(expression);
     }
 
-    // see BasicTemplateContextCycleTemplateContext
+    // see TemplateContextBasicCycleTemplateContext
     final ExpressionEvaluationContext expressionEvaluationContext;
 
     @Override
     public String templateValue(final TemplateValueName name) {
-        return BasicTemplateContextCycleTemplateContext.with(this)
+        return TemplateContextBasicCycleTemplateContext.with(this)
             .templateValue(name);
     }
 
-    // @see BasicTemplateContextCycleTemplateContext
+    // @see TemplateContextBasicCycleTemplateContext
     final Function<TemplateValueName, Template> nameToTemplate;
 
     final LineEnding lineEnding;

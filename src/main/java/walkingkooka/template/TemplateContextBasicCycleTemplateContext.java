@@ -32,15 +32,15 @@ import java.util.stream.Collectors;
 /**
  * Wraps another {@link TemplateContext} and if a {@link TemplateValueName} returned {@link Template} references to the same {@link TemplateValueName}.
  */
-final class BasicTemplateContextCycleTemplateContext implements TemplateContext {
+final class TemplateContextBasicCycleTemplateContext implements TemplateContext {
 
-    static BasicTemplateContextCycleTemplateContext with(final BasicTemplateContext context) {
-        return new BasicTemplateContextCycleTemplateContext(
+    static TemplateContextBasicCycleTemplateContext with(final TemplateContextBasic context) {
+        return new TemplateContextBasicCycleTemplateContext(
             Objects.requireNonNull(context, "context")
         );
     }
 
-    private BasicTemplateContextCycleTemplateContext(final BasicTemplateContext context) {
+    private TemplateContextBasicCycleTemplateContext(final TemplateContextBasic context) {
         this.context = context;
     }
 
@@ -111,7 +111,7 @@ final class BasicTemplateContextCycleTemplateContext implements TemplateContext 
             );
         }
 
-        final BasicTemplateContext context = this.context;
+        final TemplateContextBasic context = this.context;
         final Template template = context.nameToTemplate.apply(name);
         if (null == template) {
             throw new IllegalStateException("Missing template for " + name);
@@ -127,10 +127,10 @@ final class BasicTemplateContextCycleTemplateContext implements TemplateContext 
         return rendered;
     }
 
-    // @see BasicTemplateContext
+    // @see TemplateContextBasic
     final Set<TemplateValueName> cycles = new LinkedHashSet<>();
 
-    private final BasicTemplateContext context;
+    private final TemplateContextBasic context;
 
     @Override
     public String toString() {
