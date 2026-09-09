@@ -28,15 +28,15 @@ import java.util.function.Function;
  * A {@link TemplateContext} that is only meant to be used for rendering, most likely for a {@link walkingkooka.template.url.UrlPathTemplate},
  * where components values are not expressions and must only return text.
  */
-final class RenderOnlyTemplateContext implements TemplateContext {
+final class TemplateContextRenderOnly implements TemplateContext {
 
-    static RenderOnlyTemplateContext with(final Function<TemplateValueName, String> templateValues) {
-        return new RenderOnlyTemplateContext(
+    static TemplateContextRenderOnly with(final Function<TemplateValueName, String> templateValues) {
+        return new TemplateContextRenderOnly(
             Objects.requireNonNull(templateValues, "templateValues")
         );
     }
 
-    private RenderOnlyTemplateContext(final Function<TemplateValueName, String> templateValues) {
+    private TemplateContextRenderOnly(final Function<TemplateValueName, String> templateValues) {
         this.templateValues = templateValues;
     }
 

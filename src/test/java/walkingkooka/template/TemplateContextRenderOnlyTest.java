@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.template.url.UrlPathTemplate;
 import walkingkooka.text.LineEnding;
 
-public final class RenderOnlyTemplateContextTest implements TemplateContextTesting<RenderOnlyTemplateContext> {
+public final class TemplateContextRenderOnlyTest implements TemplateContextTesting<TemplateContextRenderOnly> {
 
     @Override
     public void testParseStringEmptyFails() {
@@ -36,7 +36,7 @@ public final class RenderOnlyTemplateContextTest implements TemplateContextTesti
             "/api/spreadsheet/1/cell/A1",
             template.renderToString(
                 LineEnding.NL,
-                RenderOnlyTemplateContext.with(
+                TemplateContextRenderOnly.with(
                     (TemplateValueName n) -> {
                         switch (n.value()) {
                             case "SpreadsheetId":
@@ -53,8 +53,8 @@ public final class RenderOnlyTemplateContextTest implements TemplateContextTesti
     }
 
     @Override
-    public RenderOnlyTemplateContext createContext() {
-        return RenderOnlyTemplateContext.with(
+    public TemplateContextRenderOnly createContext() {
+        return TemplateContextRenderOnly.with(
             (TemplateValueName value) -> "" + value.value() + value.value()
         );
     }
@@ -62,7 +62,12 @@ public final class RenderOnlyTemplateContextTest implements TemplateContextTesti
     // class............................................................................................................
 
     @Override
-    public Class<RenderOnlyTemplateContext> type() {
-        return RenderOnlyTemplateContext.class;
+    public Class<TemplateContextRenderOnly> type() {
+        return TemplateContextRenderOnly.class;
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }

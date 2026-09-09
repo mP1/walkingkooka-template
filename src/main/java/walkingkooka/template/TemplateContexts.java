@@ -52,10 +52,10 @@ public final class TemplateContexts implements PublicStaticHelper {
     }
 
     /**
-     * {@see RenderOnlyTemplateContext}
+     * {@see TemplateContextRenderOnly}
      */
     public static TemplateContext renderOnly(final Function<TemplateValueName, String> templateValues) {
-        return RenderOnlyTemplateContext.with(templateValues);
+        return TemplateContextRenderOnly.with(templateValues);
     }
 
     /**
