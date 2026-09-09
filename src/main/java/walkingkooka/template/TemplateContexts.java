@@ -30,13 +30,13 @@ import java.util.function.Function;
 public final class TemplateContexts implements PublicStaticHelper {
 
     /**
-     * {@see BasicTemplateContext}
+     * {@see TemplateContextBasic}
      */
     public static TemplateContext basic(final Function<TextCursor, Template> expressionParser,
                                         final Function<TemplateValueName, Template> nameToTemplate,
                                         final LineEnding lineEnding,
                                         final ExpressionEvaluationContext expressionEvaluationContext) {
-        return BasicTemplateContext.with(
+        return TemplateContextBasic.with(
                 expressionParser,
                 nameToTemplate,
                 lineEnding,

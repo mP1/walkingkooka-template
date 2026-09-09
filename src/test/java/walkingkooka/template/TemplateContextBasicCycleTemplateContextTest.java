@@ -20,11 +20,11 @@ package walkingkooka.template;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class BasicTemplateContextCycleTemplateContextTest implements ClassTesting<BasicTemplateContextCycleTemplateContext> {
+public final class TemplateContextBasicCycleTemplateContextTest implements ClassTesting<TemplateContextBasicCycleTemplateContext> {
 
     @Override
-    public Class<BasicTemplateContextCycleTemplateContext> type() {
-        return BasicTemplateContextCycleTemplateContext.class;
+    public Class<TemplateContextBasicCycleTemplateContext> type() {
+        return TemplateContextBasicCycleTemplateContext.class;
     }
 
     @Override
