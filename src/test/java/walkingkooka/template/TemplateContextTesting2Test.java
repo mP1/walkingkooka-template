@@ -395,6 +395,11 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
         return TestTemplateContext.class;
     }
 
+    @Override
+    public void testTestNaming() {
+        throw new UnsupportedOperationException();
+    }
+
     static class TestTemplateContext implements TemplateContext {
 
         @Override
