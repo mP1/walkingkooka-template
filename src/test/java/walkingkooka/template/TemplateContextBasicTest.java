@@ -29,6 +29,7 @@ import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.HasLineEndingTesting;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.TextPrinting;
@@ -37,7 +38,7 @@ import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
-import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
@@ -50,7 +51,9 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class TemplateContextBasicTest implements TemplateContextTesting2<TemplateContextBasic> {
+public final class TemplateContextBasicTest implements TemplateContextTesting2<TemplateContextBasic>,
+    HasExpressionNumberKindTesting,
+    HasLineEndingTesting {
 
     private final static Function<TextCursor, Template> EXPRESSION_PARSER = (final TextCursor t) -> Templates.templateValueName(
             TemplateValueName.parse(t)
@@ -60,10 +63,6 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
     private final static Function<TemplateValueName, Template> NAME_TO_TEMPLATE = (n) -> Templates.string(
             "<<" + n.text().toUpperCase() + ">>"
     );
-
-    private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.BIG_DECIMAL;
-
-    private final static LineEnding LINE_ENDING = LineEnding.NL;
 
     private final static ExpressionEvaluationContext EXPRESSION_EVALUATION_CONTEXT = ExpressionEvaluationContexts.basic(
         EXPRESSION_NUMBER_KIND,
