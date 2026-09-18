@@ -17,7 +17,6 @@
 
 package walkingkooka.template;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -27,11 +26,6 @@ public final class TemplatesTest implements PublicStaticHelperTesting<Templates>
     @Override
     public Class<Templates> type() {
         return Templates.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override

@@ -17,7 +17,6 @@
 
 package walkingkooka.template.convert;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -27,11 +26,6 @@ public final class TemplateConvertersTest implements PublicStaticHelperTesting<T
     @Override
     public Class<TemplateConverters> type() {
         return TemplateConverters.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override
