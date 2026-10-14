@@ -168,6 +168,7 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                                         )
                                     )
                                 ).cast(ExpressionNumberConverterContext.class),
+                                expressionNumberKind,
                                 BinaryNumberConverterFunctions.fake(), // multiplier
                                 ConverterContexts.basic(
                                     false, // canNumbersHaveGroupSeparator
@@ -182,8 +183,7 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                                     CurrencyLocaleContexts.fake(),
                                     DateTimeContexts.fake(),
                                     DecimalNumberContexts.american(MathContext.DECIMAL32)
-                                ),
-                                expressionNumberKind
+                                )
                             ),
                             EnvironmentContexts.fake(),
                             LocaleContexts.fake()

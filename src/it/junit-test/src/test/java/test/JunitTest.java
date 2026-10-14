@@ -103,6 +103,7 @@ public class JunitTest {
                             Converters.objectToString()
                         )
                     ).cast(ExpressionNumberConverterContext.class),
+                    expressionNumberKind,
                     BinaryNumberConverterFunctions.fake(), // multiplier
                     ConverterContexts.basic(
                         (l) -> {
@@ -120,8 +121,7 @@ public class JunitTest {
                         DateTimeContexts.fake(),
                         DecimalNumberContexts.american(MathContext.DECIMAL32),
                         LocaleContexts.fake()
-                    ),
-                    expressionNumberKind
+                    )
                 ),
                 EnvironmentContexts.fake(),
                 LocaleContexts.fake()
