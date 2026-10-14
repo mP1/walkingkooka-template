@@ -96,6 +96,7 @@ public class Sample {
                             Converters.objectToString()
                         )
                     ).cast(ExpressionNumberConverterContext.class),
+                    expressionNumberKind,
                     BinaryNumberConverterFunctions.fake(), // multiplier
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
@@ -110,8 +111,7 @@ public class Sample {
                         CurrencyLocaleContexts.fake(),
                         DateTimeContexts.fake(),
                         DecimalNumberContexts.american(MathContext.DECIMAL32)
-                    ),
-                    expressionNumberKind
+                    )
                 ),
                 EnvironmentContexts.fake(),
                 LocaleContexts.fake()

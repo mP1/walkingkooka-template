@@ -91,6 +91,7 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
                     Converters.objectToString() // formats BigDecimal -> String
                 )
             ).cast(ExpressionNumberConverterContext.class),
+            EXPRESSION_NUMBER_KIND,
             BinaryNumberConverterFunctions.fake(), // multiplier
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
@@ -105,8 +106,7 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
                 CurrencyLocaleContexts.fake(),
                 DateTimeContexts.fake(),
                 DecimalNumberContexts.american(MathContext.DECIMAL32)
-            ),
-            EXPRESSION_NUMBER_KIND
+            )
         ),
         EnvironmentContexts.fake(),
         LocaleContexts.fake()
