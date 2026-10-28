@@ -205,8 +205,10 @@ final public class TemplateValueNameTest implements NameTesting2<TemplateValueNa
     @Override
     public String possibleValidChars(final int position) {
         return 0 == position ?
-                ASCII_LETTERS :
-                ASCII_LETTERS_DIGITS + "-.";
+            ASCII_LETTERS :
+            (position & 1) == 0 ?
+                ASCII_LETTERS_DIGITS + "-." : // try and avoid double dot
+                ASCII_LETTERS_DIGITS;
     }
 
     @Override
