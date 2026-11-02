@@ -39,9 +39,9 @@ import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
+import walkingkooka.tree.expression.convert.TreeConverterContext;
+import walkingkooka.tree.expression.convert.TreeConverterContexts;
+import walkingkooka.tree.expression.convert.TreeConverters;
 
 import java.math.MathContext;
 import java.nio.charset.StandardCharsets;
@@ -82,15 +82,15 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
             throw new RuntimeException("Unknown " + r);
         },
         CaseSensitivity.SENSITIVE,
-        ExpressionNumberConverterContexts.basic(
+        TreeConverterContexts.basic(
             Converters.collection(
                 Lists.of(
-                    ExpressionNumberConverters.toNumberOrExpressionNumber(
+                    TreeConverters.toNumberOrExpressionNumber(
                         Converters.numberToNumber()
                     ),
                     Converters.objectToString() // formats BigDecimal -> String
                 )
-            ).cast(ExpressionNumberConverterContext.class),
+            ).cast(TreeConverterContext.class),
             EXPRESSION_NUMBER_KIND,
             BinaryNumberConverterFunctions.fake(), // multiplier
             ConverterContexts.basic(
