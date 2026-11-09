@@ -37,7 +37,7 @@ import java.util.Set;
  *     <li>{@link List} if it is a collection of templates, each rendered in series</li>
  *     <li>Other templates are free to return their own important value.</li>
  * </ul>
- *
+ * <p>
  * {@link String} with the template holds text, or the {@link}
  */
 public interface Template extends HasValue<Object>,

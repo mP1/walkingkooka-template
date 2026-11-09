@@ -28,14 +28,14 @@ public final class TemplateTestingTest implements TemplateTesting {
 
         this.renderAndCheck(
             new FakeTemplate() {
-                    @Override
-                    public void render(final Printer printer,
-                                       final TemplateContext context) {
-                        printer.print(text);
-                    }
-                },
-                TemplateContexts.fake(),
-                text
+                @Override
+                public void render(final Printer printer,
+                                   final TemplateContext context) {
+                    printer.print(text);
+                }
+            },
+            TemplateContexts.fake(),
+            text
         );
     }
 }

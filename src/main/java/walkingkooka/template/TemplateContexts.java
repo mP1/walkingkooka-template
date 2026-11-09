@@ -37,10 +37,10 @@ public final class TemplateContexts implements PublicStaticHelper {
                                         final LineEnding lineEnding,
                                         final ExpressionEvaluationContext expressionEvaluationContext) {
         return TemplateContextBasic.with(
-                expressionParser,
-                nameToTemplate,
-                lineEnding,
-                expressionEvaluationContext
+            expressionParser,
+            nameToTemplate,
+            lineEnding,
+            expressionEvaluationContext
         );
     }
 

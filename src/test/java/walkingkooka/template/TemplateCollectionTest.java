@@ -92,11 +92,11 @@ public final class TemplateCollectionTest implements TemplateTesting2<TemplateCo
     @Test
     public void testRenderWhenEmpty() {
         this.renderAndCheck(
-                TemplateCollection.with(
-                        Lists.empty()
-                ),
-                TemplateContexts.fake(),
-                ""
+            TemplateCollection.with(
+                Lists.empty()
+            ),
+            TemplateContexts.fake(),
+            ""
         );
     }
 
@@ -105,21 +105,21 @@ public final class TemplateCollectionTest implements TemplateTesting2<TemplateCo
         final TemplateValueName name = TemplateValueName.with("name222");
 
         this.renderAndCheck(
-                TemplateCollection.with(
-                        Lists.of(
-                                Templates.string("111"),
-                                Templates.templateValueName(name)
-                        )
-                ),
-                new FakeTemplateContext() {
-                    @Override
-                    public String templateValue(final TemplateValueName n) {
-                        checkEquals(name, n);
+            TemplateCollection.with(
+                Lists.of(
+                    Templates.string("111"),
+                    Templates.templateValueName(name)
+                )
+            ),
+            new FakeTemplateContext() {
+                @Override
+                public String templateValue(final TemplateValueName n) {
+                    checkEquals(name, n);
 
-                        return "222";
-                    }
-                },
-                "111222"
+                    return "222";
+                }
+            },
+            "111222"
         );
     }
 
@@ -196,13 +196,13 @@ public final class TemplateCollectionTest implements TemplateTesting2<TemplateCo
     @Test
     public void testEqualsDifferentTemplates() {
         this.checkNotEquals(
-                TemplateCollection.with(
-                        Lists.of(
-                                TemplateValueNameTemplate.with(
-                                        TemplateValueName.with("different")
-                                )
-                        )
+            TemplateCollection.with(
+                Lists.of(
+                    TemplateValueNameTemplate.with(
+                        TemplateValueName.with("different")
+                    )
                 )
+            )
         );
     }
 
@@ -211,13 +211,13 @@ public final class TemplateCollectionTest implements TemplateTesting2<TemplateCo
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                TemplateCollection.with(
-                        Lists.of(
-                                Templates.string("111"),
-                                Templates.string("222")
-                        )
-                ),
-                "111222"
+            TemplateCollection.with(
+                Lists.of(
+                    Templates.string("111"),
+                    Templates.string("222")
+                )
+            ),
+            "111222"
         );
     }
 

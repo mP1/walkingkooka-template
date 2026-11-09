@@ -121,23 +121,23 @@ public class Sample {
         final StringBuilder b = new StringBuilder();
 
         context.parseTemplateAndRender(
-                TextCursors.charSequence("Hello ${abc} 123"),
-                Printers.stringBuilder(
-                        b,
-                        LineEnding.NL
-                )
+            TextCursors.charSequence("Hello ${abc} 123"),
+            Printers.stringBuilder(
+                b,
+                LineEnding.NL
+            )
         );
 
         checkEquals(
-                "Hello <<ABC>> 123",
-                b.toString()
+            "Hello <<ABC>> 123",
+            b.toString()
         );
     }
 
     private void checkEquals(final String expected, final String actual) {
         System.out.println(
-                expected + "\n" +
-                        actual
+            expected + "\n" +
+                actual
         );
     }
 }

@@ -32,25 +32,25 @@ public final class TemplateTest implements TemplateTesting, ClassTesting<Templat
     @Test
     public void testRenderToString() {
         final TemplateContext context = TemplateContexts.basic(
-                t -> Templates.templateValueName(
-                        TemplateValueName.parse(t)
-                                .orElseThrow(() -> new IllegalArgumentException("Missing name"))
-                ),
-                Maps.of(
-                        TemplateValueName.with("abc"),
-                        Templates.string("111")
-                )::get,
-                LineEnding.NL,
-                ExpressionEvaluationContexts.fake()
+            t -> Templates.templateValueName(
+                TemplateValueName.parse(t)
+                    .orElseThrow(() -> new IllegalArgumentException("Missing name"))
+            ),
+            Maps.of(
+                TemplateValueName.with("abc"),
+                Templates.string("111")
+            )::get,
+            LineEnding.NL,
+            ExpressionEvaluationContexts.fake()
         );
 
         this.checkEquals(
-                "Hello 111 999",
-                context.parseTemplate(TextCursors.charSequence("Hello ${abc} 999"))
-                        .renderToString(
-                                LineEnding.NL,
-                                context
-                        )
+            "Hello 111 999",
+            context.parseTemplate(TextCursors.charSequence("Hello ${abc} 999"))
+                .renderToString(
+                    LineEnding.NL,
+                    context
+                )
         );
     }
 

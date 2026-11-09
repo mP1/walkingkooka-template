@@ -44,8 +44,8 @@ import java.util.Optional;
  * The name of an template variable value. Names must start with a letter, followed by letters/digits/dash and are case-sensitive.
  */
 final public class TemplateValueName implements Name,
-        Comparable<TemplateValueName>,
-        ExpressionReference {
+    Comparable<TemplateValueName>,
+    ExpressionReference {
 
     /**
      * Names must start with a letter.
@@ -56,9 +56,9 @@ final public class TemplateValueName implements Name,
      * Valid characters for characters following the first, which may be a letter, digit or dash.
      */
     public final static CharPredicate PART = INITIAL.or(
-            CharPredicates.range('0', '9') // numbers
+        CharPredicates.range('0', '9') // numbers
     ).or(
-            CharPredicates.any("-.")
+        CharPredicates.any("-.")
     );
 
     /**
@@ -73,17 +73,17 @@ final public class TemplateValueName implements Name,
         Objects.requireNonNull(text, "text");
 
         return PARSER.parse(text, PARSER_CONTEXT)
-                .map(t -> TemplateValueName.with(t.text()));
+            .map(t -> TemplateValueName.with(t.text()));
     }
 
     /**
      * A {@link Parser} that returns a {@link TemplateValueName} when successful.
      */
     public final static Parser<ParserContext> PARSER = Parsers.initialAndPartCharPredicateString(
-            TemplateValueName.INITIAL,
-            TemplateValueName.PART,
-            1,
-            TemplateValueName.MAX_LENGTH
+        TemplateValueName.INITIAL,
+        TemplateValueName.PART,
+        1,
+        TemplateValueName.MAX_LENGTH
     );
 
     private final static ParserContext PARSER_CONTEXT = ParserContexts.fake();
@@ -93,10 +93,10 @@ final public class TemplateValueName implements Name,
      */
     public static TemplateValueName with(final String name) {
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
-                name,
-                "name",
-                INITIAL,
-                PART
+            name,
+            "name",
+            INITIAL,
+            PART
         );
 
         if (name.length() >= MAX_LENGTH) {
@@ -147,7 +147,7 @@ final public class TemplateValueName implements Name,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof TemplateValueName && this.equals0((TemplateValueName) other);
+            other instanceof TemplateValueName && this.equals0((TemplateValueName) other);
     }
 
     private boolean equals0(final TemplateValueName other) {
@@ -175,8 +175,8 @@ final public class TemplateValueName implements Name,
         Objects.requireNonNull(parameterName, "parameterName");
 
         return CASE_SENSITIVITY.equals(
-                this.value(),
-                parameterName.value()
+            this.value(),
+            parameterName.value()
         );
     }
 
@@ -189,19 +189,19 @@ final public class TemplateValueName implements Name,
     static TemplateValueName unmarshall(final JsonNode node,
                                         final JsonNodeUnmarshallContext context) {
         return with(
-                context.unmarshall(
-                        node,
-                        String.class
-                )
+            context.unmarshall(
+                node,
+                String.class
+            )
         );
     }
 
     static {
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(TemplateValueName.class),
-                TemplateValueName::unmarshall,
-                TemplateValueName::marshall,
-                TemplateValueName.class
+            JsonNodeContext.computeTypeName(TemplateValueName.class),
+            TemplateValueName::unmarshall,
+            TemplateValueName::marshall,
+            TemplateValueName.class
         );
     }
 }

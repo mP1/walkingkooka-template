@@ -40,8 +40,8 @@ final class StringTemplate implements Template {
         Objects.requireNonNull(text, "text");
 
         return text.isEmpty() ?
-                EMPTY :
-                new StringTemplate(text);
+            EMPTY :
+            new StringTemplate(text);
     }
 
     private StringTemplate(final String text) {
@@ -81,7 +81,7 @@ final class StringTemplate implements Template {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof StringTemplate && this.equals0((StringTemplate) other);
+            other instanceof StringTemplate && this.equals0((StringTemplate) other);
     }
 
     private boolean equals0(final StringTemplate other) {
