@@ -18,7 +18,6 @@
 package walkingkooka.template;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -140,10 +139,5 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
     @Override
     public Class<StringTemplate> type() {
         return StringTemplate.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
