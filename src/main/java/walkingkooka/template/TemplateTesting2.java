@@ -28,31 +28,31 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface TemplateTesting2<T extends Template> extends TemplateTesting,
-        HashCodeEqualsDefinedTesting2<T>,
-        ToStringTesting<T>,
-        ClassTesting<T> {
+    HashCodeEqualsDefinedTesting2<T>,
+    ToStringTesting<T>,
+    ClassTesting<T> {
 
     @Test
     default void testRenderWithNullPrinterFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createTemplate()
-                        .render(
-                                null,
-                                this.createContext()
-                        )
+            NullPointerException.class,
+            () -> this.createTemplate()
+                .render(
+                    null,
+                    this.createContext()
+                )
         );
     }
 
     @Test
     default void testRenderWithNullContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createTemplate()
-                        .render(
-                                Printers.fake(),
-                                null
-                        )
+            NullPointerException.class,
+            () -> this.createTemplate()
+                .render(
+                    Printers.fake(),
+                    null
+                )
         );
     }
 

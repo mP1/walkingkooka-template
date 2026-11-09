@@ -29,8 +29,8 @@ public final class TemplateValueNameTemplateTest implements TemplateTesting2<Tem
     @Test
     public void testWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> TemplateValueNameTemplate.with(null)
+            NullPointerException.class,
+            () -> TemplateValueNameTemplate.with(null)
         );
     }
 
@@ -42,16 +42,16 @@ public final class TemplateValueNameTemplateTest implements TemplateTesting2<Tem
         final String text = "Goodbye";
 
         this.renderAndCheck(
-                TemplateValueNameTemplate.with(name),
-                new FakeTemplateContext() {
-                    @Override
-                    public String templateValue(final TemplateValueName n) {
-                        checkEquals(name, n);
+            TemplateValueNameTemplate.with(name),
+            new FakeTemplateContext() {
+                @Override
+                public String templateValue(final TemplateValueName n) {
+                    checkEquals(name, n);
 
-                        return text;
-                    }
-                },
-                text
+                    return text;
+                }
+            },
+            text
         );
     }
 
@@ -67,7 +67,7 @@ public final class TemplateValueNameTemplateTest implements TemplateTesting2<Tem
     @Override
     public TemplateValueNameTemplate createTemplate() {
         return TemplateValueNameTemplate.with(
-                TemplateValueName.with("Hello")
+            TemplateValueName.with("Hello")
         );
     }
 
@@ -81,9 +81,9 @@ public final class TemplateValueNameTemplateTest implements TemplateTesting2<Tem
     @Test
     public void testEqualsTemplateValueName() {
         this.checkNotEquals(
-                TemplateValueNameTemplate.with(
-                        TemplateValueName.with("different")
-                )
+            TemplateValueNameTemplate.with(
+                TemplateValueName.with("different")
+            )
         );
     }
 
@@ -92,8 +92,8 @@ public final class TemplateValueNameTemplateTest implements TemplateTesting2<Tem
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createTemplate(),
-                "${Hello}"
+            this.createTemplate(),
+            "${Hello}"
         );
     }
 

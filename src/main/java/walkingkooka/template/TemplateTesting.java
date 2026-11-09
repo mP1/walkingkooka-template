@@ -33,13 +33,13 @@ public interface TemplateTesting extends TreePrintableTesting {
 
         try (final Printer printer = Printers.stringBuilder(printed, LineEnding.NL)) {
             template.render(
-                    printer,
-                    context
+                printer,
+                context
             );
         }
         this.checkEquals(
-                expected,
-                printed.toString()
+            expected,
+            printed.toString()
         );
     }
 

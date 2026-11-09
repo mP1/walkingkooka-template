@@ -36,17 +36,17 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class TemplateValueNameTest implements NameTesting2<TemplateValueName, TemplateValueName>,
-        ComparableTesting2<TemplateValueName>,
+    ComparableTesting2<TemplateValueName>,
     JsonNodeMarshallerTesting<TemplateValueName>,
-        TreePrintableTesting {
+    TreePrintableTesting {
 
     // parseTemplate............................................................................................................
 
     @Test
     public void testParseWithNullTextCursorFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> TemplateValueName.parse(null)
+            NullPointerException.class,
+            () -> TemplateValueName.parse(null)
         );
     }
 
@@ -56,16 +56,16 @@ final public class TemplateValueNameTest implements NameTesting2<TemplateValueNa
         final TextCursor text = TextCursors.charSequence(name + " 123");
 
         this.checkEquals(
-                Optional.of(TemplateValueName.with(name)),
-                TemplateValueName.parse(text)
+            Optional.of(TemplateValueName.with(name)),
+            TemplateValueName.parse(text)
         );
 
         final TextCursorSavePoint save = text.save();
         text.end();
 
         this.checkEquals(
-                " 123",
-                save.textBetween().toString()
+            " 123",
+            save.textBetween().toString()
         );
     }
 
@@ -74,13 +74,13 @@ final public class TemplateValueNameTest implements NameTesting2<TemplateValueNa
         final TextCursor text = TextCursors.charSequence("123");
 
         this.checkEquals(
-                Optional.empty(),
-                TemplateValueName.parse(text)
+            Optional.empty(),
+            TemplateValueName.parse(text)
         );
 
         this.checkEquals(
-                '1',
-                text.at()
+            '1',
+            text.at()
         );
     }
 
@@ -89,27 +89,27 @@ final public class TemplateValueNameTest implements NameTesting2<TemplateValueNa
     @Test
     public void testWithInvalidInitialFails() {
         this.withFails(
-                "1abc",
-                InvalidCharacterException.class,
-                "Invalid character '1' at 0"
+            "1abc",
+            InvalidCharacterException.class,
+            "Invalid character '1' at 0"
         );
     }
 
     @Test
     public void testWithInvalidPartFails() {
         this.withFails(
-                "abc$def",
-                InvalidCharacterException.class,
-                "Invalid character '$' at 3"
+            "abc$def",
+            InvalidCharacterException.class,
+            "Invalid character '$' at 3"
         );
     }
 
     @Test
     public void testWithDotDotFails() {
         this.withFails(
-                "abc..def",
-                InvalidCharacterException.class,
-                "Invalid character '.' at 4"
+            "abc..def",
+            InvalidCharacterException.class,
+            "Invalid character '.' at 4"
         );
     }
 
@@ -117,15 +117,15 @@ final public class TemplateValueNameTest implements NameTesting2<TemplateValueNa
                                                                 final Class<T> throwsClass,
                                                                 final String message) {
         final T thrown = assertThrows(
-                throwsClass,
-                () -> TemplateValueName.with(text)
+            throwsClass,
+            () -> TemplateValueName.with(text)
         );
 
         if (null != message) {
             this.checkEquals(
-                    message,
-                    thrown.getMessage(),
-                    "message"
+                message,
+                thrown.getMessage(),
+                "message"
             );
         }
     }
@@ -148,22 +148,22 @@ final public class TemplateValueNameTest implements NameTesting2<TemplateValueNa
     @Test
     public void testWithLetterDigits() {
         this.createNameAndCheck(
-                "A1234567"
+            "A1234567"
         );
     }
 
     @Test
     public void testWithLetterDigitsLetters() {
         this.createNameAndCheck(
-                "A1B"
+            "A1B"
         );
     }
 
     @Test
     public void testEqualsDifferentCase() {
         this.checkNotEquals(
-                TemplateValueName.with("Label123"),
-                TemplateValueName.with("LABEL123")
+            TemplateValueName.with("Label123"),
+            TemplateValueName.with("LABEL123")
         );
     }
 
@@ -214,8 +214,8 @@ final public class TemplateValueNameTest implements NameTesting2<TemplateValueNa
     @Override
     public String possibleInvalidChars(final int position) {
         return 0 == position ?
-                ASCII_DIGITS + CONTROL + "!@#$%^&*()" :
-                CONTROL + "!@#$%^&*()";
+            ASCII_DIGITS + CONTROL + "!@#$%^&*()" :
+            CONTROL + "!@#$%^&*()";
     }
 
     // Comparator ......................................................................................................
@@ -228,8 +228,8 @@ final public class TemplateValueNameTest implements NameTesting2<TemplateValueNa
         final TemplateValueName d4 = TemplateValueName.with("d4");
 
         this.compareToArraySortAndCheck(
-                d4, c3, a1, b2,
-                a1, b2, c3, d4
+            d4, c3, a1, b2,
+            a1, b2, c3, d4
         );
     }
 
@@ -242,8 +242,8 @@ final public class TemplateValueNameTest implements NameTesting2<TemplateValueNa
 
         final TemplateValueName name = TemplateValueName.with(value);
         this.toStringAndCheck(
-                name,
-                name.text()
+            name,
+            name.text()
         );
     }
 
@@ -254,8 +254,8 @@ final public class TemplateValueNameTest implements NameTesting2<TemplateValueNa
     @Test
     public void testMarshall() {
         this.marshallAndCheck(
-                this.createJsonNodeMarshallingValue(),
-                JsonNode.string(NAME)
+            this.createJsonNodeMarshallingValue(),
+            JsonNode.string(NAME)
         );
     }
 
@@ -263,8 +263,8 @@ final public class TemplateValueNameTest implements NameTesting2<TemplateValueNa
     public TemplateValueName unmarshall(final JsonNode jsonNode,
                                         final JsonNodeUnmarshallContext context) {
         return TemplateValueName.unmarshall(
-                jsonNode,
-                context
+            jsonNode,
+            context
         );
     }
 

@@ -48,7 +48,7 @@ final class ExpressionTemplate implements Template {
         Objects.requireNonNull(context, "context");
 
         printer.print(
-                context.evaluateAsString(this.expression)
+            context.evaluateAsString(this.expression)
         );
     }
 
@@ -76,7 +76,7 @@ final class ExpressionTemplate implements Template {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof ExpressionTemplate && this.equals0((ExpressionTemplate) other);
+            other instanceof ExpressionTemplate && this.equals0((ExpressionTemplate) other);
     }
 
     private boolean equals0(final ExpressionTemplate other) {

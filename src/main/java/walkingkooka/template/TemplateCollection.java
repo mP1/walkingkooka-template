@@ -80,8 +80,8 @@ final class TemplateCollection implements Template {
 
         for (final Template template : this.templates) {
             template.render(
-                    printer,
-                    context
+                printer,
+                context
             );
         }
     }
@@ -123,7 +123,7 @@ final class TemplateCollection implements Template {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof TemplateCollection && this.equals0((TemplateCollection) other);
+            other instanceof TemplateCollection && this.equals0((TemplateCollection) other);
     }
 
     private boolean equals0(final TemplateCollection other) {
@@ -133,8 +133,8 @@ final class TemplateCollection implements Template {
     @Override
     public String toString() {
         return this.templates.stream()
-                .map(Object::toString)
-                .collect(Collectors.joining(""));
+            .map(Object::toString)
+            .collect(Collectors.joining(""));
     }
 
     // TreePrintable....................................................................................................

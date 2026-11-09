@@ -77,23 +77,23 @@ final class TemplateContextParseTextCursor implements StaticHelper {
                     text.next();
 
                     addIfNotEmpty(
-                            b,
-                            templates,
-                            context
+                        b,
+                        templates,
+                        context
                     );
 
                     switch (c) {
                         case BRACE_OPEN:
                             // ${
                             templates.add(
-                                    context.parseTemplateExpression(text)
+                                context.parseTemplateExpression(text)
                             );
 
                             mode = MODE_TEXT;
                             break;
                         default:
                             throw dollarSignLineInfo.invalidCharacterException()
-                                    .get();
+                                .get();
                     }
                     break;
                 default:
@@ -102,9 +102,9 @@ final class TemplateContextParseTextCursor implements StaticHelper {
         }
 
         addIfNotEmpty(
-                b,
-                templates,
-                context
+            b,
+            templates,
+            context
         );
 
         return context.templateCollection(templates);
@@ -115,9 +115,9 @@ final class TemplateContextParseTextCursor implements StaticHelper {
                                       final TemplateContext context) {
         if (b.length() > 0) {
             templates.add(
-                    context.templateText(
-                            b.toString()
-                    )
+                context.templateText(
+                    b.toString()
+                )
             );
             b.setLength(0);
         }
