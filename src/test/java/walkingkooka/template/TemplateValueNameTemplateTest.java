@@ -18,7 +18,6 @@
 package walkingkooka.template;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -115,10 +114,5 @@ public final class TemplateValueNameTemplateTest implements TemplateTesting2<Tem
     @Override
     public Class<TemplateValueNameTemplate> type() {
         return TemplateValueNameTemplate.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
