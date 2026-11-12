@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface TemplateTesting2<T extends Template> extends TemplateTesting,
     HashCodeEqualsDefinedTesting2<T>,
-    ToStringTesting<T>,
+    ToStringTesting,
     PackagePrivateClassTesting<T> {
 
     @Test
