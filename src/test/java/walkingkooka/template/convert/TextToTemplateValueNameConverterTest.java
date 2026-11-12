@@ -28,7 +28,7 @@ import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.template.TemplateValueName;
 
 public final class TextToTemplateValueNameConverterTest implements ConverterTesting2<TextToTemplateValueNameConverter<FakeConverterContext>, FakeConverterContext>,
-    ToStringTesting<TextToTemplateValueNameConverter<FakeConverterContext>> {
+    ToStringTesting {
 
     @Test
     public void testConvertStringBuilderToTemplateValueName() {

@@ -32,7 +32,7 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlPathTemplateValuesTest implements TreePrintableTesting,
-    ToStringTesting<UrlPathTemplateValues>,
+    ToStringTesting,
     ThrowableTesting,
     ClassTesting<UrlPathTemplateValues> {
 
