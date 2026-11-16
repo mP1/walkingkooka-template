@@ -26,8 +26,8 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
+import walkingkooka.logging.LoggingContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.template.TemplateContext;
 import walkingkooka.template.TemplateContexts;
@@ -122,8 +122,8 @@ public class TestGwtTest extends GWTTestCase {
                         DecimalNumberContexts.american(MathContext.DECIMAL32)
                     )
                 ),
-                EnvironmentContexts.fake(),
-                LocaleContexts.fake()
+                LocaleContexts.fake(),
+                LoggingContexts.fake()
             )
         );
 

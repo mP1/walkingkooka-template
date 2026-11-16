@@ -25,8 +25,8 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
+import walkingkooka.logging.LoggingContextTesting;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.HasLineEndingTesting;
@@ -53,7 +53,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TemplateContextBasicTest implements TemplateContextTesting2<TemplateContextBasic>,
     HasExpressionNumberKindTesting,
-    HasLineEndingTesting {
+    HasLineEndingTesting,
+    LoggingContextTesting {
 
     private final static Function<TextCursor, Template> EXPRESSION_PARSER = (final TextCursor t) -> Templates.templateValueName(
         TemplateValueName.parse(t)
@@ -108,8 +109,8 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
                 DecimalNumberContexts.american(MathContext.DECIMAL32)
             )
         ),
-        EnvironmentContexts.fake(),
-        LocaleContexts.fake()
+        LocaleContexts.fake(),
+        LOGGING_CONTEXT
     );
 
     // with.............................................................................................................

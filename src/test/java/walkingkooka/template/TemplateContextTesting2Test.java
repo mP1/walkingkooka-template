@@ -24,8 +24,8 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
+import walkingkooka.logging.LoggingContextTesting;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.template.TemplateContextTesting2Test.TestTemplateContext;
@@ -50,7 +50,8 @@ import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class TemplateContextTesting2Test implements TemplateContextTesting2<TestTemplateContext> {
+public final class TemplateContextTesting2Test implements TemplateContextTesting2<TestTemplateContext>,
+    LoggingContextTesting {
 
     // parseTemplateString..............................................................................................
 
@@ -185,8 +186,8 @@ public final class TemplateContextTesting2Test implements TemplateContextTesting
                                     DecimalNumberContexts.american(MathContext.DECIMAL32)
                                 )
                             ),
-                            EnvironmentContexts.fake(),
-                            LocaleContexts.fake()
+                            LocaleContexts.fake(),
+                            LOGGING_CONTEXT
                         ).evaluateExpression(expression)
                         .toString();
                 }
