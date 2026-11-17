@@ -28,6 +28,7 @@ import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.logging.LoggingContextTesting;
 import walkingkooka.math.DecimalNumberContextTesting;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.BinaryTextContextTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.HasLineEndingTesting;
@@ -52,7 +53,8 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
     DecimalNumberContextTesting,
     HasExpressionNumberKindTesting,
     HasLineEndingTesting,
-    LoggingContextTesting {
+    LoggingContextTesting,
+    ThrowableTesting {
 
     private final static Function<TextCursor, Template> EXPRESSION_PARSER = (final TextCursor t) -> Templates.templateValueName(
         TemplateValueName.parse(t)
@@ -188,9 +190,9 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
                 .parseTemplate(TextCursors.charSequence("Hello$123"))
         );
 
-        this.checkEquals(
-            "Invalid character '$' at 5",
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            "Invalid character '$' at 5"
         );
     }
 
@@ -202,9 +204,9 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
                 .parseTemplate(TextCursors.charSequence("Hello${}123"))
         );
 
-        this.checkEquals(
-            "Empty \"template value name\"",
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            "Empty \"template value name\""
         );
     }
 
@@ -267,9 +269,9 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
                 .parseTemplate(TextCursors.charSequence("Hello${abc"))
         );
 
-        this.checkEquals(
-            "Incomplete expression",
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            "Incomplete expression"
         );
     }
 
@@ -285,9 +287,9 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
             )
         );
 
-        this.checkEquals(
-            "Cycle detected \"Parameter111\" -> \"Parameter111\"",
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            "Cycle detected \"Parameter111\" -> \"Parameter111\""
         );
     }
 
@@ -316,9 +318,9 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
             )
         );
 
-        this.checkEquals(
-            "Cycle detected \"Parameter111\" -> \"Parameter222\" -> \"Parameter111\"",
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            "Cycle detected \"Parameter111\" -> \"Parameter222\" -> \"Parameter111\""
         );
     }
 
@@ -351,9 +353,9 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
             )
         );
 
-        this.checkEquals(
-            "Cycle detected \"Parameter111\" -> \"Parameter222\" -> \"Parameter333\" -> \"Parameter111\"",
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            "Cycle detected \"Parameter111\" -> \"Parameter222\" -> \"Parameter333\" -> \"Parameter111\""
         );
     }
 
@@ -407,9 +409,9 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
             )
         );
 
-        this.checkEquals(
-            "Cycle detected \"Parameter222\" -> \"Parameter333\" -> \"Parameter222\"",
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            "Cycle detected \"Parameter222\" -> \"Parameter333\" -> \"Parameter222\""
         );
     }
 
@@ -530,9 +532,9 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
             )
         );
 
-        this.checkEquals(
-            "Cycle detected \"Parameter111\" -> \"Parameter111\"",
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            "Cycle detected \"Parameter111\" -> \"Parameter111\""
         );
     }
 
