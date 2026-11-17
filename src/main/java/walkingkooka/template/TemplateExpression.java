@@ -29,15 +29,15 @@ import java.util.Set;
 /**
  * A {@link Template} that renders or inserts {@link String string value} for a given {@link Expression}.
  */
-final class ExpressionTemplate implements Template {
+final class TemplateExpression implements Template {
 
-    static ExpressionTemplate with(final Expression expression) {
+    static TemplateExpression with(final Expression expression) {
         Objects.requireNonNull(expression, "expression");
 
-        return new ExpressionTemplate(expression);
+        return new TemplateExpression(expression);
     }
 
-    private ExpressionTemplate(final Expression expression) {
+    private TemplateExpression(final Expression expression) {
         this.expression = expression;
     }
 
@@ -76,10 +76,10 @@ final class ExpressionTemplate implements Template {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-            other instanceof ExpressionTemplate && this.equals0((ExpressionTemplate) other);
+            other instanceof TemplateExpression && this.equals0((TemplateExpression) other);
     }
 
-    private boolean equals0(final ExpressionTemplate other) {
+    private boolean equals0(final TemplateExpression other) {
         return this.expression.equals(other.expression);
     }
 
