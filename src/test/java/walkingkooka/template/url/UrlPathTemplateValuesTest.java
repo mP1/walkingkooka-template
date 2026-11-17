@@ -424,17 +424,17 @@ public final class UrlPathTemplateValuesTest implements TreePrintableTesting,
             "UrlPathTemplateValues\n" +
                 "  template\n" +
                 "    TemplateCollection\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"path1\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
                 "      TemplateValueNameTemplate\n" +
                 "        ${value2}\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"/\"\n" +
-                "      StringTemplate\n" +
+                "      TemplateString\n" +
                 "        \"path3\"\n" +
                 "  components\n" +
                 "    \"/\"\n" +

@@ -28,23 +28,23 @@ import java.util.Set;
 /**
  * A {@link Template} that renders the text given to its factory.
  */
-final class StringTemplate implements Template {
+final class TemplateString implements Template {
 
     /**
      * Empty singleton.
      */
     // @VisibleForTesting
-    final static StringTemplate EMPTY = new StringTemplate("");
+    final static TemplateString EMPTY = new TemplateString("");
 
-    static StringTemplate with(final String text) {
+    static TemplateString with(final String text) {
         Objects.requireNonNull(text, "text");
 
         return text.isEmpty() ?
             EMPTY :
-            new StringTemplate(text);
+            new TemplateString(text);
     }
 
-    private StringTemplate(final String text) {
+    private TemplateString(final String text) {
         this.text = text;
     }
 
@@ -81,10 +81,10 @@ final class StringTemplate implements Template {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-            other instanceof StringTemplate && this.equals0((StringTemplate) other);
+            other instanceof TemplateString && this.equals0((TemplateString) other);
     }
 
-    private boolean equals0(final StringTemplate other) {
+    private boolean equals0(final TemplateString other) {
         return this.text.equals(other.text);
     }
 
