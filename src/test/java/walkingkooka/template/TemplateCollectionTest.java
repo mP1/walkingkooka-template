@@ -179,7 +179,7 @@ public final class TemplateCollectionTest implements TemplateTesting2<TemplateCo
                 )
             ),
             "TemplateCollection\n" +
-                "  StringTemplate\n" +
+                "  TemplateString\n" +
                 "    \"Hello1\"\n" +
                 "  TemplateValueNameTemplate\n" +
                 "    ${Hello2}\n" +

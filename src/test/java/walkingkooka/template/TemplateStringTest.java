@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class StringTemplateTest implements TemplateTesting2<StringTemplate> {
+public final class TemplateStringTest implements TemplateTesting2<TemplateString> {
 
     // with.............................................................................................................
 
@@ -30,15 +30,15 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
     public void testWithNullFails() {
         assertThrows(
             NullPointerException.class,
-            () -> StringTemplate.with(null)
+            () -> TemplateString.with(null)
         );
     }
 
     @Test
     public void testWithEmptyString() {
         assertSame(
-            StringTemplate.EMPTY,
-            StringTemplate.with("")
+            TemplateString.EMPTY,
+            TemplateString.with("")
         );
     }
 
@@ -49,7 +49,7 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
         final String text = "Hello123";
 
         this.renderAndCheck(
-            StringTemplate.with(text),
+            TemplateString.with(text),
             TemplateContexts.fake(),
             text
         );
@@ -63,8 +63,8 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
     }
 
     @Override
-    public StringTemplate createTemplate() {
-        return StringTemplate.EMPTY;
+    public TemplateString createTemplate() {
+        return TemplateString.EMPTY;
     }
 
     @Override
@@ -77,7 +77,7 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
     @Test
     public void testEqualsDifferentText() {
         this.checkNotEquals(
-            StringTemplate.with("different")
+            TemplateString.with("different")
         );
     }
 
@@ -86,7 +86,7 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
     @Test
     public void testToString() {
         this.toStringAndCheck(
-            StringTemplate.with("Hello"),
+            TemplateString.with("Hello"),
             "Hello"
         );
     }
@@ -94,7 +94,7 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
     @Test
     public void testToStringEscapesBackslash() {
         this.toStringAndCheck(
-            StringTemplate.with("Hello\\"),
+            TemplateString.with("Hello\\"),
             "Hello\\\\"
         );
     }
@@ -102,7 +102,7 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
     @Test
     public void testToStringIncludesCarriageReturn() {
         this.toStringAndCheck(
-            StringTemplate.with("Hello\r"),
+            TemplateString.with("Hello\r"),
             "Hello\r"
         );
     }
@@ -110,7 +110,7 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
     @Test
     public void testToStringIncludesNewLine() {
         this.toStringAndCheck(
-            StringTemplate.with("Hello\n"),
+            TemplateString.with("Hello\n"),
             "Hello\n"
         );
     }
@@ -118,7 +118,7 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
     @Test
     public void testToStringIncludesTab() {
         this.toStringAndCheck(
-            StringTemplate.with("Hello\t"),
+            TemplateString.with("Hello\t"),
             "Hello\t"
         );
     }
@@ -128,8 +128,8 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
     @Test
     public void testPrintTree() {
         this.treePrintAndCheck(
-            StringTemplate.with("Hello"),
-            "StringTemplate\n" +
+            TemplateString.with("Hello"),
+            "TemplateString\n" +
                 "  \"Hello\"\n"
         );
     }
@@ -137,7 +137,7 @@ public final class StringTemplateTest implements TemplateTesting2<StringTemplate
     // class............................................................................................................
 
     @Override
-    public Class<StringTemplate> type() {
-        return StringTemplate.class;
+    public Class<TemplateString> type() {
+        return TemplateString.class;
     }
 }

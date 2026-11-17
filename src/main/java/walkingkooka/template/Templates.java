@@ -49,10 +49,10 @@ public final class Templates implements PublicStaticHelper {
     }
 
     /**
-     * {@see StringTemplate}
+     * {@see TemplateString}
      */
     public static Template string(final String text) {
-        return StringTemplate.with(text);
+        return TemplateString.with(text);
     }
 
     /**
