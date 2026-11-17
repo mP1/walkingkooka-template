@@ -19,13 +19,13 @@ package walkingkooka.template;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 
-public final class TemplateTest implements TemplateTesting, ClassTesting<Template> {
+public final class TemplateTest implements TemplateTesting,
+    PublicClassTesting<Template> {
 
     // renderToString...................................................................................................
 
@@ -59,10 +59,5 @@ public final class TemplateTest implements TemplateTesting, ClassTesting<Templat
     @Override
     public Class<Template> type() {
         return Template.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
