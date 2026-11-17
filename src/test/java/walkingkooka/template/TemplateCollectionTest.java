@@ -183,7 +183,7 @@ public final class TemplateCollectionTest implements TemplateTesting2<TemplateCo
                 "    \"Hello1\"\n" +
                 "  TemplateValueNameTemplate\n" +
                 "    ${Hello2}\n" +
-                "  ExpressionTemplate\n" +
+                "  TemplateExpression\n" +
                 "    AddExpression\n" +
                 "      ValueExpression 1 (java.lang.Integer)\n" +
                 "      ValueExpression 22 (java.lang.Integer)\n"

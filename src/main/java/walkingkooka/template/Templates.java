@@ -35,10 +35,10 @@ public final class Templates implements PublicStaticHelper {
     }
 
     /**
-     * {@see ExpressionTemplate}
+     * {@see TemplateExpression}
      */
     public static Template expression(final Expression expression) {
-        return ExpressionTemplate.with(expression);
+        return TemplateExpression.with(expression);
     }
 
     /**
