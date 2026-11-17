@@ -27,12 +27,10 @@ import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.logging.LoggingContextTesting;
-import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.math.DecimalNumberContextTesting;
+import walkingkooka.text.BinaryTextContextTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.HasLineEndingTesting;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
-import walkingkooka.text.TextPrinting;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.tree.expression.Expression;
@@ -43,8 +41,6 @@ import walkingkooka.tree.expression.convert.TreeConverterContext;
 import walkingkooka.tree.expression.convert.TreeConverterContexts;
 import walkingkooka.tree.expression.convert.TreeConverters;
 
-import java.math.MathContext;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -52,6 +48,8 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TemplateContextBasicTest implements TemplateContextTesting2<TemplateContextBasic>,
+    BinaryTextContextTesting,
+    DecimalNumberContextTesting,
     HasExpressionNumberKindTesting,
     HasLineEndingTesting,
     LoggingContextTesting {
@@ -100,13 +98,10 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
                 ',', // valueSeparator
                 Converters.fake(),
                 BinaryNumberConverterFunctions.fake(), // multiplier
-                TextPrinting.with(
-                    Indentation.SPACES2,
-                    LineEnding.NL
-                ).setCharset(StandardCharsets.UTF_8),
+                BINARY_TEXT_CONTEXT,
                 CurrencyLocaleContexts.fake(),
                 DateTimeContexts.fake(),
-                DecimalNumberContexts.american(MathContext.DECIMAL32)
+                DECIMAL_NUMBER_CONTEXT
             )
         ),
         LocaleContexts.fake(),
@@ -256,7 +251,7 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
                 (n) -> {
                     throw new UnsupportedOperationException();
                 },
-                LineEnding.NL,
+                LINE_ENDING,
                 EXPRESSION_EVALUATION_CONTEXT
             ),
             "Hello${1+2} 999",
@@ -286,7 +281,7 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
                 (n) -> Templates.templateValueName(TemplateValueName.with("Parameter111"))
             ).parseTemplateAndRenderToString(
                 "${Parameter111}",
-                LineEnding.NL
+                LINE_ENDING
             )
         );
 
@@ -317,7 +312,7 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
                 }
             ).parseTemplateAndRenderToString(
                 "${Parameter111}",
-                LineEnding.NL
+                LINE_ENDING
             )
         );
 
@@ -352,7 +347,7 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
                 }
             ).parseTemplateAndRenderToString(
                 "${Parameter111}",
-                LineEnding.NL
+                LINE_ENDING
             )
         );
 
@@ -380,7 +375,7 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
                 }
             ),
             "${Parameter111}",
-            LineEnding.NL,
+            LINE_ENDING,
             "Value999"
         );
     }
@@ -408,7 +403,7 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
                 }
             ).parseTemplateAndRenderToString(
                 "${Parameter111}${Parameter222}",
-                LineEnding.NL
+                LINE_ENDING
             )
         );
 
@@ -434,7 +429,7 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
                 }
             ),
             "${Parameter111}",
-            LineEnding.NL,
+            LINE_ENDING,
             "ExpressionValue111"
         );
     }
@@ -457,7 +452,7 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
                 }
             ),
             "${Parameter111}${Parameter222}",
-            LineEnding.NL,
+            LINE_ENDING,
             "ParameterValue111ExpressionValue222"
         );
     }
@@ -482,7 +477,7 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
                 }
             ),
             "${Parameter111}",
-            LineEnding.NL,
+            LINE_ENDING,
             "Value999"
         );
     }
@@ -507,7 +502,7 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
                 }
             ),
             "${Parameter111} 999",
-            LineEnding.NL,
+            LINE_ENDING,
             "Value999 999"
         );
     }
@@ -531,7 +526,7 @@ public final class TemplateContextBasicTest implements TemplateContextTesting2<T
                 }
             ).parseTemplateAndRenderToString(
                 "${Parameter111}${Parameter222}",
-                LineEnding.NL
+                LINE_ENDING
             )
         );
 
