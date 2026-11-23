@@ -91,7 +91,7 @@ final public class TemplateValueNameTest implements NameTesting2<TemplateValueNa
         this.withFails(
             "1abc",
             InvalidCharacterException.class,
-            "Invalid character '1' at 0"
+            "Invalid \"TemplateValueName\" character '1' at 0"
         );
     }
 
@@ -100,7 +100,7 @@ final public class TemplateValueNameTest implements NameTesting2<TemplateValueNa
         this.withFails(
             "abc$def",
             InvalidCharacterException.class,
-            "Invalid character '$' at 3"
+            "Invalid \"TemplateValueName\" character '$' at 3"
         );
     }
 

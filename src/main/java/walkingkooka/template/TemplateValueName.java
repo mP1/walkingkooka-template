@@ -94,7 +94,7 @@ final public class TemplateValueName implements Name,
     public static TemplateValueName with(final String name) {
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
             name,
-            "name",
+            "TemplateValueName",
             INITIAL,
             PART
         );
