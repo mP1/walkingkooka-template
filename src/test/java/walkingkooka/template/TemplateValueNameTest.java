@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.naming.NameTesting2;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
@@ -38,6 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final public class TemplateValueNameTest implements NameTesting2<TemplateValueName, TemplateValueName>,
     ComparableTesting2<TemplateValueName>,
     JsonNodeMarshallerTesting<TemplateValueName>,
+    ThrowableTesting,
     TreePrintableTesting {
 
     // parseTemplate............................................................................................................
@@ -88,46 +90,35 @@ final public class TemplateValueNameTest implements NameTesting2<TemplateValueNa
 
     @Test
     public void testWithInvalidInitialFails() {
-        this.withFails(
-            "1abc",
-            InvalidCharacterException.class,
+        this.getMessageAndCheck(
+            assertThrows(
+                InvalidCharacterException.class,
+                () -> TemplateValueName.with("1abc")
+            ),
             "Invalid \"TemplateValueName\" character '1' at 0"
         );
     }
 
     @Test
     public void testWithInvalidPartFails() {
-        this.withFails(
-            "abc$def",
-            InvalidCharacterException.class,
+        this.getMessageAndCheck(
+            assertThrows(
+                InvalidCharacterException.class,
+                () -> TemplateValueName.with("abc$def")
+            ),
             "Invalid \"TemplateValueName\" character '$' at 3"
         );
     }
 
     @Test
     public void testWithDotDotFails() {
-        this.withFails(
-            "abc..def",
-            InvalidCharacterException.class,
+        this.getMessageAndCheck(
+            assertThrows(
+                InvalidCharacterException.class,
+                () -> TemplateValueName.with("abc..def")
+            ),
             "Invalid character '.' at 4"
         );
-    }
-
-    private <T extends IllegalArgumentException> void withFails(final String text,
-                                                                final Class<T> throwsClass,
-                                                                final String message) {
-        final T thrown = assertThrows(
-            throwsClass,
-            () -> TemplateValueName.with(text)
-        );
-
-        if (null != message) {
-            this.checkEquals(
-                message,
-                thrown.getMessage(),
-                "message"
-            );
-        }
     }
 
     @Test
