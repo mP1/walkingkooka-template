@@ -40,16 +40,6 @@ public interface TemplateContextTesting<C extends TemplateContext> extends Conte
             .parseTemplateString(text);
     }
 
-    @Override
-    default Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
-        return thrown;
-    }
-
-    @Override
-    default RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
-        return thrown;
-    }
-
     default void parseTemplateStringAndCheck(final C context,
                                              final String text,
                                              final Template expected) {
