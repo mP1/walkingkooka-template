@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.UrlPath;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.template.FakeTemplateContext;
 import walkingkooka.template.Template;
 import walkingkooka.template.TemplateContext;
@@ -40,7 +41,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlPathTemplateTest implements TemplateTesting2<UrlPathTemplate>,
     ParseStringTesting<UrlPathTemplate>,
-    HashCodeEqualsDefinedTesting2<UrlPathTemplate> {
+    HashCodeEqualsDefinedTesting2<UrlPathTemplate>,
+    PublicClassTesting<UrlPathTemplate> {
 
     // parseString......................................................................................................
 
